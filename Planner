@@ -1,0 +1,6 @@
+Main <Frame/Runnable/etc>
+	- Game <JPanel, KeyListener, MouseListener>
+		- Graphics painting
+		- All gameobjects stored/initialized here
+ 	- <GameObject>
+ 		- variables (x, y, health,
