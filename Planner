@@ -3,4 +3,9 @@ Main <Frame/Runnable/etc>
 		- Graphics painting
 		- All gameobjects stored/initialized here
  	- <GameObject>
- 		- variables (x, y, health,
+ 		- variables (x, y, max health, current health, (add other stuff))
+ 		- <Player>
+ 			- variables (ammo, state, (add other stuff))
+ 		- <Enemy1, Enemy2 , ...>
+ 			- shooting style
+ 			- 
