@@ -2,10 +2,10 @@ package com.MRS.NeckbeardEngine;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class Game extends JPanel implements KeyListener, MouseListener {
-     
-     public final int HEIGHT = 720, WIDTH = 1280;
      
      public boolean started;
      
@@ -21,6 +21,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      public void initialize () {
           started = false;
           
+          addKeyListener(this);
+          
+     }
+     
+     public void step () {
+          System.out.println(keyInputHandler.up);
+          repaint();
+     }
+     
+     public void paintComponent(Graphics g) {
+          g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
      }
      
      @Override
