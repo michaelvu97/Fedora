@@ -1,8 +1,8 @@
 /* 
- * PROJECT:Fedora
- * Source can be found at www.github.com/michaelvu97/Fedora
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
  * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
- * Date: 9/17/14
+ * Inception Date: 9/17/14
  * 
  * Dr. Java prefs/misc/indent level = 5
  * 
