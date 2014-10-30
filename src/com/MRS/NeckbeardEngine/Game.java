@@ -31,6 +31,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           //Variable setup
           started = false;
           addKeyListener(this);
+          addMouseListener(this);
      }
      
      public void step () {
