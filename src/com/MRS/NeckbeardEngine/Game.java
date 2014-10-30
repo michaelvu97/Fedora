@@ -18,8 +18,18 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      
      public boolean started;
      
-     KeyInputHandler keyInputHandler; //contains booleans for all keys
+     public KeyInputHandler keyInputHandler; //contains booleans for all keys
      
+     public Player player;
+     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+     
+     
+     public ArrayList<HitScan> hitScans = new ArrayList<HitScan>();
+     public ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+     public ArrayList<Projectile> playerProjectiles = new ArrayList<Projectile>();
+     public ArrayList<PowerUpPickups> powerUpPickups = new ArrayList<PowerUpPickups>();
+     
+     public Level level;
      public Game () {
           //Class constructor
           keyInputHandler = new KeyInputHandler ();
