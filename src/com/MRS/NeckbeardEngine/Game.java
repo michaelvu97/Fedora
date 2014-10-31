@@ -16,16 +16,17 @@ import java.awt.Graphics;
 
 public class Game extends JPanel implements KeyListener, MouseListener {
      
-     public boolean started;
+     public boolean started; //If the game has begun, this may become deprecated depending on how levels are handled
      
      public KeyInputHandler keyInputHandler; //contains booleans for all keys
      
+     //On screen object lists
      public Player player;
      public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
      
-     
+     //More on screen object lists
      public ArrayList<HitScan> hitScans = new ArrayList<HitScan>();
-     public ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+     public ArrayList<Projectile> enemyProjectiles = new ArrayList<Projectile>();
      public ArrayList<Projectile> playerProjectiles = new ArrayList<Projectile>();
      public ArrayList<PowerUpPickups> powerUpPickups = new ArrayList<PowerUpPickups>();
      
