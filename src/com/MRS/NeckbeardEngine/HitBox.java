@@ -1,17 +1,17 @@
 package com.MRS.NeckbeardEngine;
-class Hitbox {
+class HitBox {
   private int x;
   private int y;
   private int height;
   private int width;
   
-  public Hitbox(int x, int y, int width, int height) {
+  public HitBox(int x, int y, int width, int height) {
     this.x=x;
     this.y=y;
     this.height=height;
     this.width=width;
   }
-  public boolean checkCollision(Hitbox a) {
+  public boolean checkCollision(HitBox a) {
     int maxX = Math.max(a.x,x);
     int minX = Math.min(a.x,x);
     int maxY = Math.max(a.y,y);
