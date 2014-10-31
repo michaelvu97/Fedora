@@ -44,6 +44,6 @@ class Hitbox
       maxH = height;
     }
     
-    return ((maxX<=(minX+minW))&&(minY>=(maxY-maxH)));
+    return ((maxX<=(minX+minW))&&(minY>=(maxY-maxH)));//checks that they contain or are touching
   }
 }
