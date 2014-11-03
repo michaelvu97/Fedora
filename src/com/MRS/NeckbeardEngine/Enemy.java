@@ -19,15 +19,33 @@ abstract class Enemy {
   private long timeLine;//used to determine at what time they will enter the game screen/spawn
   
   //Accessors
-  public int getState();
-  public int getHealth();
-  public int getX();
-  public int getY();
-  public int getYVelocity();
-  public int getXVelocity();
-  public Projectile projectileType();
-  public PowerUpPickup heldPowerUp();
-  public long timeLine();
+  public int getState() { 
+       return state.state();
+  }
+  public int getHealth() {
+       return health;
+  }
+  public int getX() {
+       return x;
+  }
+  public int getY() {
+       return y;
+  }
+  public int getYVelocity() {
+       return yVelocity;
+  }
+  public int getXVelocity() {
+       return xVelocity;
+  }
+  public Projectile projectileType() {
+       return projectileType;
+  }
+  public PowerUpPickup heldPowerUp() {
+       return heldPowerUp;
+  }
+  public long timeLine() {
+       return timeLine;
+  }
   
   abstract public void animate();//to animate the enemy
   
