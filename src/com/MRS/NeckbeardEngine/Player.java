@@ -15,7 +15,7 @@ import java.util.List;
 public class Player {
   //Fields
   private int lives, x, y;
-  private state State;
+  private State state;
   private boolean canShoot;
   private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
   private ArrayList<HitBox> hitBoxes = new ArrayList<HitBox>();
@@ -39,9 +39,9 @@ public class Player {
   }
   
   public void switchState() {
-    if (state = State.RED) {
+    if (state == State.RED) {
       state = State.BLUE;
-    } else if (state = State.BLUE) {
+    } else if (state == State.BLUE) {
       state = State.RED;
     }
   }
@@ -57,7 +57,7 @@ public class Player {
     return lives;
   }
   public int getState() { //THIS PROBABLY ISNT GOING TO WORK, MAKE SURE TO FIX IT
-    return state; 
+    return state.state(); 
   }
   public ArrayList<HitBox> getHitBoxes() {
     return hitBoxes;
