@@ -11,8 +11,11 @@ package com.MRS.NeckbeardEngine;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.image.*;
+import java.awt.*;
+import java.util.*;
+import javax.imageio.*;
+import java.io.*;
 
 public class Game extends JPanel implements KeyListener, MouseListener {
      
@@ -28,7 +31,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      public ArrayList<HitScan> hitScans = new ArrayList<HitScan>();
      public ArrayList<Projectile> enemyProjectiles = new ArrayList<Projectile>();
      public ArrayList<Projectile> playerProjectiles = new ArrayList<Projectile>();
-     public ArrayList<PowerUpPickups> powerUpPickups = new ArrayList<PowerUpPickups>();
+     public ArrayList<PowerUpPickup> powerUpPickups = new ArrayList<PowerUpPickup>();
      
      public Level level;
      public Game () {
@@ -54,6 +57,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      public void paintComponent(Graphics g) {
           //Paints all gui
           g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
+          BufferedImage img = null;
+          try {
+               img = ImageIO.read(new File(FileStore.PLAYER_TEST));
+          } catch (IOException e) {
+               e.printStackTrace();    
+          }
+          g.drawImage(img, 0, 0, null);
      }
      
      @Override
@@ -98,4 +108,4 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           //Currently unused
      }
      
-}
+     }
