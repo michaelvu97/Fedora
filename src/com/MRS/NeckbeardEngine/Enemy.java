@@ -1,4 +1,4 @@
-*PROJECT: LodeStar
+/*PROJECT: LodeStar
  * Source can be found at www.github.com/michaelvu97/LodeStar
  * Authors: Safwan Qazi(Project Manager), Roy Liu, Michael Vu
  * Date:10/30/2014
