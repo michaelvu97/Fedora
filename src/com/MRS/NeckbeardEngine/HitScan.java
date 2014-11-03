@@ -1,9 +1,20 @@
 package com.MRS.NeckbeardEngine;
-abstract class HitScan extends HitBox {
+public class HitScan extends HitBox {
      private State state;
-     private double duration;
+     private double duration; //duration in millis
      private long killTime;
-     public int getState();
-     public double getDuration();
-     public long getkillTime();
+     
+     public HitScan (int x, int y, int height, int width) {
+          super (x, y, height, width);
+          killTime = System.currentTimeMillis() + (long)duration;
+     }
+     public int getState() {
+          return state.state();
+     }
+     public double getDuration() {
+          return duration;
+     }
+     public long getkillTime() {
+          return killTime;
+     }
 }
