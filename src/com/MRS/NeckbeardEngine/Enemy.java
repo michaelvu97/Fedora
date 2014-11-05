@@ -6,7 +6,7 @@
  * Description:
  * This is the abstract which determines what fields and methods all enemies will have.
  */
- package com.MRS.NeckbeardEngine;
+package com.MRS.NeckbeardEngine;
 abstract class Enemy {
   private State state;//enums
   private int health;
