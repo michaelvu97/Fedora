@@ -9,7 +9,7 @@
 
 package com.MRS.NeckbeardEngine;
 
-abstract class Projectile {
+public abstract class Projectile {
      
      //Fields
      private State state;
