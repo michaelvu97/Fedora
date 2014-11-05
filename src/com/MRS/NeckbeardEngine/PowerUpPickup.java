@@ -1,6 +1,6 @@
 package com.MRS.NeckbeardEngine;
 
-class PowerUpPickup {
+public class PowerUpPickup {
   private int x;
   private int y;
   private int xVelocity;
