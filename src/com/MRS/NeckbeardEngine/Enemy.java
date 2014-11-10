@@ -8,15 +8,27 @@
  */
 package com.MRS.NeckbeardEngine;
 public abstract class Enemy {
-     public State state;//enums
-     public int health;
-     public int x;
-     public int y;
-     public int xVelocity;
-     public int yVelocity;
-     public Projectile  projectileType;//will be more specific for every enemy
-     public PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
-     public long timeLine;//used to determine at what time they will enter the game screen/spawn
+     protected State state;//enums
+     protected int health;
+     protected int x;
+     protected int y;
+     protected int xVelocity;
+     protected int yVelocity;
+     protected Projectile  projectileType;//will be more specific for every enemy
+     protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
+     protected long timeLine;//used to determine at what time they will enter the game screen/spawn
+     public(State state, int health, int x, int y, int xVelocity, int yVelocity, Projectile projectileType, PowerUpPickUp heldPowerUp, long timeLine) {
+      this.state = state;
+      this.health = health;
+      this.x = x;
+      this.y = y;
+      this.xVelocity = xVelocity;
+      this.yVelocity = yVelocity;
+      this.projectileType = projectileType;
+      this.heldPowerUpPickUp = heldPowerUpPickUp;
+     }
+}
+    
      
      abstract public void animate();//to animate the enemy
      
