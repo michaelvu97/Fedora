@@ -1,15 +1,11 @@
 package com.MRS.NeckbeardEngine.Enemies;
 
+import com.MRS.NeckbeardEngine.*;
+
 public class Thug extends Enemy {
   
-   public Thug (int x, int y, int xVelocity, int yVelocity, PowerUpPickup powerUpPickup, State state) {
-
-    this.x = x;
-    this.y = y;
-    this.xVelocity = xVelocity;
-    this.yVelocity = yVelocity;
-    this.heldPowerUp = powerUpPickup;
-    this.state = state;
+   public Thug (State state, int x, int y, int xVelocity, int yVelocity, Projectile projectileType, PowerUpPickup powerUpPickup, long timeLine ) {
+        super(state, x, y, xVelocity, yVelocity, projectileType, powerUpPickup, timeLine);
   }
   
   @Override
