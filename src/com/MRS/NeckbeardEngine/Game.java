@@ -9,6 +9,7 @@
 
 package com.MRS.NeckbeardEngine;
 
+import com.MRS.NeckbeardEngine.Enemies.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -46,6 +47,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           started = false;
           addKeyListener(this);
           addMouseListener(this);
+          
+          player = new Player(30, 30, 3, State.RED);
+          enemies.add(new Mook(0, 0, 3, 0, null, State.RED));
      }
      
      public void step () {
