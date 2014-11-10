@@ -21,7 +21,7 @@ public enum State {
   this.state = state;
  }
  
- public int state() {
+ public int getState() {
   return this.state;
  }
 }
