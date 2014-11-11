@@ -24,10 +24,6 @@ public class Player {
      public static float DRAG = 0.2F;
      public static int MAX_VELOCITY = 5;
      public static float ACCELERATION = 0.7F;
-     public static int playerShotVelocity = 1;
-     public static int playerScatterShotXVelocity = 1;
-     public static int playerScatterShotYVelocity = 1;
-     public static int playerFastShotVelocity = 2;
      
      //Constructor
      public Player (int x, int y, int lives, State state) {
