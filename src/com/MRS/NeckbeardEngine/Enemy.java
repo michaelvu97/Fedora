@@ -31,62 +31,65 @@ public abstract class Enemy {
     this.canShoot = canShoot;
   }
   
+  //Accessors
   public State getState() {
     return state;   
-  }
-  public void setState(State state) {
-    this.state = state;
   }
   public int getHealth() {
     return health;   
   }
-  public void setHealth(int health) {
-    this.health = health;
-  }
   public int getX() {
     return x;
-  }
-  public void setX(int x) {
-    this.x = x;
   }
   public int getY() {
     return y;
   }
-  public void setY(int y) {
-    this.y = y;
-  }
   public double getXVelocity() {
     return xVelocity;
-  }
-  public void setXVelocity(double xVelocity) {
-    this.xVelocity = xVelocity;
   }
   public double getYVelocity() {
     return yVelocity;
   }
-  public void setYVelocity(double yVelocity) {
-    this.yVelocity = yVelocity;
-  }
   public Projectile getProjectileType() {
     return projectileType;
-  }
-  public void setProjectileType(Projectile projectileType) {
-    this.projectileType = projectileType;
   }
   public PowerUpPickup getHeldPowerUp() {
     return heldPowerUp;
   }
-  public void setHeldPowerUp(PowerUpPickup heldPowerUp) {
-    this.heldPowerUp = heldPowerUp;
-  }
   public long getTimeLine() {
     return timeLine;
   }
-  public void setTimeLine(long timeLine) {
-    this.timeLine = timeLine;
-  }
   public boolean getCanShoot() {
     return canShoot;
+  }
+  
+  //Mutators
+  public void setState(State state) {
+    this.state = state;
+  }
+  public void setHealth(int health) {
+    this.health = health;
+  }
+  public void setX(int x) {
+    this.x = x;
+  }
+  public void setY(int y) {
+    this.y = y;
+  }
+  public void setXVelocity(double xVelocity) {
+    this.xVelocity = xVelocity;
+  }
+  public void setYVelocity(double yVelocity) {
+    this.yVelocity = yVelocity;
+  }
+  public void setProjectileType(Projectile projectileType) {
+    this.projectileType = projectileType;
+  }
+  public void setHeldPowerUp(PowerUpPickup heldPowerUp) {
+    this.heldPowerUp = heldPowerUp;
+  }
+  public void setTimeLine(long timeLine) {
+    this.timeLine = timeLine;
   }
   public void setCanShoot(boolean canShoot) {
     this.canShoot = canShoot;
