@@ -1,6 +1,7 @@
 package com.MRS.NeckbeardEngine.Enemies;
 
 import com.MRS.NeckbeardEngine.*;
+import com.MRS.NeckbeardEngine.Projectiles.*;
 
 public class Grunt extends Enemy {
      
