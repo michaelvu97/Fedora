@@ -49,12 +49,54 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           addMouseListener(this);
           
           player = new Player(30, 30, 3, State.RED);
-          enemies.add(new Mook(0, 0, 3, 0, null, State.RED));
      }
      
      public void step () {
-          //Called by main every time interval
-          System.out.println(keyInputHandler.up);
+          /*
+           * Called by main every time interval
+           */
+          
+          //Propulsion
+          if (keyInputHandler.up && !keyInputHandler.down) {
+               player.accelerateForward();
+          }
+          if (keyInputHandler.down && !keyInputHandler.up) {
+               player.accelerateBackward();
+          }
+          if (keyInputHandler.right && !keyInputHandler.left) {
+               player.accelerateRight();
+          }
+          if (keyInputHandler.left && !keyInputHandler.right) {
+               player.accelerateLeft();
+          }
+          
+          //Vertical Drag
+          if (!keyInputHandler.up && !keyInputHandler.down && player.getYVelocity() != 0) {
+               if (Math.abs(player.getYVelocity()) <= Player.DRAG) {
+                    player.setYVelocity(0);
+               } else {
+                    if (player.getYVelocity() > 0) {
+                         player.setYVelocity(player.getYVelocity() - Player.DRAG);
+                    } else {
+                         player.setYVelocity(player.getYVelocity() + Player.DRAG);
+                    }
+               }
+          }
+          //Horizontal Drag
+          if (!keyInputHandler.right && !keyInputHandler.left && player.getXVelocity() != 0) {
+               if (Math.abs(player.getXVelocity()) <= Player.DRAG) {
+                    player.setXVelocity(0);
+               } else {
+                    if (player.getXVelocity() > 0) {
+                         player.setXVelocity(player.getXVelocity() - Player.DRAG);
+                    } else {
+                         player.setXVelocity(player.getXVelocity() + Player.DRAG);
+                    }
+               }
+          }
+          
+          player.move();
+          
           repaint();
      }
      
@@ -67,7 +109,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           } catch (IOException e) {
                e.printStackTrace();    
           }
-          g.drawImage(img, 0, 0, null);
+          g.drawImage(img, player.getX(), player.getY(), null);
      }
      
      @Override
@@ -112,4 +154,4 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           //Currently unused
      }
      
-     }
+}

@@ -22,8 +22,8 @@ import java.util.TimerTask;
 public class Main extends JFrame {
  
      public static final int FRAME_RATE = 16, //60 fps  
-                             HEIGHT = 1280, //16:9 720 ratio
-                             WIDTH = 720;
+                             HEIGHT = 720, //16:9 720 ratio
+                             WIDTH = 480;
      
      public static void main (String[] args) {
           //Main running method
@@ -34,7 +34,7 @@ public class Main extends JFrame {
                     main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     main.setFocusable(false);
                     main.setSize(WIDTH, HEIGHT);
-                    main.setUndecorated(true);
+                    //main.setUndecorated(true);
                     main.setVisible(true);
                     
                     //Game set up

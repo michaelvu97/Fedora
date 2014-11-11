@@ -9,7 +9,7 @@ public class HitScan extends HitBox {
           killTime = System.currentTimeMillis() + (long)duration;
      }
      public int getState() {
-          return state.state();
+          return state.getState();
      }
      public double getDuration() {
           return duration;
