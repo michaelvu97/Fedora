@@ -19,6 +19,7 @@ public abstract class Projectile {
      protected double yVelocity;
      protected String imgPath;
      protected HitBox hitBox;
+     protected double duration;
      
      //Static fields
      public static double ShotVelocity = 1;
