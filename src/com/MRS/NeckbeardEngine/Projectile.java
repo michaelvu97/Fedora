@@ -17,9 +17,14 @@ public abstract class Projectile {
      protected int y;
      protected double xVelocity;
      protected double yVelocity;
-     
      protected String imgPath;
      protected HitBox hitBox;
+     
+     //Static fields
+     public static double ShotVelocity = 1;
+     public static double ScatterShotXVelocity = 1;
+     public static double ScatterShotYVelocity = 1;
+     public static double FastShotVelocity = 2;
      
      //Constructor
      public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath) {
