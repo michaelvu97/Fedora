@@ -79,11 +79,17 @@ public abstract class Enemy {
   public void setHeldPowerUp(PowerUpPickup heldPowerUp) {
     this.heldPowerUp = heldPowerUp;
   }
-  public long getTimeLine () {
+  public long getTimeLine() {
     return timeLine;
   }
   public void setTimeLine(long timeLine) {
     this.timeLine = timeLine;
+  }
+  public boolean getCanShoot() {
+    return canShoot;
+  }
+  public void setCanShoot(boolean canShoot) {
+    this.canShoot = canShoot;
   }
   
   abstract public void animate();//to animate the enemy
