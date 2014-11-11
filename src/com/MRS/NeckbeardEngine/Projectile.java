@@ -12,14 +12,14 @@ package com.MRS.NeckbeardEngine;
 public abstract class Projectile {
      
      //Fields
-     private State state;
-     private int x;
-     private int y;
-     private int xVelocity;
-     private int yVelocity;
+     protected State state;
+     protected int x;
+     protected int y;
+     protected double xVelocity;
+     protected double yVelocity;
      
-     private String imgPath;
-     private HitBox hitBox;
+     protected String imgPath;
+     protected HitBox hitBox;
      
      //Static fields
      public static int playerShotVelocity = 1;
@@ -27,22 +27,61 @@ public abstract class Projectile {
      public static int playerScatterShotYVelocity = 1;
      public static int playerFastShotVelocity = 2;
      
+     //Constructor
+     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath) {
+          this.state = state;
+          this.x = x;
+          this.y = y;
+          this.xVelocity = xVelocity;
+          this.yVelocity = yVelocity;
+          this.imgPath = imgPath;
+          //Hitbox is declared in the subclasses
+          this.hitBox = null;
+     }
      //Accessors
-     abstract int getState ();
-     abstract int getX ();
-     abstract int getY ();
-     abstract int getXVelocity ();
-     abstract int getYVelocity ();
-     abstract String getImgPath ();
-     abstract HitBox getHitBox ();
+     public int getState () {
+          return state;
+     }
+     public int getX () {
+          return x;
+     }
+     public double getY () {
+          return y;
+     }
+     public double getXVelocity () {
+          return xVelocity;
+     }
+     public int getYVelocity () {
+          return yVelocity;
+     }
+     public String getImgPath () {
+          return imgPath;
+     }
+     public HitBox getHitBox () {
+          return hitBox;
+     }
      
      //Mutators
-     abstract void setState (int state);
-     abstract void setX (int x);
-     abstract void setY (int y);
-     abstract void setXVelocity (int xVelocity);
-     abstract void setYVelocity (int yVelocity);
-     abstract void setImgPath (String imgPath);
-     abstract void setHitBox (HitBox hitBox);
+     public void setState (int state) {
+          this.state = state;
+     }
+     public void setX (int x) {
+          this.x = x;
+     }
+     public void setY (int y) {
+          this.y = y;
+     }
+     public void setXVelocity (double xVelocity) {
+          this.xVelocity = xVelocity;
+     }
+     public void setYVelocity (double yVelocity) {
+          this.yVelocity = yVelocity;
+     }
+     public void setImgPath (String imgPath) {
+          this.imgPath = imgPath;
+     }
+     public void setHitBox (HitBox hitBox) {
+          this.hitBox = hitBox;
+     }
 }
 
