@@ -17,7 +17,9 @@ public abstract class Enemy {
   protected Projectile  projectileType;//will be more specific for every enemy
   protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
   protected long timeLine;//used to determine at what time they will enter the game screen/spawn
-  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine) {
+  protected boolean canShoot;//checks to see if an enemy can fire
+  
+  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot) {
     this.state = state;
     this.x = x;
     this.y = y;
@@ -26,6 +28,7 @@ public abstract class Enemy {
     this.projectileType = projectileType;
     this.heldPowerUp = heldPowerUp;
     this.timeLine = timeLine;
+    this.canShoot = canShoot;
   }
   
   public State getState() {
