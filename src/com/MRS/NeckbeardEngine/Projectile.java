@@ -35,11 +35,9 @@ public abstract class Projectile {
           this.xVelocity = xVelocity;
           this.yVelocity = yVelocity;
           this.imgPath = imgPath;
-          //Hitbox is declared in the subclasses
-          this.hitBox = null;
      }
      //Accessors
-     public int getState () {
+     public State getState () {
           return state;
      }
      public int getX () {
@@ -62,7 +60,7 @@ public abstract class Projectile {
      }
      
      //Mutators
-     public void setState (int state) {
+     public void setState (State state) {
           this.state = state;
      }
      public void setX (int x) {
