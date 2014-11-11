@@ -4,7 +4,7 @@ import com.MRS.NeckbeardEngine.*;
 
 public class Starburt extends Enemy {
   
-  public Starburt (State state, int x, int y, int xVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine) {
+  public Starburt (State state, int x, int y, double xVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine) {
     super (state, x, y, xVelocity, 0, projectileType, heldPowerUp, timeLine);
     health = 2;
   }
