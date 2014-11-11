@@ -28,13 +28,15 @@ public abstract class Projectile {
      public static double FastShotVelocity = 2;
      
      //Constructor
-     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath) {
+     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, Hitbox hitBox, double duration) {
           this.state = state;
           this.x = x;
           this.y = y;
           this.xVelocity = xVelocity;
           this.yVelocity = yVelocity;
           this.imgPath = imgPath;
+          this.hitBox = hitBox;
+          this.duration = duration;
      }
      //Accessors
      public State getState () {
