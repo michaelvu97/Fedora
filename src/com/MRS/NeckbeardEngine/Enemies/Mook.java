@@ -4,7 +4,7 @@ import com.MRS.NeckbeardEngine.*;
 
 public class Mook extends Enemy {
      
-     public Mook (State state, int x, int y, int xVelocity, int yVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine) {
+     public Mook (State state, int x, int y, double xVelocity, double yVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine) {
           super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
           health = 1;
      }
