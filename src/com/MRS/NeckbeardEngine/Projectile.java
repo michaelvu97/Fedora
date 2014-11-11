@@ -60,6 +60,9 @@ public abstract class Projectile {
      public HitBox getHitBox () {
           return hitBox;
      }
+     public double getDuration () {
+          return duration;
+     }
      
      //Mutators
      public void setState (State state) {
@@ -82,6 +85,9 @@ public abstract class Projectile {
      }
      public void setHitBox (HitBox hitBox) {
           this.hitBox = hitBox;
+     }
+     public void setDuration (double duration) {
+          this.duration = duration;
      }
 }
 
