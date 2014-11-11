@@ -12,12 +12,12 @@ public abstract class Enemy {
   protected int health;
   protected int x;
   protected int y;
-  protected int xVelocity;
-  protected int yVelocity;
+  protected double xVelocity;
+  protected double yVelocity;
   protected Projectile  projectileType;//will be more specific for every enemy
   protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
   protected long timeLine;//used to determine at what time they will enter the game screen/spawn
-  public Enemy(State state, int x, int y, int xVelocity, int yVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine) {
+  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine) {
     this.state = state;
     this.x = x;
     this.y = y;
@@ -52,16 +52,16 @@ public abstract class Enemy {
   public void setY(int y) {
     this.y = y;
   }
-  public int getXVelocity() {
+  public double getXVelocity() {
     return xVelocity;
   }
-  public void setXVelocity(int xVelocity) {
+  public void setXVelocity(double xVelocity) {
     this.xVelocity = xVelocity;
   }
-  public int getYVelocity() {
+  public double getYVelocity() {
     return yVelocity;
   }
-  public void setYVelocity(int yVelocity) {
+  public void setYVelocity(double yVelocity) {
     this.yVelocity = yVelocity;
   }
   public Projectile getProjectileType() {
