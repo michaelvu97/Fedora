@@ -21,12 +21,6 @@ public abstract class Projectile {
      protected String imgPath;
      protected HitBox hitBox;
      
-     //Static fields
-     public static int playerShotVelocity = 1;
-     public static int playerScatterShotXVelocity = 1;
-     public static int playerScatterShotYVelocity = 1;
-     public static int playerFastShotVelocity = 2;
-     
      //Constructor
      public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath) {
           this.state = state;
