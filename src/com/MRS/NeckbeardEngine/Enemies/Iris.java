@@ -1,7 +1,10 @@
 package com.MRS.NeckbeardEngine.Enemies;
 
-import com.MRS.NeckbeardEngine.*;
-import com.MRS.NeckbeardEngine.Projectiles.*;
+import com.MRS.NeckbeardEngine.Enemy;
+import com.MRS.NeckbeardEngine.HitBox;
+import com.MRS.NeckbeardEngine.PowerUpPickup;
+import com.MRS.NeckbeardEngine.Projectile;
+import com.MRS.NeckbeardEngine.State;
 
 public class Iris extends Enemy {
      

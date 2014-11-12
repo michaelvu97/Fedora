@@ -9,37 +9,38 @@
 
 package com.MRS.NeckbeardEngine;
 
-import java.awt.event.*;
-import java.io.IOException;
-import java.io.FileReader;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class KeyInputHandler {
      
-     public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false;
+     public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false, bomb = false;
      
      public final String path = "Data\\KeyBindings.txt";
      
      /*
       * Default Keybindings
       */
-     private int keyUp = KeyEvent.VK_W, keyDown = KeyEvent.VK_S, keyLeft = KeyEvent.VK_D, keyRight = KeyEvent.VK_A, keyShoot = KeyEvent.VK_J, keySwitchState = KeyEvent.VK_K; 
-     
+     private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE,keyBomb = KeyEvent.VK_X; 
+    /* 
      public KeyInputHandler() {
           //Read from file
           try {
                String[] keyBindings = openFile();
                keyUp = Integer.parseInt(keyBindings[0]);
                keyDown = Integer.parseInt(keyBindings[1]);
-               keyLeft = Integer.parseInt(keyBindings[2]);
+               keyLeft = Integer.parseInt(keyBindings[2]);  //DO WE NEED THIS??????
                keyRight = Integer.parseInt(keyBindings[3]);
                keyShoot = Integer.parseInt(keyBindings[4]);
                keySwitchState = Integer.parseInt(keyBindings[5]);
+               keyBomb = Integer.parseInt(keyBindings[6]);
           } catch (Exception e) {
                e.printStackTrace();
           }
      }
-     
+    */ 
      public void sendKeyPressed (int keyPressed) {
           //KeyEvent comparasin
           if (keyPressed == keyUp) {
@@ -59,6 +60,9 @@ public class KeyInputHandler {
           }
           if (keyPressed == keySwitchState) {
                switchState = true;
+          }
+          if (keyPressed == keyBomb) {
+        	  bomb = true;
           }
      }
      
@@ -82,6 +86,9 @@ public class KeyInputHandler {
           if (keyReleased == keySwitchState) {
                switchState = false;
           }
+          if(keyReleased == keyBomb) {
+        	  bomb = false;
+          }
      }
      
      public String[] openFile() throws IOException {
@@ -89,7 +96,7 @@ public class KeyInputHandler {
           FileReader f = new FileReader(path);
           BufferedReader textReader = new BufferedReader(f);
           
-          int lines = 6; //change according to file;
+          int lines = 7; //change according to file;
           String[] textData = new String[lines];
           
           //set array data line by line

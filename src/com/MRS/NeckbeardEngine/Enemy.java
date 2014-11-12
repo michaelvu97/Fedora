@@ -16,6 +16,7 @@ public abstract class Enemy {
   protected double yVelocity;
   protected Projectile  projectileType;//will be more specific for every enemy
   protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
+  protected HitBox hitBox;//hitbox not set to anything yet, because that will happen in the individual enemy classes
   protected long timeLine;//used to determine at what time they will enter the game screen/spawn
   protected boolean canShoot;//checks to see if an enemy can fire
   

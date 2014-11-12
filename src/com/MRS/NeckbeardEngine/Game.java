@@ -9,14 +9,18 @@
 
 package com.MRS.NeckbeardEngine;
 
-import com.MRS.NeckbeardEngine.Enemies.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.awt.*;
-import java.util.*;
-import javax.imageio.*;
-import java.io.*;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 public class Game extends JPanel implements KeyListener, MouseListener {
      
@@ -76,9 +80,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                     player.setYVelocity(0);
                } else {
                     if (player.getYVelocity() > 0) {
-                         player.setYVelocity(player.getYVelocity() - Player.DRAG);
+                         player.setYVelocity(player.getYVelocity() - Player.DRAG);//just set it to 0
                     } else {
-                         player.setYVelocity(player.getYVelocity() + Player.DRAG);
+                         player.setYVelocity(player.getYVelocity() + Player.DRAG);//just set it to 0
                     }
                }
           }
@@ -88,9 +92,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                     player.setXVelocity(0);
                } else {
                     if (player.getXVelocity() > 0) {
-                         player.setXVelocity(player.getXVelocity() - Player.DRAG);
+                         player.setXVelocity(player.getXVelocity() - Player.DRAG);//just set it to 0
                     } else {
-                         player.setXVelocity(player.getXVelocity() + Player.DRAG);
+                         player.setXVelocity(player.getXVelocity() + Player.DRAG);//just set it to 0
                     }
                }
           }

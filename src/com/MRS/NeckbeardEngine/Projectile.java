@@ -28,7 +28,7 @@ public abstract class Projectile {
      public static double FastShotVelocity = 2;
      
      //Constructor
-     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, Hitbox hitBox, double duration) {
+     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, HitBox hitBox, double duration) {
           this.state = state;
           this.x = x;
           this.y = y;
@@ -51,7 +51,7 @@ public abstract class Projectile {
      public double getXVelocity () {
           return xVelocity;
      }
-     public int getYVelocity () {
+     public double getYVelocity () {
           return yVelocity;
      }
      public String getImgPath () {

@@ -1,5 +1,5 @@
   package com.MRS.NeckbeardEngine;
-  class HitBox {
+  public class HitBox {
     private int x;
     private int y;
     private int height;
