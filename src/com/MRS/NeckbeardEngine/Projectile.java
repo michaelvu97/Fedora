@@ -8,7 +8,7 @@
  */
 
 package com.MRS.NeckbeardEngine;
-
+import java.awt.*;
 public abstract class Projectile {
      
      //Fields
@@ -89,5 +89,7 @@ public abstract class Projectile {
      public void setDuration (double duration) {
           this.duration = duration;
      }
+     //Abstract methods
+     abstract public void paint(Graphics2D g2d);
 }
 
