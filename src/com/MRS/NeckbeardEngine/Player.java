@@ -108,7 +108,7 @@ public class Player {
      public ArrayList<PowerUp> getPowerUps() {
           return powerUps;
      }
-     public boolean getCanShoot() {
+     public boolean canShoot() {
           return canShoot;
      }
      public boolean getAlive() {
