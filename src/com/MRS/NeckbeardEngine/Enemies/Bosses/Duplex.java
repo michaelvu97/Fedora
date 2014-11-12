@@ -18,6 +18,7 @@ public class Duplex {
   
   public static int DEFAULT_HITBOX_WIDTH = 10;
   public static int DEFAULT_HITBOX_LENGTH = 10;
+  
   public Duplex () {
     state = RED; //I don't know how enum works
     health = 100;
@@ -26,7 +27,7 @@ public class Duplex {
     xVelocity = 1;
     yVelocity = 1;
     projectileType = placeholder;
-    shiftTimer = 5;
+    shiftTimer = 5; //Duplex shifts every 5 sec
     timeLine = 0; //placeholder
     canShoot = true;
   }
