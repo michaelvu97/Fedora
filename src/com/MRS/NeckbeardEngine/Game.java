@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.MRS.NeckbeardEngine.Enemies.*;
+import com.MRS.NeckbeardEngine.Projectiles.*;
+
 public class Game extends JPanel implements KeyListener, MouseListener {
      
      public boolean started; //If the game has begun, this may become deprecated depending on how levels are handled
@@ -99,6 +102,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                }
           }
           
+          //Shooting
+          if (keyInputHandler.shoot && player.canShoot()) {
+               //test projectiles
+               playerProjectiles.add(new Shot(player.getX(), player.getY(), 0, Shot.ShotVelocity, "", new HitBox(0,0,10,10), 30);
+          }
           player.move();
           
           repaint();
