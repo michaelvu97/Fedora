@@ -17,6 +17,7 @@ public class Jetstream {
   
   public static int DEFAULT_HITBOX_WIDTH = 10;
   public static int DEFAULT_HITBOX_LENGTH = 10;
+  
   public Jetstream () {
     state = RED; //I don't know how enum works
     health = 100;
