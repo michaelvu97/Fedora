@@ -21,6 +21,7 @@ public class Shade {
   
   public static int DEFAULT_HITBOX_WIDTH = 10;
   public static int DEFAULT_HITBOX_LENGTH = 10;
+  
   public Shade () {
     state = BLUE; //I don't know how enum works
     health = 70;
