@@ -16,6 +16,7 @@ public class Goliath {
   
   public static int DEFAULT_HITBOX_WIDTH = 10;
   public static int DEFAULT_HITBOX_LENGTH = 10;
+  
   public Goliath () {
     state = BOTH; //I don't know how enum works
     health = 250;
