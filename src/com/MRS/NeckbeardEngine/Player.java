@@ -10,6 +10,7 @@
 package com.MRS.NeckbeardEngine;
 
 import java.util.ArrayList;
+import java.awt.*;
 
 public class Player {
      //Fields
@@ -71,6 +72,9 @@ public class Player {
                xVelocity = -1 * MAX_VELOCITY;
      }
      
+     public void paint(Graphics2D g2d) {
+          //Draw this object
+     }
      public void switchState() {
           if (state == State.RED) {
                state = State.BLUE;
