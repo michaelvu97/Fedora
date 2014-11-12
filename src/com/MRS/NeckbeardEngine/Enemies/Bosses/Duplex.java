@@ -19,7 +19,7 @@ public class Duplex {
   public static int DEFAULT_HITBOX_WIDTH = 10;
   public static int DEFAULT_HITBOX_LENGTH = 10;
   public Duplex () {
-    state = BOTH; //I don't know how enum works
+    state = RED; //I don't know how enum works
     health = 100;
     x = 800; //placeholder
     y = 800; //placeholder
