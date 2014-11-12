@@ -11,10 +11,19 @@ public class Goliath {
   private int y;
   private Projectile projectileType;
   private long timeLine;
-  private boolean canShoot;
+  private boolean canShootLight;
+  private boolean canShootHeavy;
   
   public static int DEFAULT_HITBOX_WIDTH = 10;
   public static int DEFAULT_HITBOX_LENGTH = 10;
   public Goliath () {
-    
+    state = BOTH; //I don't know how enum works
+    health = 250;
+    x = 800; //placeholder
+    y = 800; //placeholder
+    projectileType = placeholder;
+    timeLine = 0; //placeholder
+    canShootLight = true;
+    canShootHeavy = true;
   }
+}
