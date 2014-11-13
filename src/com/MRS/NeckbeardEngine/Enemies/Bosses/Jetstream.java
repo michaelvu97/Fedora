@@ -5,7 +5,8 @@ import com.MRS.NeckbeardEngine.Projectile;
 import com.MRS.NeckbeardEngine.State;
 
 public class Jetstream {
-  private State state; //only affects projectiles
+  private State state; //only affects body
+  private State projectState //only affects projectile
   private int health;
   private int x;
   private int y;
@@ -19,7 +20,8 @@ public class Jetstream {
   public static int DEFAULT_HITBOX_LENGTH = 10;
   
   public Jetstream () {
-    state = RED; //I don't know how enum works
+    state = State.BOTH;
+    projectState = State.RED;
     health = 100;
     x = 800; //placeholder
     y = 800; //placeholder
