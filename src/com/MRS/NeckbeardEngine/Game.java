@@ -9,12 +9,9 @@
 
 package com.MRS.NeckbeardEngine;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -103,9 +100,27 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           
           //Shooting
-          if (keyInputHandler.shoot && player.canShoot()) {
-               //THIS IS NOT WORKING, SUBCLASSES CANNOT BE ADDED TO SUPERCLASS LISTS FOR SOME RAISON
-               //playerProjectiles.add((Projectile) new Shot(State.RED, player.getX(), player.getY(), 0, Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
+          if (!player.canShoot()) {
+               player.setShotCoolDown(player.getShotCoolDown() - 0.5);
+               
+               if (player.getShotCoolDown() <= 0) {
+                    player.setCanShoot(true);
+               }
+          }
+          if (player.canShoot()) {
+               if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
+                    System.out.println("shoot");
+                    playerProjectiles.add((Projectile) new Shot(State.RED, player.getX(), player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
+                    player.setShotCoolDown(Player.SHOT_COOLDOWN);
+                    player.setCanShoot(false);
+               }
+          }
+          
+          //PlayerProjectiles Movement
+          for (int i = 0; i < playerProjectiles.size(); i++) {
+               Projectile p = playerProjectiles.get(i);
+               p.setX((int)(p.getX() + (int)p.getXVelocity()));
+               p.setY((int)(p.getY() + (int)p.getYVelocity()));
           }
           player.move();
           
@@ -123,6 +138,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                e.printStackTrace();    
           }
           g.drawImage(img, player.getX(), player.getY(), null);
+          
+          //Paint shots temporary
+          for (int i = 0; i < playerProjectiles.size(); i++) {
+               Projectile p = playerProjectiles.get(i);
+               g.setColor(new Color ((int)Math.floor(Math.random()*256),(int)Math.floor(Math.random()*256),(int)Math.floor(Math.random()*256)));
+               g.fillRect((int)p.getX(), (int)p.getY(), (int)p.getHitBox().getWidth(), (int)p.getHitBox().getHeight());
+          }
      }
      
      @Override
