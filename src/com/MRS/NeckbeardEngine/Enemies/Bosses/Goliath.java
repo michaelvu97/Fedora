@@ -18,7 +18,7 @@ public class Goliath {
   public static int DEFAULT_HITBOX_LENGTH = 10;
   
   public Goliath () {
-    state = BOTH; //I don't know how enum works
+    state = State.BOTH
     health = 250;
     x = 800; //placeholder
     y = 800; //placeholder
