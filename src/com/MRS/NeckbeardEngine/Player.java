@@ -18,6 +18,7 @@ public class Player {
      private double xVelocity, yVelocity;
      private State state;
      private boolean canShoot;
+     private boolean shield;
      private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
      private ArrayList<HitBox> hitBoxes = new ArrayList<HitBox>();
      
