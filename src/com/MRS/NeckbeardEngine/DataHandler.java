@@ -42,8 +42,7 @@ public class DataHandler {
                br.close();
           } catch (IOException e) {
                e.printStackTrace();
-          }     
-          System.out.println(pairs.size());
+          }
           return KeyValuePair.removeDuplicates(pairs);
      }
      
