@@ -23,7 +23,7 @@ public class Shade {
   public static int DEFAULT_HITBOX_LENGTH = 10;
   
   public Shade () {
-    state = BLUE; //I don't know how enum works
+    state = State.BLUE;
     health = 70;
     x = 800; //placeholder
     y = 800; //placeholder
