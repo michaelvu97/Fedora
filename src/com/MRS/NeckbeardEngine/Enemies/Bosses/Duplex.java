@@ -20,7 +20,7 @@ public class Duplex {
   public static int DEFAULT_HITBOX_LENGTH = 10;
   
   public Duplex () {
-    state = RED; //I don't know how enum works
+    state = State.RED;
     health = 100;
     x = 800; //placeholder
     y = 800; //placeholder
