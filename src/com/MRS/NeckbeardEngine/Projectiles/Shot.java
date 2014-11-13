@@ -2,14 +2,15 @@ package com.MRS.NeckbeardEngine.Projectiles;
 
 import com.MRS.NeckbeardEngine.*;
 import java.awt.*;
-import java.awt.Image.BufferedImage;
+import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 
 public class Shot extends Projectile {
-  BufferedImage img = null;
+  BufferedImage img;
   public Shot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, HitBox hitBox, double duration) {
     super(state, x, y, xVelocity, yVelocity, imgPath, hitBox, duration);
+      img = null;
     try {
       img = ImageIO.read(new File(imgPath));
     } catch(IOException ioe){}
@@ -22,6 +23,6 @@ public class Shot extends Projectile {
   
   @Override
   public void paint(Graphics2D g2d) {
-       g2d.draw(img,x,y,null);
+    g2d.drawImage(img,x,y,null);
   }
 }

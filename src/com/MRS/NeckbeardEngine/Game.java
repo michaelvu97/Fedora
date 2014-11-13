@@ -101,7 +101,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           
           //Shooting
           if (!player.canShoot()) {
-               player.setShotCoolDown(player.getShotCoolDown() - 0.5);
+               player.setShotCoolDown(player.getShotCoolDown() - 1);
                
                if (player.getShotCoolDown() <= 0) {
                     player.setCanShoot(true);
@@ -111,7 +111,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
                     System.out.println("shoot");
                     playerProjectiles.add((Projectile) new Shot(State.RED, player.getX(), player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
-                    player.setShotCoolDown(Player.SHOT_COOLDOWN);
+                    player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
                     player.setCanShoot(false);
                }
           }

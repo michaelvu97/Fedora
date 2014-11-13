@@ -1,4 +1,8 @@
   package com.MRS.NeckbeardEngine;
+  
+  import java.awt.Rectangle;
+  import java.awt.geom.Ellipse2D;
+  
   public class HitBox {
     private int x;
     private int y;
@@ -11,38 +15,7 @@
       this.height=height;
       this.width=width;
     }
-    public boolean checkCollision(HitBox a) {
-      int maxX = Math.max(a.x,x);
-      int minX = Math.min(a.x,x);
-      int maxY = Math.max(a.y,y);
-      int minY = Math.min(a.y,y);
-      //Memory values created that will store the associated value
-      int maxH;
-      //minL contains the length of the rectangle that has the smallest Y value
-      int minW;
-      //minW contains the width of the rectangle that has the smallest X value
-      if(maxX == a.x) {
-        //If the maxX is from rectangle r1...
-      
-        minW = width;
-      }
-      else {
-        //Otherwise the reverse occurs, because that is the only other possibility
-        minW = a.width;
-      }
-      if(maxY == a.y) {
-        //Similarly if the maxY values is from r1
-      
-        maxH = a.height;
-      }
-      //Otherwise they switch because that is the only other possiblity
-      else {
-      
-        maxH = height;
-      }
-      
-      return ((maxX<=(minX+minW))&&(minY>=(maxY-maxH)));//checks that they contain or are touching
-    }
+    
     //Accessors
     public int getX() {
       return x;
@@ -55,5 +28,22 @@
     }
     public int getWidth() {
       return width;
+    }
+    
+    //Collisions
+    public static boolean checkCollisionRectRect(HitBox h1, HitBox h2) {
+      Rectangle r1 = new Rectangle(h1.getX(), h1.getY(), h1.getWidth(), h1.getHeight());
+      Rectangle r2 = new Rectangle(h2.getX(), h2.getY(), h2.getWidth(), h2.getHeight());
+      return r1.intersects(r2);
+    }
+    public static boolean checkCollisionRectRadial(HitBox h1, RadialHitBox h2) {
+      Rectangle r1 = new Rectangle(h1.getX(), h1.getY(), h1.getWidth(), h1.getHeight());
+      Ellipse2D.Double e1 = new Ellipse2D.Double(h2.getX(), h2.getY(), h2.getWidth(), h2.getHeight());
+      return e1.intersects(r1);
+    }
+    public static boolean checkCollisionRadialRadial(RadialHitBox h1, RadialHitBox h2) {
+      double distance = Math.sqrt( Math.pow( h1.getX() - h2.getX() , 2) + Math.pow( h1.getY() - h2.getY() , 2 ));
+      double sumRadius = (h1.getWidth()/2) + (h2.getWidth()/2);
+      return distance <= sumRadius;
     }
   }
