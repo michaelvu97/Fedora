@@ -22,12 +22,19 @@ public class KeyInputHandler {
      /*
       * Default Keybindings
       */
-     private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE,keyBomb = KeyEvent.VK_X; 
+     private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE, keyBomb = KeyEvent.VK_X; 
     
      public KeyInputHandler() {
           File f = new File(path);
           ArrayList<KeyValuePair> pairs = DataHandler.parseFile(f);
-          //add accessing keys
+          
+          keyUp = Integer.parseInt(KeyValuePair.getByKey("keyUp", pairs).value);
+          keyDown = Integer.parseInt(KeyValuePair.getByKey("keyDown", pairs).value);
+          keyLeft = Integer.parseInt(KeyValuePair.getByKey("keyLeft", pairs).value);
+          keyRight = Integer.parseInt(KeyValuePair.getByKey("keyRight", pairs).value);
+          keyShoot = Integer.parseInt(KeyValuePair.getByKey("keyShoot", pairs).value);
+          keySwitchState = Integer.parseInt(KeyValuePair.getByKey("keySwitchState", pairs).value);
+          keyBomb = Integer.parseInt(KeyValuePair.getByKey("keyBomb", pairs).value);
      }
      
      public void sendKeyPressed (int keyPressed) {
