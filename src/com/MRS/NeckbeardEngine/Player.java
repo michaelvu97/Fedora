@@ -21,9 +21,9 @@ public class Player {
      private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
      private ArrayList<HitBox> hitBoxes = new ArrayList<HitBox>();
      
-     public static float DRAG = 0.2F;
+     public static float DRAG = 5F;
      public static int MAX_VELOCITY = 5;
-     public static float ACCELERATION = 0.7F;
+     public static float ACCELERATION = 5F;
      
      //Constructor
      public Player (int x, int y, int lives, State state) {

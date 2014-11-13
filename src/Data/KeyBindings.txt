@@ -1,7 +1,7 @@
-38
-40
-37
-39
-90
-32
-88
+[keyUp]38
+[keyDown]40
+[keyLeft]37
+[keyRight]39
+[keyShoot]90
+[keySwitchState]32
+[keyBomb]88

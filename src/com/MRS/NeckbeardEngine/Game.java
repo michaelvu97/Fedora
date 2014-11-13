@@ -17,7 +17,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -104,8 +104,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           
           //Shooting
           if (keyInputHandler.shoot && player.canShoot()) {
-               //test projectiles
-               playerProjectiles.add(new Shot(player.getX(), player.getY(), 0, Shot.ShotVelocity, "", new HitBox(0,0,10,10), 30);
+               //THIS IS NOT WORKING, SUBCLASSES CANNOT BE ADDED TO SUPERCLASS LISTS FOR SOME RAISON
+               //playerProjectiles.add((Projectile) new Shot(State.RED, player.getX(), player.getY(), 0, Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
           }
           player.move();
           
@@ -117,7 +117,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
           BufferedImage img = null;
           try {
-               img = ImageIO.read(new File(FileStore.PLAYER_TEST));
+               String workingDir = System.getProperty("user.dir") + FileStore.PLAYER_TEST;
+               img = ImageIO.read(new File(workingDir));
           } catch (IOException e) {
                e.printStackTrace();    
           }

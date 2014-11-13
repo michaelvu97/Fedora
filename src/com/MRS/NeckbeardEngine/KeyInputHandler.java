@@ -11,13 +11,14 @@ package com.MRS.NeckbeardEngine;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.net.*;
 import java.io.*;
 
 public class KeyInputHandler {
      
      public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false, bomb = false;
      
-     public final String path = "KeyBindings.txt";
+     public final String path = "\\Data\\KeyBindings.txt";
      
      /*
       * Default Keybindings
@@ -25,7 +26,9 @@ public class KeyInputHandler {
      private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE, keyBomb = KeyEvent.VK_X; 
     
      public KeyInputHandler() {
-          File f = new File(path);
+          String workingDir = System.getProperty("user.dir") + path;
+          System.out.println(workingDir);
+          File f = new File(workingDir);
           ArrayList<KeyValuePair> pairs = DataHandler.parseFile(f);
           
           keyUp = Integer.parseInt(KeyValuePair.getByKey("keyUp", pairs).value);
@@ -58,7 +61,7 @@ public class KeyInputHandler {
                switchState = true;
           }
           if (keyPressed == keyBomb) {
-        	  bomb = true;
+           bomb = true;
           }
      }
      
@@ -83,7 +86,7 @@ public class KeyInputHandler {
                switchState = false;
           }
           if(keyReleased == keyBomb) {
-        	  bomb = false;
+           bomb = false;
           }
      }
 }

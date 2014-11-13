@@ -4,5 +4,5 @@
 package com.MRS.NeckbeardEngine;
 
 public class FileStore {
-     public final static String PLAYER_TEST = "src/Assets/TestShip.png";
+     public final static String PLAYER_TEST = "\\Assets\\TestShip.png";
 }
