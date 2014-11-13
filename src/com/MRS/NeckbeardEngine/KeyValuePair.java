@@ -1,4 +1,3 @@
-package com.MRS.NeckbeardEngine;
 import java.util.ArrayList;
 
 public class KeyValuePair {
@@ -24,6 +23,17 @@ public class KeyValuePair {
                }
           }
           return pairs;
+     }
+     
+     public static KeyValuePair getByKey (String searchKey, ArrayList<KeyValuePair> pairs) {
+          KeyValuePair returner = new KeyValuePair("","");
+          for (int i = 0; i < pairs.size(); i++) {
+               if (pairs.get(i).key.equals(searchKey)) {
+                    returner = pairs.get(i);
+                    break;
+               }
+          }
+          return returner;
      }
      
 }
