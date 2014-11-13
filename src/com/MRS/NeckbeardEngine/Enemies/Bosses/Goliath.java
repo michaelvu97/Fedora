@@ -18,7 +18,7 @@ public class Goliath {
   public static int DEFAULT_HITBOX_LENGTH = 10;
   
   public Goliath () {
-    state = State.BOTH
+    state = State.BOTH;
     health = 250;
     x = 800; //placeholder
     y = 800; //placeholder
