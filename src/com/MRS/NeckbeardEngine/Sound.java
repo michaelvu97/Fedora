@@ -1,5 +1,6 @@
 package com.MRS.NeckbeardEngine;
 import java.io.IOException;
+import java.io.File;
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
@@ -14,14 +15,17 @@ public class  Sound{
 public static Mixer mixer;
 public static Clip clip;
 
- public Sound(String file) {
+ public Sound(String f) {
+  f = System.getProperty("user.dir") + f;
+
+  
   Mixer.Info[] mixInfos = AudioSystem.getMixerInfo();
   mixer = AudioSystem.getMixer(mixInfos[0]);
   DataLine.Info dataInfo = new DataLine.Info(Clip.class, null);
   try{clip = (Clip)mixer.getLine(dataInfo);}
   catch(LineUnavailableException lue) {lue.printStackTrace();}
   try {
-   URL soundURL = Sound.class.getResource(file);
+   URL soundURL = new File(f).toURI().toURL();
    AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL);
    clip.open(audioStream);
   }

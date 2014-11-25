@@ -27,7 +27,6 @@ public class KeyInputHandler {
     
      public KeyInputHandler() {
           String workingDir = System.getProperty("user.dir") + path;
-          System.out.println(workingDir);
           File f = new File(workingDir);
           ArrayList<KeyValuePair> pairs = DataHandler.parseFile(f);
           

@@ -17,7 +17,6 @@ public class KeyValuePair {
                for (int j = i + 1; j < pairs.size(); j++) {
                     KeyValuePair p2 = pairs.get(j);
                     if (p1.key.equals(p2.key) && p1.value.equals(p2.value)) {
-                         System.out.println(pairs.get(i).key + "removed");
                          pairs.remove(j);
                          j--;
                     }

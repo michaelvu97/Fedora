@@ -102,8 +102,8 @@ public class Player {
      public int getLives() {
           return lives;
      }
-     public int getState() { //THIS PROBABLY ISNT GOING TO WORK, MAKE SURE TO FIX IT
-          return state.getState(); 
+     public State getState() {
+          return state;
      }
      public ArrayList<HitBox> getHitBoxes() {
           return hitBoxes;
@@ -126,6 +126,9 @@ public class Player {
      }
      public void setY(int y) {
           this.y = y;
+     }
+     public void setState(State state) {
+       this.state = state;
      }
      public void setXVelocity(double xVelocity) {
           this.xVelocity = xVelocity;

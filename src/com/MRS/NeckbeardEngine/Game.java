@@ -26,11 +26,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      
      public boolean started; //If the game has begun, this may become deprecated depending on how levels are handled
      
+     private boolean stateAlreadySwitched;
      public KeyInputHandler keyInputHandler; //contains booleans for all keys
      
      //On screen object lists
      public Player player;
      public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+     
+     private Sound bgMusic;
      
      //More on screen object lists
      public ArrayList<HitScan> hitScans = new ArrayList<HitScan>();
@@ -39,6 +42,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      public ArrayList<PowerUpPickup> powerUpPickups = new ArrayList<PowerUpPickup>();
      
      public Level level;
+     
      public Game () {
           //Class constructor
           keyInputHandler = new KeyInputHandler ();
@@ -49,9 +53,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      public void initialize () {
           //Variable setup
           started = false;
+          stateAlreadySwitched = false;
           addKeyListener(this);
           addMouseListener(this);
-          
+          bgMusic = new Sound(FileStore.BG_MUSIC_1);
+          bgMusic.play();
           player = new Player(30, 30, 3, State.RED);
      }
      
@@ -109,7 +115,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           if (player.canShoot()) {
                if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
-                    System.out.println("shoot");
                     playerProjectiles.add((Projectile) new Shot(State.RED, player.getX(), player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
                     player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
                     player.setCanShoot(false);
@@ -123,6 +128,22 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                p.setY((int)(p.getY() + (int)p.getYVelocity()));
           }
           player.move();
+          
+          //Switch State
+          if (keyInputHandler.switchState) {
+            if (!stateAlreadySwitched) {
+              if (player.getState() == State.RED) {
+                player.setState(State.BLUE);
+                stateAlreadySwitched = true;
+              } else if (player.getState() == State.BLUE) {
+                player.setState(State.RED);
+                stateAlreadySwitched = true;
+              }
+            }
+          } else if (stateAlreadySwitched) {
+            stateAlreadySwitched = false; 
+          }
+
           
           repaint();
      }
