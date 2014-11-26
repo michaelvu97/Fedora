@@ -33,7 +33,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      public Player player;
      public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
      
-     private Sound bgMusic;
+     private AudioPlayer audioPlayer;
      
      //More on screen object lists
      public ArrayList<HitScan> hitScans = new ArrayList<HitScan>();
@@ -56,8 +56,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           stateAlreadySwitched = false;
           addKeyListener(this);
           addMouseListener(this);
-          bgMusic = new Sound(FileStore.BG_MUSIC_1);
-          bgMusic.play();
+          audioPlayer = new AudioPlayer();
+          audioPlayer.BGM1.play();
           player = new Player(30, 30, 3, State.RED);
      }
      
@@ -151,14 +151,19 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      public void paintComponent(Graphics g) {
           //Paints all gui
           g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-          BufferedImage img = null;
+          BufferedImage img_player = null;
           try {
-               String workingDir = System.getProperty("user.dir") + FileStore.PLAYER_TEST;
-               img = ImageIO.read(new File(workingDir));
+               String workingDir = System.getProperty("user.dir");
+               if (player.getState() == State.RED) {
+                 img_player = ImageIO.read(new File(workingDir + FileStore.PLAYER_RED));
+               } else {
+                 img_player = ImageIO.read(new File(workingDir + FileStore.PLAYER_BLUE));
+               }
           } catch (IOException e) {
                e.printStackTrace();    
           }
-          g.drawImage(img, player.getX(), player.getY(), null);
+          
+          g.drawImage(img_player, player.getX(), player.getY(), null);
           
           //Paint shots temporary
           for (int i = 0; i < playerProjectiles.size(); i++) {

@@ -36,6 +36,7 @@ public class Main extends JFrame {
                     main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     main.setFocusable(false);
                     main.setSize(WIDTH, HEIGHT);
+                    main.setResizable(false);
                     //main.setUndecorated(true);
                     main.setVisible(true);
                     
