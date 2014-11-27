@@ -1,2 +1,3 @@
 red: hue 0degrees, saturation 62
 blu: hue 212degrees, saturation 62
+red projectiles hue 0 degrees, 100 saturation
