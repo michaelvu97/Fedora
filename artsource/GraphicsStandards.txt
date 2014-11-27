@@ -1,0 +1,6 @@
+Width 980
+Height 720
+Medium(96x96)
+Small(60x60)
+Large(128x128)
+Projectiles
