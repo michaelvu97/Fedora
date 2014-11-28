@@ -35,7 +35,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private AudioPlayer audioPlayer;
   
-  BufferedImage img_glowTemp = null;
+  BufferedImage img_blueGlow = null, img_redGlow = null, img_playerRed = null, img_playerBlue = null, img_mookRed = null, img_mookBlue = null, img_shotBlue = null, img_shotRed = null, img_spaceBG1 = null;
   
   //More on screen object lists
   public ArrayList<HitScan> hitScans = new ArrayList<HitScan>();
@@ -58,15 +58,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     stateAlreadySwitched = false;
     addKeyListener(this);
     addMouseListener(this);
+    enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
     audioPlayer = new AudioPlayer();
     audioPlayer.BGM1.play();
-    player = new Player(30, 30, 3, State.RED);
-    try {
-      String workingDir = System.getProperty("user.dir"); 
-      img_glowTemp = ImageIO.read(new File(workingDir + FileStore.FX_BLUE_GLOW));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    player = new Player(500, 500, 3, State.RED);
+    loadImages();
   }
   
   public void step () {
@@ -124,7 +120,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     if (player.canShoot()) {
       if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
         audioPlayer.LaserShot1.play();
-        playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
+        if (player.getState()==State.RED) {
+          playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
+        } else {
+          playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
+        }
         player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
         player.setCanShoot(false);
       }
@@ -161,32 +161,36 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //Paints all gui
     g.setColor(Color.BLACK);
     g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-    BufferedImage img_player = null;
-    try {
-      String workingDir = System.getProperty("user.dir");
-      if (player.getState() == State.RED) {
-        img_player = ImageIO.read(new File(workingDir + FileStore.PLAYER_RED));
-      } else {
-        img_player = ImageIO.read(new File(workingDir + FileStore.PLAYER_BLUE));
+    g.drawImage(img_spaceBG1, 0, 0, null);
+    
+    //Enemies
+    for (int i = 0; i < enemies.size(); i++) {
+      Enemy e = enemies.get(i);
+      if (e instanceof Mook) {
+        if (e.getState()==State.RED) {
+          g.drawImage(img_mookRed, e.getX(), e.getY(), null);
+        } else {
+          g.drawImage(img_mookBlue, e.getX(), e.getY(), null);
+        }
       }
-    } catch (IOException e) {
-      e.printStackTrace();    
     }
     
-    g.drawImage(img_player, player.getX(), player.getY(), null);
+    if (player.getState()==State.RED) {
+      g.drawImage(img_playerRed, player.getX(), player.getY(), null);
+    } else if (player.getState() == State.BLUE){
+      g.drawImage(img_playerBlue, player.getX(), player.getY(), null);
+    }
     
     //Paint shots temporary
-    BufferedImage img_testShot = null;
-    try {
-      String workingDir = System.getProperty("user.dir");
-      img_testShot = ImageIO.read(new File(workingDir + FileStore.SHOT_BLUE));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     for (int i = 0; i < playerProjectiles.size(); i++) {
       Projectile p = playerProjectiles.get(i);
-      g.drawImage(img_glowTemp, (int)p.getX() - 128 , (int)p.getY() - 128, null);
-      g.drawImage(img_testShot, (int)p.getX(), (int)p.getY(), null);
+      if (p.getState()==State.RED) {
+        g.drawImage(img_redGlow, (int)p.getX() - 128 , (int)p.getY() - 128, null);
+        g.drawImage(img_shotRed, (int)p.getX(), (int)p.getY(), null);
+      } else {
+        g.drawImage(img_blueGlow, (int)p.getX() - 128 , (int)p.getY() - 128, null);
+        g.drawImage(img_shotBlue, (int)p.getX(), (int)p.getY(), null);
+      }
     }
   }
   
@@ -232,4 +236,23 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //Currently unused
   }
   
+  public boolean loadImages() {
+    boolean noErrors = true;
+    try {
+      String workingDir = System.getProperty("user.dir"); 
+      img_blueGlow = ImageIO.read(new File (workingDir + FileStore.FX_BLUE_GLOW));
+      img_redGlow = ImageIO.read(new File (workingDir + FileStore.FX_RED_GLOW));
+      img_playerRed = ImageIO.read(new File (workingDir + FileStore.PLAYER_RED));
+      img_playerBlue = ImageIO.read(new File (workingDir + FileStore.PLAYER_BLUE));
+      img_mookRed = ImageIO.read(new File (workingDir + FileStore.MOOK_RED));
+      img_mookBlue = ImageIO.read(new File (workingDir + FileStore.MOOK_BLUE));
+      img_shotBlue = ImageIO.read(new File (workingDir + FileStore.SHOT_BLUE));
+      img_shotRed = ImageIO.read(new File (workingDir + FileStore.SHOT_RED));
+      img_spaceBG1 = ImageIO.read(new File (workingDir + FileStore.SPACE_BG_1));
+    } catch (IOException e) {
+      e.printStackTrace();
+      noErrors = false;
+    }
+    return noErrors;
+  }
 }

@@ -14,13 +14,13 @@ public abstract class Enemy {
   protected int y;
   protected double xVelocity;
   protected double yVelocity;
-  protected Projectile  projectileType;//will be more specific for every enemy
+  protected String  projectileType;//will be more specific for every enemy
   protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
   protected HitBox hitBox;//hitbox not set to anything yet, because that will happen in the individual enemy classes
   protected long timeLine;//used to determine at what time they will enter the game screen/spawn
   protected boolean canShoot;//checks to see if an enemy can fire
   
-  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, Projectile projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot) {
+  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot) {
     this.state = state;
     this.x = x;
     this.y = y;
@@ -51,7 +51,7 @@ public abstract class Enemy {
   public double getYVelocity() {
     return yVelocity;
   }
-  public Projectile getProjectileType() {
+  public String getProjectileType() {
     return projectileType;
   }
   public PowerUpPickup getHeldPowerUp() {
@@ -83,7 +83,7 @@ public abstract class Enemy {
   public void setYVelocity(double yVelocity) {
     this.yVelocity = yVelocity;
   }
-  public void setProjectileType(Projectile projectileType) {
+  public void setProjectileType(String projectileType) {
     this.projectileType = projectileType;
   }
   public void setHeldPowerUp(PowerUpPickup heldPowerUp) {
