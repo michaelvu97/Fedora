@@ -22,7 +22,7 @@ public abstract class Projectile {
      protected double duration;
      
      //Static fields
-     public static double ShotVelocity = 7;
+     public static double ShotVelocity = 14;
      public static double ScatterShotXVelocity = 1;
      public static double ScatterShotYVelocity = 1;
      public static double FastShotVelocity = 2;

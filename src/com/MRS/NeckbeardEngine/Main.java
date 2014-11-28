@@ -24,8 +24,8 @@ import javax.swing.SwingUtilities;
 public class Main extends JFrame {
  
      public static final int FRAME_RATE = 16, //60 fps  
-                             HEIGHT = 720, //16:9 720 ratio
-                             WIDTH = 480;
+                             HEIGHT = 980, //16:9 720 ratio
+                             WIDTH = 720;
      
      public static void main (String[] args) {
           //Main running method

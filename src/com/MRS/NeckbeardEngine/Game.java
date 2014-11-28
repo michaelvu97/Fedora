@@ -166,10 +166,16 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           g.drawImage(img_player, player.getX(), player.getY(), null);
           
           //Paint shots temporary
+          BufferedImage img_testShot = null;
+          try {
+            String workingDir = System.getProperty("user.dir");
+            img_testShot = ImageIO.read(new File(workingDir + "\\Assets\\shotblue.png"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
           for (int i = 0; i < playerProjectiles.size(); i++) {
                Projectile p = playerProjectiles.get(i);
-               g.setColor(new Color ((int)Math.floor(Math.random()*256),(int)Math.floor(Math.random()*256),(int)Math.floor(Math.random()*256)));
-               g.fillRect((int)p.getX(), (int)p.getY(), (int)p.getHitBox().getWidth(), (int)p.getHitBox().getHeight());
+               g.drawImage(img_testShot, (int)p.getX(), (int)p.getY(), null);
           }
      }
      
