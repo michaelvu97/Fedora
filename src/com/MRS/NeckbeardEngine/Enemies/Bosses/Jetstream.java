@@ -6,13 +6,13 @@ import com.MRS.NeckbeardEngine.State;
 
 public class Jetstream {
   private State state; //only affects body
-  private State projectState //only affects projectile
+  private State projectState; //only affects projectile
   private int health;
   private int x;
   private int y;
   private double xVelocity;
   private double yVelocity;
-  private Projectile projectileType;
+  private String projectileType;
   private long timeLine;
   private boolean canShoot;
   
@@ -27,7 +27,7 @@ public class Jetstream {
     y = 800; //placeholder
     xVelocity = 2;
     yVelocity = 2;
-    projectileType = placeholder;
+    projectileType = ""; //placeholder
     timeLine = 0; //placeholder
     canShoot = true;
   }

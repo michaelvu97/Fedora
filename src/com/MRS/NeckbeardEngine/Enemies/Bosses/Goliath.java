@@ -9,7 +9,7 @@ public class Goliath {
   private int health;
   private int x;
   private int y;
-  private Projectile projectileType;
+  private String projectileType;
   private long timeLine;
   private boolean canShootLight;
   private boolean canShootHeavy;
@@ -22,7 +22,7 @@ public class Goliath {
     health = 250;
     x = 800; //placeholder
     y = 800; //placeholder
-    projectileType = placeholder;
+    projectileType = ""; //placeholder
     timeLine = 0; //placeholder
     canShootLight = true;
     canShootHeavy = true;

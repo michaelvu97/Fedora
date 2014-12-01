@@ -11,7 +11,7 @@ public class Shade {
   private int y;
   private double xVelocity;
   private double yVelocity;
-  private Projectile projectileType;
+  private String projectileType;
   private int shiftTimer;
   private int weaponTimer;
   private int bombTimer;
@@ -29,7 +29,7 @@ public class Shade {
     y = 800; //placeholder
     xVelocity = 1;
     yVelocity = 1;
-    projectileType = placeholder;
+    projectileType = ""; //placeholder
     shiftTimer = 8; //shift has an 8 sec cd
     weaponTimer = 15; //weapon switches have a 15 sec cd
     bombTimer = 20; //bombs have a 20 sec cd
