@@ -35,7 +35,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private AudioPlayer audioPlayer;
   
-  BufferedImage img_blueGlow = null, img_redGlow = null, img_playerRed = null, img_playerBlue = null, img_mookRed = null, img_mookBlue = null, img_shotBlue = null, img_shotRed = null, img_spaceBG1 = null;
+  BufferedImage img_blueGlow = null, img_redGlow = null, img_playerRed = null, img_playerBlue = null, img_mookRed = null, img_mookBlue = null, img_shotBlue = null, img_shotRed = null, img_spaceBG1 = null, img_vignette = null;
   
   //More on screen object lists
   public ArrayList<HitScan> hitScans = new ArrayList<HitScan>();
@@ -192,6 +192,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         g.drawImage(img_shotBlue, (int)p.getX(), (int)p.getY(), null);
       }
     }
+    /*
+     * HUD Overlay
+     */
+    
+    //Vignette
+    g.drawImage(img_vignette, 0, 0, null);
   }
   
   @Override
@@ -249,6 +255,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       img_shotBlue = ImageIO.read(new File (workingDir + FileStore.SHOT_BLUE));
       img_shotRed = ImageIO.read(new File (workingDir + FileStore.SHOT_RED));
       img_spaceBG1 = ImageIO.read(new File (workingDir + FileStore.SPACE_BG_1));
+      img_vignette = ImageIO.read(new File (workingDir + FileStore.FX_VIGNETTE));
     } catch (IOException e) {
       e.printStackTrace();
       noErrors = false;
