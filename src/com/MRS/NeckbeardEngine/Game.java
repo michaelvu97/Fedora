@@ -33,7 +33,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   public Player player;
   public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
   
-  private AudioPlayer audioPlayer;
+  private Sound audioPlayer;
   
   BufferedImage img_blueGlow = null, img_redGlow = null, img_playerRed = null, img_playerBlue = null, img_mookRed = null, img_mookBlue = null, img_shotBlue = null, img_shotRed = null, img_spaceBG1 = null, img_vignette = null;
   
@@ -59,8 +59,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     addKeyListener(this);
     addMouseListener(this);
     enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
-    audioPlayer = new AudioPlayer();
-    audioPlayer.BGM1.play();
+    
+    //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
     loadImages();
   }
@@ -119,7 +119,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     if (player.canShoot()) {
       if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
-        audioPlayer.LaserShot1.play();
+        //Play laser shot sound
         if (player.getState()==State.RED) {
           playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
         } else {
@@ -242,7 +242,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //Currently unused
   }
   
-  public boolean loadImages() {
+  public boolean loadImages () {
     boolean noErrors = true;
     try {
       String workingDir = System.getProperty("user.dir"); 
@@ -261,5 +261,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       noErrors = false;
     }
     return noErrors;
+  }
+  
+  public void loadSound () {
+    String workingDir = System.getProperty("user.dir");
+    
+    //TODO put in levels instead of here
+    String[] clips = {workingDir + FileStore.BG_MUSIC_1};
+    
+    audioPlayer = new Sound(clips); 
   }
 }

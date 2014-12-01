@@ -38,12 +38,13 @@ public class Main extends JFrame {
                     main.setSize(WIDTH, HEIGHT);
                     main.setResizable(false);
                     //main.setUndecorated(true);
-                    main.setVisible(true);
                     
                     //Game set up
                     Game game = new Game();
                     game.setSize(WIDTH, HEIGHT);
                     main.add(game);
+                    
+                    main.setVisible(true);
                     game.requestFocus();
                     
                     //Timer setup
