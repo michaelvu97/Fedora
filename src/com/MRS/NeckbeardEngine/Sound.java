@@ -1,6 +1,8 @@
 /*Description: To Use sounds, create new instance of Sound with a String array of the files to be opened in that level.
  * Then access those files by using the methods and remembering what order you put them in.
  * Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
+ * Note2: This loads the entire music file(so it uses a lot of memory) so it is smart to make the files small
+ * and remove them once they are done, even if that means you have to add them again later
  * e.g. 
  * String file = {"one.wav","two.wav"};
  * 
