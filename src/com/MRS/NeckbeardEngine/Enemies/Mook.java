@@ -8,8 +8,8 @@ import com.MRS.NeckbeardEngine.State;
 
 public class Mook extends Enemy {
      
-     public static int DEFAULT_HITBOX_WIDTH = 5;
-     public static int DEFAULT_HITBOX_HEIGHT = 5;
+     public static int DEFAULT_HITBOX_WIDTH = 60;
+     public static int DEFAULT_HITBOX_HEIGHT = 60;
      public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot) {
           super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine, canShoot);
           health = 1;          

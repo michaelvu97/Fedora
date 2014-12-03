@@ -18,7 +18,7 @@ public abstract class Projectile {
      protected double xVelocity;
      protected double yVelocity;
      protected String imgPath;
-     protected HitBox hitBox;
+     public HitBox hitBox;
      protected double duration;
      
      //Static fields
@@ -28,14 +28,13 @@ public abstract class Projectile {
      public static double FastShotVelocity = 2;
      
      //Constructor
-     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, HitBox hitBox, double duration) {
+     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {
           this.state = state;
           this.x = x;
           this.y = y;
           this.xVelocity = xVelocity;
           this.yVelocity = yVelocity;
           this.imgPath = imgPath;
-          this.hitBox = hitBox;
           this.duration = duration;
      }
      //Accessors
