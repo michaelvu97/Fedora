@@ -1,5 +1,7 @@
 package com.MRS.NeckbeardEngine;
 
+import java.awt.*;
+
 public class PowerUpPickup {
   private int x;
   private int y;
@@ -11,5 +13,9 @@ public class PowerUpPickup {
     this.x = x;
     this.y = y;
     this.heldPowerUp = heldPowerUp;
+  }
+  
+  public void paint(Graphics2D g) {
+                                   
   }
 }

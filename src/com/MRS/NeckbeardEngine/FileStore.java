@@ -1,5 +1,6 @@
 /*
  * This class is just for the static image paths, not for instantiation
+ * make sure to prefix any uses of this with System.getProperty("user.dir"); 
  */
 package com.MRS.NeckbeardEngine;
 
@@ -19,4 +20,21 @@ public class FileStore {
                             SPACE_BG_1  = assets + "SpaceBG1.png",
                             BG_MUSIC_1  = assets + sound + "TestBGM1.wav",
                             LASER_SHOT_1= assets + sound + "LaserShot.wav";
+  
+  public final static String[] HITEXPLOSIONONE = {"\\Assets\\HitExplosionOne\\GrenadeExplosion0.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion1.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion2.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion3.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion4.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion5.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion6.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion7.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion8.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion9.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion10.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion11.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion12.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion13.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion14.png",
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion15.png"};
 }

@@ -12,6 +12,9 @@
  * 
  * player.setVolume(0,-40.0); //sets volume of one.wav to -40.0
  */
+
+package com.MRS.NeckbeardEngine;
+
 import java.io.IOException;
 import java.net.URL;
 import javax.sound.sampled.AudioInputStream;

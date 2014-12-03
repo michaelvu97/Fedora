@@ -42,6 +42,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   public ArrayList<Projectile> enemyProjectiles = new ArrayList<Projectile>();
   public ArrayList<Projectile> playerProjectiles = new ArrayList<Projectile>();
   public ArrayList<PowerUpPickup> powerUpPickups = new ArrayList<PowerUpPickup>();
+  public ArrayList<Explosion> explosions = new ArrayList<Explosion>();
   
   public Level level;
   
@@ -59,7 +60,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     addKeyListener(this);
     addMouseListener(this);
     enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
-    powerUpPickups.add(new PowerUpPickUp(150, 150, null));
+    explosions.add(new Explosion(50, 50, Explosion.EXPLOSION_TYPE_HIT));
+    powerUpPickups.add(new PowerUpPickup(150, 150, null));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
@@ -158,11 +160,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     repaint();
   }
   
-  public void paintComponent(Graphics g) {
+  public void paintComponent(Graphics g1) {
+    Graphics2D g = (Graphics2D) g1;
     //Paints all gui
     g.setColor(Color.BLACK);
     g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
     g.drawImage(img_spaceBG1, 0, 0, null);
+    
+    player.paint(g);
     
     //Enemies
     for (int i = 0; i < enemies.size(); i++) {
@@ -176,10 +181,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       }
     }
     
-    if (player.getState()==State.RED) {
-      g.drawImage(img_playerRed, player.getX(), player.getY(), null);
-    } else if (player.getState() == State.BLUE){
-      g.drawImage(img_playerBlue, player.getX(), player.getY(), null);
+    for (int i = 0; i < explosions.size(); i++) {
+      explosions.get(i).paint(g);
+      if (explosions.get(i).getCompleted()) {
+        explosions.remove(i--);
+      }
     }
     
     //Paint shots temporary
@@ -249,6 +255,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //Currently unused
   }
   
+  //remove some of this stuff
   public boolean loadImages () {
     boolean noErrors = true;
     try {
