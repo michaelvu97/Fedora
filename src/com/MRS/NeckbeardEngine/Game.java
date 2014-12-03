@@ -60,7 +60,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     addKeyListener(this);
     addMouseListener(this);
     enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
-    explosions.add(new Explosion(50, 50, Explosion.EXPLOSION_TYPE_HIT));
     powerUpPickups.add(new PowerUpPickup(150, 150, null));
     
     //audioPlayer.testSound
@@ -190,14 +189,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //Paint shots temporary
     for (int i = 0; i < playerProjectiles.size(); i++) {
-      Projectile p = playerProjectiles.get(i);
-      if (p.getState()==State.RED) {
-        g.drawImage(img_redGlow, (int)p.getX() - 128 , (int)p.getY() - 128, null);
-        g.drawImage(img_shotRed, (int)p.getX(), (int)p.getY(), null);
-      } else {
-        g.drawImage(img_blueGlow, (int)p.getX() - 128 , (int)p.getY() - 128, null);
-        g.drawImage(img_shotBlue, (int)p.getX(), (int)p.getY(), null);
-      }
+      playerProjectiles.get(i).paint(g);
     }
     
     //Power-Ups
@@ -262,12 +254,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       String workingDir = System.getProperty("user.dir"); 
       img_blueGlow = ImageIO.read(new File (workingDir + FileStore.FX_BLUE_GLOW));
       img_redGlow = ImageIO.read(new File (workingDir + FileStore.FX_RED_GLOW));
-      img_playerRed = ImageIO.read(new File (workingDir + FileStore.PLAYER_RED));
-      img_playerBlue = ImageIO.read(new File (workingDir + FileStore.PLAYER_BLUE));
       img_mookRed = ImageIO.read(new File (workingDir + FileStore.MOOK_RED));
       img_mookBlue = ImageIO.read(new File (workingDir + FileStore.MOOK_BLUE));
-      img_shotBlue = ImageIO.read(new File (workingDir + FileStore.SHOT_BLUE));
-      img_shotRed = ImageIO.read(new File (workingDir + FileStore.SHOT_RED));
       img_spaceBG1 = ImageIO.read(new File (workingDir + FileStore.SPACE_BG_1));
       img_vignette = ImageIO.read(new File (workingDir + FileStore.FX_VIGNETTE));
     } catch (IOException e) {

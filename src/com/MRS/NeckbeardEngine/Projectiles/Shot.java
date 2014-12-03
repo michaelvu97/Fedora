@@ -27,7 +27,27 @@ public class Shot extends Projectile {
   }
   
   @Override
-  public void paint(Graphics2D g2d) {
-    g2d.drawImage(img,x,y,null);
+  public void paint(Graphics2D g) {
+    String workingDir = System.getProperty("user.dir");
+    String path = "";
+    if (state == State.RED) {
+      if (yVelocity < 0) {
+        path = workingDir + FileStore.SHOT_RED;
+      } else {
+        //enemy shot image
+      }
+    } else if (state == State.BLUE) {
+      if (yVelocity < 0) {
+        path = workingDir + FileStore.SHOT_BLUE;
+      } else {
+        //enemy shot image
+      }
+    }
+    try {
+      img = ImageIO.read(new File (path));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    g.drawImage(img,x,y,null);
   }
 }

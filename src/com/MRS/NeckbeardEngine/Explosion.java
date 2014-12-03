@@ -17,10 +17,15 @@ public class Explosion {
   
   public static final String EXPLOSION_TYPE_HIT = "EXPLOSION_TYPE_HIT";
   
+  public static final int HIT_OFFSET_X = 0;
+  public static final int HIT_OFFSET_Y = 0;
+  
   public Explosion (int x, int y, String explosionType) {
     x = x;
     y = y;
     if (explosionType.equals(EXPLOSION_TYPE_HIT)) {
+      x += HIT_OFFSET_X;
+      y += HIT_OFFSET_Y;
       String workingDir = System.getProperty("user.dir"); 
       for (int i = 0; i < FileStore.HITEXPLOSIONONE.length; i++) {
         try {
