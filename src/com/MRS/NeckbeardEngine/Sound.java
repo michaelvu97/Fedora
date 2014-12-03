@@ -1,8 +1,6 @@
 /*Description: To Use sounds, create new instance of Sound with a String array of the files to be opened in that level.
  * Then access those files by using the methods and remembering what order you put them in.
  * Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
- * Note2: This loads the entire music file(so it uses a lot of memory) so it is smart to make the files small
- * and remove them once they are done, even if that means you have to add them again later
  * e.g. 
  * String file = {"one.wav","two.wav"};
  * 
@@ -28,7 +26,7 @@ import java.util.ArrayList;
 
 public class  Sound{
   public Mixer mixer;
-  public ArrayList<Clip> sounds = new ArrayList<Clip>(1);
+  public ArrayList<CustomClip> sounds = new ArrayList<CustomClip>(1);
   
   public Sound(String[] file){
     Mixer.Info[] mixInfos = AudioSystem.getMixerInfo();
@@ -36,11 +34,12 @@ public class  Sound{
     DataLine.Info dataInfo = new DataLine.Info(Clip.class, null);
     try{
       for(int i = 0; i<file.length;i++) {
-        Clip clip;
-        clip = (Clip)mixer.getLine(dataInfo); 
+        CustomClip clip = new CustomClip();
+        clip.c = (Clip)mixer.getLine(dataInfo); 
         URL filePath = Sound.class.getResource(file[i]);
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(filePath);
-        clip.open(audioStream);
+        clip.c.open(audioStream);
+        clip.id = file[i];
         sounds.add(i,clip);
       }
     }
@@ -48,48 +47,87 @@ public class  Sound{
     catch(UnsupportedAudioFileException uafe){uafe.printStackTrace();}
     catch(IOException ioe){ioe.printStackTrace();}
   }
-  public void play(int i) {                                                      //Play
-    Clip c = sounds.get(i); 
-    c.start();
+  public void play(String file) {
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(file)) {
+      Clip c = sounds.get(i).c; 
+      c.start();
+      }
+    }                                                                      //Play
   }
-  public void stop(int i) {                                                      //Pause
-    Clip c = sounds.get(i);
-    c.stop();
+  public void stop(String file) {                                                      //Pause
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(file)) {
+      Clip c = sounds.get(i).c; 
+      c.stop();
+      }
+    }
   }
-  public void loop(int i, int loops) {                                           //Loop(use LOOP_CONTINUOUSLY for forever)
-    Clip c = sounds.get(i);
-    c.loop(loops);
+  public void loop(String file, int loops) {                                           //Loop(use LOOP_CONTINUOUSLY for forever)
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(file)) {
+      Clip c = sounds.get(i).c; 
+      c.loop(loops);
+      }
+    }
   }
-  public void setMicrosecondPosition(int i, long start){                         //Scrub to that position
-    Clip c = sounds.get(i);
-    c.setMicrosecondPosition(start);
+  public void setMicrosecondPosition(String file, long start){                         //Scrub to that position
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(file)) {
+      Clip c = sounds.get(i).c; 
+      c.setMicrosecondPosition(start);
+      }
+    }
   }
-  public void setLoopPoints(int i, int start, int end) {                         //Set Loop Points, must know frames
-    Clip c = sounds.get(i);
-    c.setLoopPoints(start,end);
+  public void setLoopPoints(String file, int start, int end) {                         //Set Loop Points, must know frames
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(file)) {
+      Clip c = sounds.get(i).c; 
+      c.setLoopPoints(start,end);
+      }
+    }
   }
-  public void setVolume(int i,float vol) {                                       //Set volume range is -80.0f to 6.0f
-    Clip clip = sounds.get(i);
+  public void setVolume(String file,float vol) {                                       //Set volume.(range is -80.0f to 6.0f)
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(file)) {
+      Clip clip = sounds.get(i).c;
     FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
     gainControl.setValue(vol);
+      }
+    }
+    
   }
   public void addSound(String file) {                                            //Add new sound, will be added to the end of list
     Mixer.Info[] mixInfos = AudioSystem.getMixerInfo();
     mixer = AudioSystem.getMixer(mixInfos[0]);
     DataLine.Info dataInfo = new DataLine.Info(Clip.class, null);
-    Clip c;
+    CustomClip clip = new CustomClip();
     try{
-      c = (Clip)mixer.getLine(dataInfo);    
+      clip.c = (Clip)mixer.getLine(dataInfo);    
       URL filePath = Sound.class.getResource(file);
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(filePath);
-      c.open(audioStream);
-      sounds.add(c);
+      clip.c.open(audioStream);
+      clip.id = file;
+      sounds.add(clip);
     }
     catch(LineUnavailableException lue){lue.printStackTrace();}
     catch(UnsupportedAudioFileException uafe){uafe.printStackTrace();}
     catch(IOException ioe){ioe.printStackTrace();}
   }
-  public void delSound(int i) {     //Remove file(to free up space)
-    sounds.remove(i);               //Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
+  public void delSound(String file) {     //Remove file(to free up space)
+                   //Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(file)) {
+      sounds.remove(i);
+      }
+    }
+  }
+  public String getId(int i) {
+    CustomClip c = sounds.get(i);
+    System.out.println(c.id);
+    return c.id;
+  }
+  public int getSize() {
+    return sounds.size();
   }
 }
