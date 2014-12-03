@@ -7,6 +7,9 @@
  * This is the abstract which determines what fields and methods all enemies will have.
  */
 package com.MRS.NeckbeardEngine;
+
+import java.awt.Graphics2D;
+
 public abstract class Enemy {
   protected State state;//enums
   protected int health;
@@ -103,5 +106,7 @@ public abstract class Enemy {
   }
   
   abstract public void animate();//to animate the enemy
+  
+  abstract public void paint(Graphics2D g);
   
 }

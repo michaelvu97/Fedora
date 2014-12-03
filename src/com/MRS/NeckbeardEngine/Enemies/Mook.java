@@ -1,10 +1,12 @@
 package com.MRS.NeckbeardEngine.Enemies;
 
-import com.MRS.NeckbeardEngine.Enemy;
-import com.MRS.NeckbeardEngine.HitBox;
-import com.MRS.NeckbeardEngine.PowerUpPickup;
-import com.MRS.NeckbeardEngine.Projectile;
-import com.MRS.NeckbeardEngine.State;
+import com.MRS.NeckbeardEngine.*;
+
+import java.awt.*;
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Mook extends Enemy {
      
@@ -20,5 +22,27 @@ public class Mook extends Enemy {
       
           //Swag
           
+     }
+     
+     @Override
+     public void paint (Graphics2D g) {
+       BufferedImage img = null;
+       
+       String workingDir = System.getProperty("user.dir");
+       String path = "";
+       
+       if (state == State.RED) {
+         path = workingDir + FileStore.MOOK_RED;
+       } else if (state == State.BLUE) {
+         path = workingDir + FileStore.MOOK_BLUE;
+       }
+       
+       try {
+         img = ImageIO.read(new File(path));
+       } catch (IOException e) {
+         e.printStackTrace();
+       }
+       
+       g.drawImage(img, x, y, null);
      }
 }

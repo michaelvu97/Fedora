@@ -170,14 +170,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //Enemies
     for (int i = 0; i < enemies.size(); i++) {
-      Enemy e = enemies.get(i);
-      if (e instanceof Mook) {
-        if (e.getState()==State.RED) {
-          g.drawImage(img_mookRed, e.getX(), e.getY(), null);
-        } else {
-          g.drawImage(img_mookBlue, e.getX(), e.getY(), null);
-        }
-      }
+      enemies.get(i).paint(g);
     }
     
     for (int i = 0; i < explosions.size(); i++) {
@@ -254,8 +247,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       String workingDir = System.getProperty("user.dir"); 
       img_blueGlow = ImageIO.read(new File (workingDir + FileStore.FX_BLUE_GLOW));
       img_redGlow = ImageIO.read(new File (workingDir + FileStore.FX_RED_GLOW));
-      img_mookRed = ImageIO.read(new File (workingDir + FileStore.MOOK_RED));
-      img_mookBlue = ImageIO.read(new File (workingDir + FileStore.MOOK_BLUE));
       img_spaceBG1 = ImageIO.read(new File (workingDir + FileStore.SPACE_BG_1));
       img_vignette = ImageIO.read(new File (workingDir + FileStore.FX_VIGNETTE));
     } catch (IOException e) {
