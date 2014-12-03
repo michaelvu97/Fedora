@@ -59,6 +59,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     addKeyListener(this);
     addMouseListener(this);
     enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
+    powerUpPickups.add(new PowerUpPickUp(150, 150, null));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
@@ -191,6 +192,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         g.drawImage(img_blueGlow, (int)p.getX() - 128 , (int)p.getY() - 128, null);
         g.drawImage(img_shotBlue, (int)p.getX(), (int)p.getY(), null);
       }
+    }
+    
+    //Power-Ups
+    for (int i = 0; i < powerUpPickups.size(); i++) {
+      PowerUpPickup p = powerUpPickups.get(i);
+      p.paint(g);
     }
     /*
      * HUD Overlay
