@@ -54,9 +54,4 @@ public class Main extends JFrame {
                }
           });
      }
-     
-     public Main () {
-          //Don't really need this
-     }
-  
 }
