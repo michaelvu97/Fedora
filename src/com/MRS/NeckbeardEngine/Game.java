@@ -60,6 +60,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     addKeyListener(this);
     addMouseListener(this);
     enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
+    enemies.add(new Mook(State.RED, 300, 100, 0, 0, "Shot", null, 0, true));
+    enemies.get(1).setHealth(5);
     powerUpPickups.add(new PowerUpPickup(150, 150, null));
     
     //audioPlayer.testSound
@@ -149,10 +151,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         //MAKE SURE TO CHANGE CHECK FIRST ONCE RADIAL HITBOXES ARE ADDED
         if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)) {
           e.setHealth(e.getHealth() - 1);
+          explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
+          playerProjectiles.remove(p1);
           if (e.getHealth() <= 0) {
-            explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
+            explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
             enemies.remove(e);
-            playerProjectiles.remove(p1);
+            
           }
         }
       }
@@ -179,6 +183,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     repaint();
   }
   
+  /*
+   * Controls all painting
+   */
   public void paintComponent(Graphics g1) {
     Graphics2D g = (Graphics2D) g1;
     //Paints all gui
@@ -193,6 +200,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       enemies.get(i).paint(g);
     }
     
+    //Explosions
     for (int i = 0; i < explosions.size(); i++) {
       explosions.get(i).paint(g);
       if (explosions.get(i).getCompleted()) {

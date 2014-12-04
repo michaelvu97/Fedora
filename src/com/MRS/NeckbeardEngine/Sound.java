@@ -127,7 +127,6 @@ public class  Sound{
   }
   public String getId(int i) {
     CustomClip c = sounds.get(i);
-    System.out.println(c.id);
     return c.id;
   }
   public int getSize() {

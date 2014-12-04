@@ -21,7 +21,8 @@ public class FileStore {
                             BG_MUSIC_1  = assets + sound + "TestBGM1.wav",
                             LASER_SHOT_1= assets + sound + "LaserShot.wav";
   
-  public final static String[] HITEXPLOSIONONE = {"\\Assets\\HitExplosionOne\\GrenadeExplosion0.png",
+  public final static String[] HITEXPLOSIONONE = {
+    "\\Assets\\HitExplosionOne\\GrenadeExplosion0.png",
     "\\Assets\\HitExplosionOne\\GrenadeExplosion1.png",
     "\\Assets\\HitExplosionOne\\GrenadeExplosion2.png",
     "\\Assets\\HitExplosionOne\\GrenadeExplosion3.png",
@@ -37,4 +38,29 @@ public class FileStore {
     "\\Assets\\HitExplosionOne\\GrenadeExplosion13.png",
     "\\Assets\\HitExplosionOne\\GrenadeExplosion14.png",
     "\\Assets\\HitExplosionOne\\GrenadeExplosion15.png"};
+  
+  public final static String[] DEATHEXPLOSIONMEDIUM = {
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion0.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion1.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion2.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion3.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion4.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion5.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion6.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion7.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion8.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion9.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion10.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion11.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion12.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion13.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion14.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion15.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion16.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion17.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion18.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion19.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion20.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion21.png",
+    "\\Assets\\DeathExplosionMedium\\DeathExplosion22.png"};
 }

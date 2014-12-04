@@ -16,22 +16,35 @@ public class Explosion {
   ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
   
   public static final String EXPLOSIONTYPE_HIT = "EXPLOSIONTYPE_HIT";
+  public static final String EXPLOSIONTYPE_DEATHMEDIUM = "EXPLOSIONTYPE_DEATHMEDIUM";
   
   //Used to center the explosion properly
   public static final int HIT_OFFSET_X = -17;
-  public static final int HIT_OFFSET_Y = -70;
+  public static final int HIT_OFFSET_Y = -80;
+  public static final int DEATHMEDIUM_OFFSET_X = 0;
+  public static final int DEATHMEDIUM_OFFSET_Y = 0;
   
   public Explosion (int x, int y, String explosionType) {
     this.x = x;
     this.y = y;
     if (explosionType.equals(EXPLOSIONTYPE_HIT)) {
-      System.out.println("offset");
       this.x += HIT_OFFSET_X;
       this.y += HIT_OFFSET_Y;
       String workingDir = System.getProperty("user.dir"); 
       for (int i = 0; i < FileStore.HITEXPLOSIONONE.length; i++) {
         try {
           frames.add(frames.size(), ImageIO.read(new File (workingDir + FileStore.HITEXPLOSIONONE[i])));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    } else if (explosionType.equals(EXPLOSIONTYPE_DEATHMEDIUM)) {
+      this.x += DEATHMEDIUM_OFFSET_X;
+      this.y += DEATHMEDIUM_OFFSET_Y;
+      String workingDir = System.getProperty("user.dir"); 
+      for (int i = 0; i < FileStore.DEATHEXPLOSIONMEDIUM.length; i++) {
+        try {
+          frames.add(frames.size(), ImageIO.read(new File (workingDir + FileStore.DEATHEXPLOSIONMEDIUM[i])));
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -43,7 +56,6 @@ public class Explosion {
     if (animationPosition >= frames.size()) {
       animationCompleted = true;
     } else {
-      System.out.println(x + " " + y);
       g.drawImage(frames.get(animationPosition++), x, y, null);
     }
   }
