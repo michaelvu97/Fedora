@@ -19,7 +19,7 @@ public abstract class Enemy {
   protected double yVelocity;
   protected String  projectileType;//will be more specific for every enemy
   protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
-  public HitBox hitBox;//hitbox not set to anything yet, because that will happen in the individual enemy classes
+  protected HitBox hitBox;//hitbox not set to anything yet, because that will happen in the individual enemy classes
   protected long timeLine;//used to determine at what time they will enter the game screen/spawn
   protected boolean canShoot;//checks to see if an enemy can fire
   
@@ -38,7 +38,8 @@ public abstract class Enemy {
   public void move() {
     x += xVelocity;
     y += yVelocity;
-    //hitbox movement
+    hitBox.setX(x);
+    hitBox.setY(y);
   }
   
   //Accessors
@@ -53,6 +54,9 @@ public abstract class Enemy {
   }
   public int getY() {
     return y;
+  }
+  public HitBox getHitBox() {
+    return hitBox;
   }
   public double getXVelocity() {
     return xVelocity;

@@ -30,6 +30,20 @@
       return width;
     }
     
+    //Mutators
+    public void setX (int x) {
+      this.x = x;
+    }
+    public void setY (int y) {
+      this.y = y;
+    }
+    public void setHeight (int height) {
+      this.height = height;
+    }
+    public void setWidth (int width) {
+      this.width = width;
+    }
+    
     //Collisions
     public static boolean checkCollisionRectRect(HitBox h1, HitBox h2) {
       Rectangle r1 = new Rectangle(h1.getX(), h1.getY(), h1.getWidth(), h1.getHeight());

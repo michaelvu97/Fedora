@@ -123,9 +123,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
         //Play laser shot sound
         if (player.getState()==State.RED) {
-          playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
+          playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
         } else {
-          playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", new HitBox(0,0,10,10), 30));
+          playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
         }
         player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
         player.setCanShoot(false);
@@ -134,10 +134,31 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //PlayerProjectiles Movement
     for (int i = 0; i < playerProjectiles.size(); i++) {
-      Projectile p = playerProjectiles.get(i);
-      p.setX((int)(p.getX() + (int)p.getXVelocity()));
-      p.setY((int)(p.getY() + (int)p.getYVelocity()));
+      playerProjectiles.get(i).move();
     }
+    
+    //enemy movement
+    for (int i = 0; i < enemies.size(); i++) {
+      Enemy e = enemies.get(i);
+      e.move();
+      for (int j = 0; j < playerProjectiles.size(); j++) {
+        Projectile p1 = playerProjectiles.get(j);
+        HitBox eHitBox = e.getHitBox();
+        HitBox pHitBox = p1.getHitBox();
+        
+        //MAKE SURE TO CHANGE CHECK FIRST ONCE RADIAL HITBOXES ARE ADDED
+        if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)) {
+          e.setHealth(e.getHealth() - 1);
+          if (e.getHealth() <= 0) {
+            explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
+            enemies.remove(e);
+            playerProjectiles.remove(p1);
+          }
+        }
+      }
+    }
+    
+    //player movement
     player.move();
     
     //Switch State
@@ -154,7 +175,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     } else if (stateAlreadySwitched) {
       stateAlreadySwitched = false; 
     }
-    
     
     repaint();
   }

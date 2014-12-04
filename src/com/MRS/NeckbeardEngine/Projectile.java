@@ -18,7 +18,7 @@ public abstract class Projectile {
      protected double xVelocity;
      protected double yVelocity;
      protected String imgPath;
-     public HitBox hitBox;
+     protected HitBox hitBox;
      protected double duration;
      
      //Static fields
@@ -87,6 +87,13 @@ public abstract class Projectile {
      }
      public void setDuration (double duration) {
           this.duration = duration;
+     }
+     
+     public void move () {
+       x += xVelocity;
+       y += yVelocity;
+       hitBox.setX(x);
+       hitBox.setY(y);
      }
      //Abstract methods
      abstract public void paint(Graphics2D g2d);

@@ -15,17 +15,19 @@ public class Explosion {
   
   ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
   
-  public static final String EXPLOSION_TYPE_HIT = "EXPLOSION_TYPE_HIT";
+  public static final String EXPLOSIONTYPE_HIT = "EXPLOSIONTYPE_HIT";
   
-  public static final int HIT_OFFSET_X = 0;
-  public static final int HIT_OFFSET_Y = 0;
+  //Used to center the explosion properly
+  public static final int HIT_OFFSET_X = -17;
+  public static final int HIT_OFFSET_Y = -70;
   
   public Explosion (int x, int y, String explosionType) {
-    x = x;
-    y = y;
-    if (explosionType.equals(EXPLOSION_TYPE_HIT)) {
-      x += HIT_OFFSET_X;
-      y += HIT_OFFSET_Y;
+    this.x = x;
+    this.y = y;
+    if (explosionType.equals(EXPLOSIONTYPE_HIT)) {
+      System.out.println("offset");
+      this.x += HIT_OFFSET_X;
+      this.y += HIT_OFFSET_Y;
       String workingDir = System.getProperty("user.dir"); 
       for (int i = 0; i < FileStore.HITEXPLOSIONONE.length; i++) {
         try {
@@ -41,6 +43,7 @@ public class Explosion {
     if (animationPosition >= frames.size()) {
       animationCompleted = true;
     } else {
+      System.out.println(x + " " + y);
       g.drawImage(frames.get(animationPosition++), x, y, null);
     }
   }
