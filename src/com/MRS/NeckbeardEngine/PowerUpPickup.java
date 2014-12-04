@@ -24,7 +24,7 @@ public class PowerUpPickup {
      }
      
      //Accessor
-     public HitBox getHitbox() {
+     public HitBox getHitBox() {
           return hitBox;
      }
      
@@ -38,7 +38,7 @@ public class PowerUpPickup {
      public void paint(Graphics2D g) {
           BufferedImage img = null;
           try {
-               img = ImageIO.read(new File("LodeStar/artsource/FastShotPowerUpIcon.png")); //Placeholder, will need to be changed for different icons
+               img = ImageIO.read(new File(System.getProperty("user.dir") + FileStore.POWERUP_FAST)); //Placeholder, will need to be changed for different icons
           } catch (IOException e) {
           }
           g.drawImage(img, x, y, null);
