@@ -167,7 +167,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           //Power Up Movement (Probably needs improvement)
           for (int i = 0; i < powerUpPickups.size(); i++) {
                PowerUpPickup p = powerUpPickups.get(i);
-               if (HitBox.checkCollisionRectRect(player.getHitBox(), p.getHitbox())) {
+               if (HitBox.checkCollisionRectRect(player.getHitBox(), p.getHitBox())) {
                     powerUpPickups.remove(i);
                }
                p.move();
