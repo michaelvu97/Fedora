@@ -24,13 +24,15 @@ public class Player {
      private boolean canShoot;
      private boolean shield;
      private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
-     private ArrayList<HitBox> hitBoxes = new ArrayList<HitBox>();
+     private HitBox hitBox;
      private int shotCoolDown = 0;
      
      public static int MAXSHOTCOOLDOWN = 20;
      public static float DRAG = 5F;
      public static int MAX_VELOCITY = 5;
      public static float ACCELERATION = 5F;
+     public static int DEFAULT_HITBOX_WIDTH = 60;
+     public static int DEFAULT_HITBOX_HEIGHT = 60;
      
      //Constructor
      public Player (int x, int y, int lives, State state) {
@@ -40,6 +42,7 @@ public class Player {
           this.yVelocity = 0;
           this.lives = lives;
           this.state = state;
+          this.hitBox = new HitBox(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
           canShoot = true;
      }
      
@@ -106,8 +109,8 @@ public class Player {
      public State getState() {
           return state;
      }
-     public ArrayList<HitBox> getHitBoxes() {
-          return hitBoxes;
+     public HitBox getHitBox() {
+          return hitBox;
      }
      public ArrayList<PowerUp> getPowerUps() {
           return powerUps;
@@ -145,9 +148,6 @@ public class Player {
      }
      public void addPowerUp(PowerUp p) {
           powerUps.add(p);
-     }
-     public void addHitBox(HitBox h) {
-          hitBoxes.add(h);
      }
      public void setShotCoolDown(int cd) {
           shotCoolDown = cd;

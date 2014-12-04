@@ -23,6 +23,11 @@ public class PowerUpPickup {
           hitBox = new HitBox(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
      }
      
+     //Accessor
+     public HitBox getHitbox() {
+          return hitBox;
+     }
+     
      //Moves Power Up Icon down the screen
      public void move() {
           y += yVelocity;
