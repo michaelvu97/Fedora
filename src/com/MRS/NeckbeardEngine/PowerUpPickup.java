@@ -31,7 +31,7 @@ public class PowerUpPickup {
      //Moves Power Up Icon down the screen
      public void move() {
           y += yVelocity;
-          hitBox.setY(yVelocity);
+          hitBox.setY(y + yVelocity);
      }
      
      //Paints the power up

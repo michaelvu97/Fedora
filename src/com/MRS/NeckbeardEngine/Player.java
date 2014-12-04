@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
 public class Player {
      //Fields
      private int lives, x, y;
-     private double xVelocity, yVelocity;
+     private int xVelocity, yVelocity;
      private State state;
      private boolean canShoot;
      private boolean shield;
@@ -28,9 +28,9 @@ public class Player {
      private int shotCoolDown = 0;
      
      public static int MAXSHOTCOOLDOWN = 20;
-     public static float DRAG = 5F;
+     public static int DRAG = 5;
      public static int MAX_VELOCITY = 5;
-     public static float ACCELERATION = 5F;
+     public static int ACCELERATION = 5;
      public static int DEFAULT_HITBOX_WIDTH = 60;
      public static int DEFAULT_HITBOX_HEIGHT = 60;
      
@@ -58,6 +58,8 @@ public class Player {
      public void move () {
           x += xVelocity;
           y += yVelocity;
+          hitBox.setX(x + xVelocity);
+          hitBox.setY(y + yVelocity);
      }
      
      public void accelerateForward () {
@@ -97,10 +99,10 @@ public class Player {
      public int getY() {
           return y;
      }
-     public double getXVelocity() {
+     public int getXVelocity() {
           return xVelocity;
      }
-     public double getYVelocity() {
+     public int getYVelocity() {
           return yVelocity;
      }
      public int getLives() {
@@ -134,10 +136,10 @@ public class Player {
      public void setState(State state) {
        this.state = state;
      }
-     public void setXVelocity(double xVelocity) {
+     public void setXVelocity(int xVelocity) {
           this.xVelocity = xVelocity;
      }
-     public void setYVelocity(double yVelocity) {
+     public void setYVelocity(int yVelocity) {
           this.yVelocity = yVelocity;
      }
      public void setLives(int lives) {
