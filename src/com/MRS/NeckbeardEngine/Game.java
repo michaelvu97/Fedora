@@ -66,6 +66,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           //audioPlayer.testSound
           player = new Player(500, 500, 3, State.RED);
           loadImages();
+          loadSound();
+          audioPlayer.play("BGM1");
      }
      
      public void step () {
@@ -122,7 +124,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           if (player.canShoot()) {
                if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
-                    //Play laser shot sound
+                    audioPlayer.play("LASER_SHOT_1");
                     if (player.getState()==State.RED) {
                          playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
                     } else {
@@ -295,7 +297,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           String workingDir = System.getProperty("user.dir");
           
           //TODO put in levels instead of here
-          String[] clips = {workingDir + FileStore.BG_MUSIC_1};
+          String[][] clips = {
+            {workingDir + FileStore.BG_MUSIC_1, "BGM1"},
+            {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"}
+          };
           
           audioPlayer = new Sound(clips); 
      }
