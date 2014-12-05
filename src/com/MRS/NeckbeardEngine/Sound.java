@@ -16,6 +16,7 @@
 package com.MRS.NeckbeardEngine;
 
 import java.io.IOException;
+import java.io.File;
 import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -31,7 +32,7 @@ public class  Sound{
   public Mixer mixer;
   public ArrayList<CustomClip> sounds = new ArrayList<CustomClip>(1);
   
-  public Sound(String[] file){
+  public Sound(String[][] file){
     Mixer.Info[] mixInfos = AudioSystem.getMixerInfo();
     mixer = AudioSystem.getMixer(mixInfos[0]);
     DataLine.Info dataInfo = new DataLine.Info(Clip.class, null);
@@ -39,10 +40,11 @@ public class  Sound{
       for(int i = 0; i<file.length;i++) {
         CustomClip clip = new CustomClip();
         clip.c = (Clip)mixer.getLine(dataInfo); 
-        URL filePath = Sound.class.getResource(file[i]);
+       // URL filePath = Sound.class.getResource(file[i]);
+        URL filePath = new File(file[i][0]).toURI().toURL();
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(filePath);
         clip.c.open(audioStream);
-        clip.id = file[i];
+        clip.id = file[i][1];
         sounds.add(i,clip);
       }
     }
@@ -54,6 +56,7 @@ public class  Sound{
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(file)) {
       Clip c = sounds.get(i).c; 
+      c.setMicrosecondPosition(0);
       c.start();
       }
     }                                                                      //Play
