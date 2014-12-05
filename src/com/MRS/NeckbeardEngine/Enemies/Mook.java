@@ -24,6 +24,10 @@ public class Mook extends Enemy {
           //Swag
           
      }
+     public void move () {
+          x+=xVelocity;
+          y+=yVelocity;
+     }
      
      @Override
      public void paint (Graphics2D g) {
