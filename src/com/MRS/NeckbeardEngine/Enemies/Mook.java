@@ -19,12 +19,19 @@ public class Mook extends Enemy {
      }
      
      @Override
-     public void animate () {
-      
-          //Swag
-          
+     public void animate (boolean collide) {
+      if(collide) {
+           switchDirections();
+      }
      }
-     
+     public void move () {
+          x+=xVelocity;
+          y+=yVelocity;
+     }
+     public void switchDirections () {
+     xVelocity*=-1;
+     yVelocity*=-1;
+     }
      @Override
      public void paint (Graphics2D g) {
        BufferedImage img = null;
