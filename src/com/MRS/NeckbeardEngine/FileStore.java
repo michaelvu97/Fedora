@@ -14,6 +14,8 @@ public class FileStore {
                             MOOK_BLUE   = assets + "MookBlue.png",
                             SHOT_RED    = assets + "ShotRed.png",
                             SHOT_BLUE   = assets + "ShotBlue.png",
+                            FAST_SHOT_RED = assets + "fastshotred.png",
+                            FAST_SHOT_BLUE = assets + "fastshotblue.png",
                             POWERUP_FAST = assets + "FastShotPowerUpIcon.png",
                             FX_BLUE_GLOW= assets + fx + "BlueGlow.png",
                             FX_RED_GLOW = assets + fx + "RedGlow.png",

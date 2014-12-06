@@ -25,7 +25,7 @@ public abstract class Projectile {
      public static double ShotVelocity = 14;
      public static double ScatterShotXVelocity = 1;
      public static double ScatterShotYVelocity = 1;
-     public static double FastShotVelocity = 2;
+     public static double FastShotVelocity = 28;
      
      //Constructor
      public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {

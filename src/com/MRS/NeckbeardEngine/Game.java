@@ -61,11 +61,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
           enemies.add(new Mook(State.RED, 300, 100, 0, 0, "Shot", null, 0, true));
           enemies.get(1).setHealth(5);
-          powerUpPickups.add(new PowerUpPickup(150, 150, null));
+          powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
           
           //audioPlayer.testSound
           player = new Player(500, 500, 3, State.RED);
           loadImages();
+          loadSound();
+          audioPlayer.play("BGM1");
      }
      
      public void step () {
@@ -122,11 +124,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           if (player.canShoot()) {
                if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
-                    //Play laser shot sound
+                    audioPlayer.play("LASER_SHOT_1");
                     if (player.getState()==State.RED) {
-                         playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
+                         if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
+                              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 30));
+                         else
+                              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
                     } else {
-                         playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
+                         if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
+                              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 30));
+                         else
+                              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
                     }
                     player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
                     player.setCanShoot(false);
@@ -168,6 +176,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           for (int i = 0; i < powerUpPickups.size(); i++) {
                PowerUpPickup p = powerUpPickups.get(i);
                if (HitBox.checkCollisionRectRect(player.getHitBox(), p.getHitBox())) {
+                    player.setOffensePowerUp(p.getHeldPowerUp());
                     powerUpPickups.remove(i);
                }
                p.move();
@@ -295,7 +304,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           String workingDir = System.getProperty("user.dir");
           
           //TODO put in levels instead of here
-          String[] clips = {workingDir + FileStore.BG_MUSIC_1};
+          String[][] clips = {
+               {workingDir + FileStore.BG_MUSIC_1, "BGM1"},
+               {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"}
+          };
           
           audioPlayer = new Sound(clips); 
      }

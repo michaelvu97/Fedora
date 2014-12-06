@@ -23,9 +23,13 @@ public class PowerUpPickup {
           hitBox = new HitBox(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
      }
      
-     //Accessor
+     //Accessors
      public HitBox getHitBox() {
           return hitBox;
+     }
+     
+     public PowerUp getHeldPowerUp() {
+          return heldPowerUp;
      }
      
      //Moves Power Up Icon down the screen
