@@ -67,7 +67,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           player = new Player(500, 500, 3, State.RED);
           loadImages();
           loadSound();
-          audioPlayer.play("BGM1");
+          audioPlayer.play("Montage");
      }
      
      public void step () {
@@ -306,6 +306,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           //TODO put in levels instead of here
           String[][] clips = {
                {workingDir + FileStore.BG_MUSIC_1, "BGM1"},
+               {workingDir + FileStore.MONTAGE, "Montage"},
                {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"}
           };
           
