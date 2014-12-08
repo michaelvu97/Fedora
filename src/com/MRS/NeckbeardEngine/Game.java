@@ -175,7 +175,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           HitBox pHitBox = p1.getHitBox();
           
           //MAKE SURE TO CHANGE CHECK FIRST ONCE RADIAL HITBOXES ARE ADDED
-          if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)) {
+          if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)  && e.getState() == p1.getState()) {
             e.setHealth(e.getHealth() - 1);
             explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
             playerProjectiles.remove(p1);
@@ -269,16 +269,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //Vignette
     g.drawImage(img_vignette, 0, 0, null);
-    
-    //Testing
-    g.setColor(Color.RED);
-    g.fillRect(0,0,2000, 2000);
-    g.setColor(Color.GREEN);
-    g.fillRect(0,0,730,990);
-    g.setColor(Color.BLUE);
-    g.fillRect(0,0,720,980);
-    g.setColor(Color.YELLOW);
-    g.fillRect(10,10,700,960);
   }
   
   @Override
