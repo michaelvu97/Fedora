@@ -177,4 +177,10 @@ public class  Sound{
   public int getSize() {
     return sounds.size();
   }
+    
+  public void stopAll() {
+    for (int i = 0; i < sounds.size(); i++) {
+      sounds.remove(i);
+    }
+  }
 }
