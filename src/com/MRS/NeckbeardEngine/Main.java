@@ -17,6 +17,8 @@ package com.MRS.NeckbeardEngine;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.Dimension;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -24,24 +26,37 @@ import javax.swing.SwingUtilities;
 public class Main extends JFrame {
  
      public static final int FRAME_RATE = 16, //60 fps  
-                             HEIGHT = 980, //16:9 720 ratio
+                             HEIGHT = 720, //16:9 720 ratio
                              WIDTH = 720;
      
      public static void main (String[] args) {
           //Main running method
           SwingUtilities.invokeLater(new Runnable() {
                public void run() {
+                 
+                    //Get insets (thanks to stackoverflow user ring_bearer)
+//                    JFrame temp = new JFrame("");
+//                    temp.setSize(0,0);
+//                    temp.pack();
+//                    temp.setResizable(false);
+//                    Insets insets = temp.getInsets();
+//                    temp = null;
+                    
                     //JFrame extension set up
                     Main main = new Main();
                     main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     main.setFocusable(false);
-                    main.setSize(WIDTH, HEIGHT);
+                    //main.setSize(new Dimension(insets.left + insets.right + WIDTH, insets.top + insets.bottom + HEIGHT));
+                    //System.err.println(main.getSize());
+                    main.setSize(WIDTH,HEIGHT);
+                   // main.setBounds(0, 0, insets.left + insets.right + WIDTH, insets.top + insets.bottom + HEIGHT);   
                     main.setResizable(false);
-                    //main.setUndecorated(true);
+                    main.setUndecorated(true);
                     
                     //Game set up
-                    Game game = new Game();
+                    Game game = new Game(main);
                     game.setSize(WIDTH, HEIGHT);
+                    
                     main.add(game);
                     
                     main.setVisible(true);
@@ -51,6 +66,8 @@ public class Main extends JFrame {
                     TimerTask timerTask = new GameTimer(game); //GameTimer has game.step() in run()
                     Timer timer = new Timer(true);
                     timer.scheduleAtFixedRate(timerTask, 0, FRAME_RATE);
+                    
+                    System.err.println(main.getSize());
                }
           });
      }
