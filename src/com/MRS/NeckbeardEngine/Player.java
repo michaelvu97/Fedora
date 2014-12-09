@@ -60,8 +60,8 @@ public class Player {
      public void move () {
           x += xVelocity;
           y += yVelocity;
-          hitBox.setX(x + xVelocity);
-          hitBox.setY(y + yVelocity);
+          hitBox.setX(x);
+          hitBox.setY(y);
      }
      
      public void accelerateForward () {
@@ -171,6 +171,7 @@ public class Player {
        } catch (IOException e) {
          e.printStackTrace();
        }
-
+       g.setColor(Color.RED);
+       g.drawRect(hitBox.getX(), hitBox.getY(), hitBox.getWidth(), hitBox.getHeight());
      }
 }

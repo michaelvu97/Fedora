@@ -67,7 +67,6 @@ public class Main extends JFrame {
                     Timer timer = new Timer(true);
                     timer.scheduleAtFixedRate(timerTask, 0, FRAME_RATE);
                     
-                    System.err.println(main.getSize());
                }
           });
      }

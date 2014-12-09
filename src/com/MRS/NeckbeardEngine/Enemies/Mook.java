@@ -12,6 +12,7 @@ public class Mook extends Enemy {
   
   public static int DEFAULT_HITBOX_WIDTH = 60;
   public static int DEFAULT_HITBOX_HEIGHT = 60;
+  
   public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine, canShoot);
     health = 1;          
@@ -21,8 +22,12 @@ public class Mook extends Enemy {
   public void animate (boolean collide) {
     
   }
+  
   //@Override
   public void animate (boolean collide,String version) {
+    
+    //Todo: add shooting to animate.
+    
     if(version.equalsIgnoreCase("stay")){
       if(x<Main.HEIGHT/2-(DEFAULT_HITBOX_WIDTH/2))
         xVelocity=20;
@@ -34,14 +39,19 @@ public class Mook extends Enemy {
       switchDirections();
     }
   }
+  
   public void move () {
     x+=xVelocity;
     y+=yVelocity;
+    hitBox.setX(x);
+    hitBox.setY(y);
   }
+  
   public void switchDirections () {
     xVelocity*=-1;
     yVelocity*=-1;
   }
+  
   @Override
   public void paint (Graphics2D g) {
     BufferedImage img = null;
