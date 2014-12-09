@@ -7,21 +7,21 @@
  * This is the enumeration for the 3 possible states for objects in the game:
  * RED, BLUE, or BOTH
  */
- 
+
 package com.MRS.NeckbeardEngine;
 
 public enum State {
- RED (1),
- BLUE (2),
- BOTH (3);
+  RED (1),
+  BLUE (2),
+  BOTH (3);
   
- private final int state;
- 
- private State (int state) {
-  this.state = state;
- }
- 
- public int getInt() {
-  return this.state;
- }
+  private final int state;
+  
+  private State (int state) {
+    this.state = state;
+  }
+  
+  public int getInt() {
+    return this.state;
+  }
 }
