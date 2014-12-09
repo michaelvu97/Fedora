@@ -31,8 +31,8 @@ public class Player {
      public static int DRAG = 5;
      public static int MAX_VELOCITY = 5;
      public static int ACCELERATION = 5;
-     public static int DEFAULT_HITBOX_WIDTH = 60;
-     public static int DEFAULT_HITBOX_HEIGHT = 60;
+     public static int DEFAULT_HITBOX_WIDTH = 96;
+     public static int DEFAULT_HITBOX_HEIGHT = 96;
      
      //Constructor
      public Player (int x, int y, int lives, State state) {
