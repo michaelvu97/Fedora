@@ -13,8 +13,7 @@ public class Elite extends Enemy {
           health = 3;
           hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
      }
-     @Override
-     public void animate () {
+     public void animate() {
       
           //Swag
           

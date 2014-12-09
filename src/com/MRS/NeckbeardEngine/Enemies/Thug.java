@@ -13,7 +13,7 @@ public class Thug extends Enemy {
         hitBox = new HitBox(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
   }
   
-  @Override
+  
   public void animate () {
     //thug lyfe
   }
