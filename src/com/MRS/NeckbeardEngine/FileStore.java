@@ -17,10 +17,12 @@ public class FileStore {
                             FAST_SHOT_RED = assets + "fastshotred.png",
                             FAST_SHOT_BLUE = assets + "fastshotblue.png",
                             POWERUP_FAST = assets + "FastShotPowerUpIcon.png",
+                            //Effects
                             FX_BLUE_GLOW= assets + fx + "BlueGlow.png",
                             FX_RED_GLOW = assets + fx + "RedGlow.png",
                             FX_VIGNETTE = assets + fx + "Vignette.png",
                             SPACE_BG_1  = assets + "SpaceBG1.png",
+                            //Audio
                             BG_MUSIC_1  = assets + sound + "TestBGM1.wav",
                             MONTAGE = assets + sound + "Montage.wav",
                             LASER_SHOT_1= assets + sound + "LaserShot.wav";
