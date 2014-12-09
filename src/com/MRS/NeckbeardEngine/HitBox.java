@@ -10,6 +10,7 @@
     private int width;
     
     public HitBox(int x, int y, int width, int height) {
+      //Constructor
       this.x=x;
       this.y=y;
       this.height=height;
@@ -44,7 +45,12 @@
       this.width = width;
     }
     
-    //Collisions
+    /*
+     * Collisions
+     * Unfortunately, each type of
+     * collision needs to be explicitly
+     * called, and cannot be implied
+     */
     public static boolean checkCollisionRectRect(HitBox h1, HitBox h2) {
       Rectangle r1 = new Rectangle(h1.getX(), h1.getY(), h1.getWidth(), h1.getHeight());
       Rectangle r2 = new Rectangle(h2.getX(), h2.getY(), h2.getWidth(), h2.getHeight());
