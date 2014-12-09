@@ -18,8 +18,18 @@ public class Mook extends Enemy {
           hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
      }
      
-     @Override
      public void animate (boolean collide) {
+       
+     }
+     //@Override
+     public void animate (boolean collide,String version) {
+      if(version.equalsIgnoreCase("stay")){
+      if(x<Main.HEIGHT/2-(DEFAULT_HITBOX_WIDTH/2))
+      xVelocity=20;
+      else
+      xVelocity = 0;
+      yVelocity = (5)/(2*Math.sqrt(x));
+      }
       if(collide) {
            switchDirections();
       }
