@@ -1,3 +1,9 @@
+/*
+ * Explosions are a gold-platey effect
+ * called generally when something is hit
+ * or dies. It cycles throught multiple 
+ * animation frames.
+ */
 package com.MRS.NeckbeardEngine;
 
 import java.awt.*;
@@ -25,8 +31,11 @@ public class Explosion {
   public static final int DEATHMEDIUM_OFFSET_Y = 0;
   
   public Explosion (int x, int y, String explosionType) {
+    
     this.x = x;
     this.y = y;
+    
+    //Checking which explosion image set to use
     if (explosionType.equals(EXPLOSIONTYPE_HIT)) {
       this.x += HIT_OFFSET_X;
       this.y += HIT_OFFSET_Y;
@@ -61,6 +70,7 @@ public class Explosion {
   }
   
   public boolean getCompleted() {
+    //True when there are no frames left.
     return animationCompleted;
   }
 }

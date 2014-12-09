@@ -4,7 +4,8 @@
  * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
  * Date: 9/17/14
  * 
- * This class reads keybindings from a data file, and compares KeyEvents to them to change input booleans.
+ * This class reads keybindings from a data file, 
+ * and compares KeyEvents to them to change input booleans.
  */
 
 package com.MRS.NeckbeardEngine;
@@ -40,7 +41,7 @@ public class KeyInputHandler {
      }
      
      public void sendKeyPressed (int keyPressed) {
-          //KeyEvent comparasin
+          //KeyEvent comparison
           if (keyPressed == keyUp) {
                up = true;    
           }
@@ -68,7 +69,7 @@ public class KeyInputHandler {
      }
      
      public void sendKeyReleased (int keyReleased) {
-          //KeyEvent comparasin
+          //KeyEvent comparison
           if (keyReleased == keyUp) {
                up = false;    
           }

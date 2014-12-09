@@ -1,3 +1,7 @@
+/*
+ * KeyValuePairs are for used for storing
+ * and reading user data from a text file
+ */
 package com.MRS.NeckbeardEngine;
 import java.util.ArrayList;
 

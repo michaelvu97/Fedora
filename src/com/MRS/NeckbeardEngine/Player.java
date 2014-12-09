@@ -17,6 +17,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Player {
+  
      //Fields
      private int lives, x, y;
      private int xVelocity, yVelocity;
@@ -27,6 +28,7 @@ public class Player {
      private HitBox hitBox;
      private int shotCoolDown = 0;
      
+     //Constants
      public static int MAXSHOTCOOLDOWN = 20;
      public static int DRAG = 5;
      public static int MAX_VELOCITY = 5;

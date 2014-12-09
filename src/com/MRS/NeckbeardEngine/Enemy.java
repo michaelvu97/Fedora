@@ -36,6 +36,10 @@ public abstract class Enemy {
   }
   
   public void move() {
+    /*
+     * Increments the position by every
+     * frame of time
+     */
     x += xVelocity;
     y += yVelocity;
     hitBox.setX(x);
