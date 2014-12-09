@@ -4,6 +4,9 @@ import java.util.ArrayList;
 public class DataHandler {
      
      public static ArrayList<KeyValuePair> parseFile (File f) {
+          /*
+           * Returns a list of key value pairs, based on a file.
+           */
           FileReader fr = null;
           BufferedReader br = null;
           try {
@@ -21,6 +24,9 @@ public class DataHandler {
           String s;
           try {
                while ((s = br.readLine ())!=null) {
+                    /*
+                     * Line by line parsing
+                     */
                     String key = "";
                     String value = "";
                     int i = 1;
@@ -47,6 +53,9 @@ public class DataHandler {
      }
      
      public static void addPairsToFile(ArrayList<KeyValuePair> pairs, File f) {
+          /*
+           * Writes the pairs to a file
+           */
           FileWriter fw;
           PrintWriter pw;
           pairs = KeyValuePair.removeDuplicates(pairs);
