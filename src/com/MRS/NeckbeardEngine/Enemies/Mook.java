@@ -18,7 +18,7 @@ public class Mook extends Enemy {
           hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
      }
      
-     //@Override
+     @Override
      public void animate (boolean collide) {
       if(collide) {
            switchDirections();

@@ -172,15 +172,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           //player movement
           player.move();
           
-          if (player.getX() < 0)
-               player.setX(0);
-          else if (player.getX() > (Main.WIDTH - player.DEFAULT_HITBOX_WIDTH))
-               player.setX(Main.WIDTH - player.DEFAULT_HITBOX_WIDTH);
-          if (player.getY() < 0)
-               player.setY(0);
-          else if (player.getY() > (Main.HEIGHT - player.DEFAULT_HITBOX_HEIGHT))
-               player.setY(Main.HEIGHT - player.DEFAULT_HITBOX_HEIGHT);
-          
           //Power Up Movement (Probably needs improvement)
           for (int i = 0; i < powerUpPickups.size(); i++) {
                PowerUpPickup p = powerUpPickups.get(i);

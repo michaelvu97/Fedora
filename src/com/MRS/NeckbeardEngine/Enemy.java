@@ -109,7 +109,7 @@ public abstract class Enemy {
     this.canShoot = canShoot;
   }
   
-  //abstract public void animate();//to animate the enemy
+  abstract public void animate();//to animate the enemy
   
   abstract public void paint(Graphics2D g);
   
