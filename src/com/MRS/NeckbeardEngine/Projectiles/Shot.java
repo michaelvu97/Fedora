@@ -19,6 +19,7 @@ public class Shot extends Projectile {
           try {
                img = ImageIO.read(new File(imgPath));
           } catch(IOException ioe){}
+          this.killTime = duration + System.currentTimeMillis();
      }
      
      @Override

@@ -143,14 +143,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           audioPlayer.play("LASER_SHOT_1");
           if (player.getState()==State.RED) {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 30));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
             else
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           } else {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 30));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
             else
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 30));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           }
           player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
           player.setCanShoot(false);
@@ -261,6 +261,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
    */
   public void paintComponent(Graphics g1) {
     Graphics2D g = (Graphics2D) g1;
+    
+    //Rendering hint
+    RenderingHints rh = new RenderingHints(
+             RenderingHints.KEY_TEXT_ANTIALIASING,
+             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    g.setRenderingHints(rh);
+    
     //Paints all gui
     g.setColor(Color.BLACK);
     g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
