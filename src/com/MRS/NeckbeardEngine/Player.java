@@ -172,7 +172,5 @@ public class Player {
        } catch (IOException e) {
          e.printStackTrace();
        }
-       g.setColor(Color.RED);
-       g.drawRect(hitBox.getX(), hitBox.getY(), hitBox.getWidth(), hitBox.getHeight());
      }
 }
