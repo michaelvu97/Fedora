@@ -37,6 +37,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private Sound audioPlayer;
   
+  private Font font_bold, font_reg;
+  
   private JFrame context;
   
   BufferedImage img_blueGlow = null, img_redGlow = null, img_playerRed = null, img_playerBlue = null, img_mookRed = null, img_mookBlue = null, img_shotBlue = null, img_shotRed = null, img_spaceBG1 = null, img_vignette = null;
@@ -67,14 +69,19 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
     enemies.add(new Mook(State.RED, 300, 100, 0, 0, "Shot", null, 0, true));
     enemies.get(1).setHealth(5);
+    
+    font_bold = new Font("Consolas", Font.BOLD, 32);
+    font_reg = new Font("Consolas", Font.PLAIN, 32);
+    
     powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
+    powerUpPickups.add(new PowerUpPickup(300, 0, PowerUp.BOMB));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
     player.setBombs(1);
     loadImages();
     loadSound();
-    audioPlayer.play("Montage");
+    //audioPlayer.play("Montage");
   }
   
   public void step () {
@@ -161,6 +168,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       if (player.getBombs() > 0 && keyInputHandler.bomb) {
         playerProjectiles.add((Projectile) new Bomb(State.BOTH, player.getX(), player.getY(), 0, 0, "", Bomb.DEFAULT_DURATION));
         player.setBombs(player.getBombs() - 1);
+        audioPlayer.play("Bomb");
       }
       
       //PlayerProjectiles Movement
@@ -204,9 +212,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)  && State.compare(e.getState(), p1.getState())) {
               e.setHealth(e.getHealth() - 1);
               explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
+              //play hit sound
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+                audioPlayer.play("Explosion1");
                 enemies.remove(e);
                 
               }
@@ -231,7 +241,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for (int i = 0; i < powerUpPickups.size(); i++) {
         PowerUpPickup p = powerUpPickups.get(i);
         if (HitBox.checkCollisionRectRect(player.getHitBox(), p.getHitBox())) {
-          player.setOffensePowerUp(p.getHeldPowerUp());
+          if (p.getHeldPowerUp() == PowerUp.BOMB) {
+            player.setBombs(player.getBombs() + 1);
+          } else {
+            if (p.getHeldPowerUp().getOffensive()) {
+              player.setOffensePowerUp(p.getHeldPowerUp());
+            } else {
+              player.setDefensePowerUp(p.getHeldPowerUp());
+            }
+          }
           powerUpPickups.remove(i);
         }
         p.move();
@@ -302,6 +320,26 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     /*
      * HUD Overlay
      */
+    g.setColor(Color.black);
+    g.setFont(font_bold);
+    g.drawString("Bombs: " + player.getBombs(), 0, 500);
+    g.setFont(font_reg);
+    if (player.getState() == State.RED) 
+      g.setColor(Color.RED);
+    else
+      g.setColor(Color.BLUE);
+    g.drawString("Bombs: " + player.getBombs(), 0, 500);
+    
+    g.setColor(Color.black);
+    g.setFont(font_bold);
+    g.drawString("Lives: " + player.getLives(), 0, 600);
+    if (player.getState() == State.RED) 
+      g.setColor(Color.RED);
+    else
+      g.setColor(Color.BLUE);
+    g.setFont(font_reg);
+    g.drawString("Lives: " + player.getLives(), 0, 600);
+    
     
     //Vignette
     g.drawImage(img_vignette, 0, 0, null);
@@ -372,7 +410,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     String[][] clips = {
       {workingDir + FileStore.BG_MUSIC_1, "BGM1"},
       {workingDir + FileStore.MONTAGE, "Montage"},
-      {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"}
+      {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
+      {workingDir + FileStore.EXPLOSION_1, "Explosion1"},
+      {workingDir + FileStore.BOMB, "Bomb"}
     };
     
     audioPlayer = new Sound(clips); 

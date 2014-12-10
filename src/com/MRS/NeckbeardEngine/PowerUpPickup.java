@@ -41,10 +41,14 @@ public class PowerUpPickup {
      //Paints the power up
      public void paint(Graphics2D g) {
           BufferedImage img = null;
+          
           try {
-               img = ImageIO.read(new File(System.getProperty("user.dir") + FileStore.POWERUP_FAST)); //Placeholder, will need to be changed for different icons
-          } catch (IOException e) {
-          }
+            if (heldPowerUp == PowerUp.FAST_SHOT) 
+               img = ImageIO.read(new File(System.getProperty("user.dir") + FileStore.POWERUP_FAST));
+            else if (heldPowerUp == PowerUp.BOMB) 
+              img = ImageIO.read(new File(System.getProperty("user.dir") + FileStore.POWERUP_BOMB));
+          } catch (IOException e) {}
+          
           g.drawImage(img, x, y, null);
      }
 }

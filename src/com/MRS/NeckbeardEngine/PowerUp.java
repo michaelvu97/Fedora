@@ -3,7 +3,8 @@ package com.MRS.NeckbeardEngine;
 public enum PowerUp {
   FAST_SHOT(0, true),
   RAPID_FIRE(1, true),
-  PIERCING_SHOT(2, true);
+  PIERCING_SHOT(2, true),
+  BOMB(3,true);
   
   private int powerUp;
   private boolean offensive;
