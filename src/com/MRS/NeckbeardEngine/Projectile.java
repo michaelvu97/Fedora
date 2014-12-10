@@ -20,6 +20,7 @@ public abstract class Projectile {
      protected String imgPath;
      protected HitBox hitBox;
      protected double duration;
+     protected double killTime;
      
      //Static fields
      public static double ShotVelocity = 14;
@@ -61,6 +62,9 @@ public abstract class Projectile {
      }
      public double getDuration () {
           return duration;
+     }
+     public double getKillTime () {
+       return killTime;
      }
      
      //Mutators

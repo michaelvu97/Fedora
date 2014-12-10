@@ -24,4 +24,8 @@ public enum State {
   public int getInt() {
     return this.state;
   }
+  
+  public static boolean compare (State a, State b) {
+    return (a == BOTH || b == BOTH || a == b);
+  }
 }

@@ -71,6 +71,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
+    player.setBombs(1);
     loadImages();
     loadSound();
     audioPlayer.play("Montage");
@@ -156,11 +157,20 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         }
       }
       
+      //Bombs
+      if (player.getBombs() > 0 && keyInputHandler.bomb) {
+        playerProjectiles.add((Projectile) new Bomb(State.BOTH, player.getX(), player.getY(), 0, 0, "", Bomb.DEFAULT_DURATION));
+        player.setBombs(player.getBombs() - 1);
+      }
+      
       //PlayerProjectiles Movement
       for (int i = 0; i < playerProjectiles.size(); i++) {
         Projectile p = playerProjectiles.get(i);
         p.move();
-        if (p.getY() < -100) {
+        if (p.getKillTime() < System.currentTimeMillis()) {
+          playerProjectiles.remove(p);
+        }
+        if (p.getY() < -100 && p.getClass().getSimpleName().equals("Shot")) {
           playerProjectiles.remove(p);
         }
       }
@@ -171,18 +181,35 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         e.move();
         for (int j = 0; j < playerProjectiles.size(); j++) {
           Projectile p1 = playerProjectiles.get(j);
-          HitBox eHitBox = e.getHitBox();
-          HitBox pHitBox = p1.getHitBox();
           
-          //MAKE SURE TO CHANGE CHECK FIRST ONCE RADIAL HITBOXES ARE ADDED
-          if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)  && e.getState() == p1.getState()) {
-            e.setHealth(e.getHealth() - 1);
-            explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
-            playerProjectiles.remove(p1);
-            if (e.getHealth() <= 0) {
-              explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-              enemies.remove(e);
-              
+          //if bomb
+          if (p1.getClass().getSimpleName().equals("Bomb")) {
+            RadialHitBox pHitBox = (RadialHitBox) p1.getHitBox();
+            HitBox eHitBox = e.getHitBox();
+            if (HitBox.checkCollisionRectRadial(eHitBox, pHitBox)  && State.compare(e.getState(), p1.getState())) {
+              e.setHealth(e.getHealth() - 1);
+              if (e.getHealth() <= 0) {
+                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+                enemies.remove(e);
+                
+              }
+            }
+          }
+          
+          
+          if (p1.getClass().getSimpleName().equals("Shot")) {
+            //MAKE SURE TO CHANGE CHECK FIRST ONCE RADIAL HITBOXES ARE ADDED
+            HitBox eHitBox = e.getHitBox();
+            HitBox pHitBox = p1.getHitBox();
+            if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)  && State.compare(e.getState(), p1.getState())) {
+              e.setHealth(e.getHealth() - 1);
+              explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
+              playerProjectiles.remove(p1);
+              if (e.getHealth() <= 0) {
+                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+                enemies.remove(e);
+                
+              }
             }
           }
         }
@@ -192,13 +219,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       player.move();
       
       if (player.getX() < 0)
-          player.setX(0);
+        player.setX(0);
       else if (player.getX() > (Main.WIDTH - player.DEFAULT_HITBOX_WIDTH))
-           player.setX(Main.WIDTH - player.DEFAULT_HITBOX_WIDTH);
+        player.setX(Main.WIDTH - player.DEFAULT_HITBOX_WIDTH);
       if (player.getY() < 0)
-           player.setY(0);
+        player.setY(0);
       else if (player.getY() > (Main.HEIGHT - player.DEFAULT_HITBOX_HEIGHT))
-          player.setY(Main.HEIGHT - player.DEFAULT_HITBOX_HEIGHT);
+        player.setY(Main.HEIGHT - player.DEFAULT_HITBOX_HEIGHT);
       
       //Power Up Movement (Probably needs improvement)
       for (int i = 0; i < powerUpPickups.size(); i++) {
@@ -245,6 +272,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).paint(g);
     }
+    
+    //Enemy shots
     
     //Explosions
     for (int i = 0; i < explosions.size(); i++) {

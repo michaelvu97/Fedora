@@ -20,6 +20,7 @@ public class Player {
   
      //Fields
      private int lives, x, y;
+     private int bombs;
      private int xVelocity, yVelocity;
      private State state;
      private boolean canShoot;
@@ -40,6 +41,7 @@ public class Player {
      public Player (int x, int y, int lives, State state) {
           this.x = x;
           this.y = y;
+          this.bombs = 0;
           this.xVelocity = 0;
           this.yVelocity = 0;
           this.lives = lives;
@@ -49,13 +51,6 @@ public class Player {
      }
      
      //Instance Methods
-     public void shoot() {
-          //Possibly make this in the superclass Game? that way the shots could be added to a list of PlayerShots
-     }
-     
-     public void dropBomb() {
-          //Same as above
-     }
      
      public void move () {
           x += xVelocity;
@@ -128,6 +123,9 @@ public class Player {
      public int getShotCoolDown() {
           return shotCoolDown;
      }
+     public int getBombs() {
+       return bombs;
+     }
      
      public void setX(int x) {
           this.x = x;
@@ -155,6 +153,9 @@ public class Player {
      }
      public void setOffensePowerUp(PowerUp p) {
           this.offensePowerUp = p;
+     }
+     public void setBombs(int i) {
+       bombs = i;
      }
      
      public void paint (Graphics2D g) {    
