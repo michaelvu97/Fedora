@@ -12,35 +12,49 @@ public class Mook extends Enemy {
   
   public static int DEFAULT_HITBOX_WIDTH = 60;
   public static int DEFAULT_HITBOX_HEIGHT = 60;
+  public String version;
   
-  public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot) {
+  public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot,String version) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine, canShoot);
     health = 1;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
-  }
-  
-  public void animate (boolean collide) {
-    
+    this.version = version;
   }
   
   //@Override
-  public void animate (boolean collide,String version) {
+  public void animate (boolean collide) {
     
     //Todo: add shooting to animate.
     
     if(version.equalsIgnoreCase("stay")){
-      if(x<Main.HEIGHT/2-(DEFAULT_HITBOX_WIDTH/2))
-        xVelocity=20;
-      else
+      if(x<Main.WIDTH/2-DEFAULT_HITBOX_WIDTH){
+        xVelocity = 3;
+        yVelocity -= (yVelocity/20);        
+      }
+      else if(x>Main.WIDTH/2){
+        xVelocity = -3;
+        yVelocity -= (yVelocity/20);        
+      }
+      else{
         xVelocity = 0;
-      yVelocity = (5)/(2*Math.sqrt(x));
+        yVelocity = 0;
+      }
+      
+    }
+    if(version.equalsIgnoreCase("non")){
+      
     }
     if(collide) {
       switchDirections();
     }
+    if(x<0||x>(Main.WIDTH-DEFAULT_HITBOX_WIDTH))
+      xVelocity*=-1;
+    if(y<0||y>(Main.HEIGHT-DEFAULT_HITBOX_HEIGHT))
+      yVelocity*=-1;
   }
   
-  public void move () {
+  public void move (boolean collide) {
+    animate(collide);
     x+=xVelocity;
     y+=yVelocity;
     hitBox.setX(x);

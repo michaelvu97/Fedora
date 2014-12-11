@@ -66,8 +66,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     stateAlreadySwitched = false;
     addKeyListener(this);
     addMouseListener(this);
-    enemies.add(new Mook(State.RED, 100, 100, 0, 0, "Shot", null, 0, true));
-    enemies.add(new Mook(State.RED, 300, 100, 0, 0, "Shot", null, 0, true));
+    enemies.add(new Mook(State.RED, 0, 0, 1, 15, "Shot", null, 0, true,"stay"));
+    enemies.add(new Mook(State.RED, 660, 0, 1, 1, "Shot", null, 0, true,"non"));
     enemies.get(1).setHealth(5);
     
     font_bold = new Font("Consolas", Font.BOLD, 32);
@@ -186,7 +186,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       //enemy movement
       for (int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
-        e.move();
+        for(int j = i+1; j < enemies.size();j++) {
+          Enemy f = enemies.get(j);
+          boolean collide = HitBox.checkCollisionRectRect(e.hitBox, f.hitBox);          
+          e.move(collide);
+          f.move(collide);          
+        }
+        if(enemies.size()==1)
+          e.move(false);
         for (int j = 0; j < playerProjectiles.size(); j++) {
           Projectile p1 = playerProjectiles.get(j);
           
@@ -282,8 +289,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //Rendering hint
     RenderingHints rh = new RenderingHints(
-             RenderingHints.KEY_TEXT_ANTIALIASING,
-             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                                           RenderingHints.KEY_TEXT_ANTIALIASING,
+                                           RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     g.setRenderingHints(rh);
     
     //Paints all gui

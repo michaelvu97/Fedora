@@ -35,7 +35,7 @@ public abstract class Enemy {
     this.canShoot = canShoot;
   }
   
-  public void move() {
+  public void move(boolean collide) {
     /*
      * Increments the position by every
      * frame of time
@@ -111,10 +111,7 @@ public abstract class Enemy {
   }
   public void setCanShoot(boolean canShoot) {
     this.canShoot = canShoot;
-  }
-  
-  abstract public void animate(boolean collision);//to animate the enemy
-  
+  }  
   abstract public void paint(Graphics2D g);
   
 }
