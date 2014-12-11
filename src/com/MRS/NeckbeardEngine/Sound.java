@@ -142,7 +142,8 @@ public class  Sound{
     
   }
   
-  public void addSound(String id) {                                            //Add new sound, will be added to the end of list
+  public void addSound(String id) {                                            
+    //Add new sound, will be added to the end of list
     Mixer.Info[] mixInfos = AudioSystem.getMixerInfo();
     mixer = AudioSystem.getMixer(mixInfos[0]);
     DataLine.Info dataInfo = new DataLine.Info(Clip.class, null);
@@ -160,8 +161,9 @@ public class  Sound{
     catch(IOException ioe){ioe.printStackTrace();}
   }
   
-  public void delSound(String id) {     //Remove file(to free up space)
-                   //Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
+  public void delSound(String id) {     
+    //Remove file(to free up space)
+    //Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
       sounds.remove(i);
@@ -170,15 +172,18 @@ public class  Sound{
   }
   
   public String getId(int i) {
+    //returns the id of a clip
     CustomClip c = sounds.get(i);
     return c.id;
   }
   
   public int getSize() {
+    //returns the number of clips
     return sounds.size();
   }
     
   public void stopAll() {
+    //Stops all clips
     for (int i = 0; i < sounds.size(); i++) {
       sounds.remove(i);
     }
