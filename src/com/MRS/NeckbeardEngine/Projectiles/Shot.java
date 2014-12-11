@@ -8,24 +8,44 @@ import java.io.*;
 
 public class Shot extends Projectile {
      
+     //Constants
      public static int DEFAULT_HITBOX_WIDTH = 13;
      public static int DEFAULT_HITBOX_HEIGHT = 13;
      
-     BufferedImage img;
+     //personal image
+     private BufferedImage img;
+     
      public Shot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {
+          //Projectile class constructor
           super(state, x, y, xVelocity, yVelocity, imgPath, duration);
+          
+          //Hitbox instantiation
           hitBox = new HitBox(x,y,DEFAULT_HITBOX_WIDTH,DEFAULT_HITBOX_HEIGHT);
+          
+          //Image loading
           img = null;
           try {
                img = ImageIO.read(new File(imgPath));
           } catch(IOException ioe){}
+          
+          //Kill timing
           this.killTime = duration + System.currentTimeMillis();
      }
      
      @Override
      public void paint(Graphics2D g) {
+          /*
+           * Paints the ship with the graphics object passed
+           * by Game
+           */
+          g.drawImage(img,x,y,null);
+     }
+     
+     public void loadImage() {
+          
           String workingDir = System.getProperty("user.dir");
           String path = "";
+          
           if (state == State.RED) {
                if (yVelocity < 0) {
                     if (yVelocity == -1*Projectile.FastShotVelocity)
@@ -44,12 +64,12 @@ public class Shot extends Projectile {
                } else {
                     //enemy shot image
                }
-          }
+          }    
+          
           try {
                img = ImageIO.read(new File (path));
           } catch (IOException e) {
                e.printStackTrace();
           }
-          g.drawImage(img,x,y,null);
      }
 }
