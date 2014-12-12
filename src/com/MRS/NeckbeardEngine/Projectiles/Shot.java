@@ -38,6 +38,7 @@ public class Shot extends Projectile {
            * Paints the ship with the graphics object passed
            * by Game
            */
+          this.loadImage();
           g.drawImage(img,x,y,null);
      }
      

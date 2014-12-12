@@ -116,7 +116,7 @@ public class Player {
           return offensePowerUp;
      }
      public ArrayList<PowerUp> getDefensePowerUps() {
-       return defensePowerUp;
+       return defensePowerUps;
      }
      public boolean canShoot() {
           return canShoot;
@@ -159,10 +159,10 @@ public class Player {
           this.offensePowerUp = p;
      }
      public void addDefensePowerUp(PowerUp p) {
-       this.defensePowerUp.add(p);
+       this.defensePowerUps.add(p);
      }
      public void removeDefensePowerUp(PowerUp p) {
-       this.defensePowerUp.remove(p);
+       this.defensePowerUps.remove(p);
      }
      public void setBombs(int i) {
        bombs = i;
