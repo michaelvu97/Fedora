@@ -19,6 +19,8 @@ public class FileStore {
                             POWERUP_FAST = assets + "FastShotPowerUpIcon.png",
                             POWERUP_BOMB = assets + "BombIcon.png",
                             POWERUP_RAPID= assets + "RapidFireIcon.png",
+                            POWERUP_EXTRA_SHIP = assets + "ExtraShipIcon.png",
+                            POWERUP_SPEED_BOOST = assets + "SpeedBoostIcon.png",
                             //Effects
                             FX_BLUE_GLOW= assets + fx + "BlueGlow.png",
                             FX_RED_GLOW = assets + fx + "RedGlow.png",
