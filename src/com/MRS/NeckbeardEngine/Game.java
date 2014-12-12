@@ -75,6 +75,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
     powerUpPickups.add(new PowerUpPickup(300, 0, PowerUp.BOMB));
+    powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
+    powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
@@ -153,6 +155,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
             else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+            else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 1, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), -1, -1 * Projectile.ShotVelocity, "swag", 2000));
+            }
             else
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           } else {
@@ -160,6 +167,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
             else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+            else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 1, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), -1, -1 * Projectile.ShotVelocity, "swag", 2000));
+            }
             else
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           }
