@@ -25,7 +25,8 @@ public class Player {
      private State state;
      private boolean canShoot;
      private boolean shield;
-     private PowerUp offensePowerUp, defensePowerUp;
+     private PowerUp offensePowerUp;
+     private ArrayList<PowerUp> defensePowerUps = new ArrayList<PowerUp>();
      private HitBox hitBox;
      private int shotCoolDown = 0;
      
@@ -114,7 +115,7 @@ public class Player {
      public PowerUp getOffensePowerUp() {
           return offensePowerUp;
      }
-     public PowerUp getDefensePowerUp() {
+     public ArrayList<PowerUp> getDefensePowerUps() {
        return defensePowerUp;
      }
      public boolean canShoot() {
@@ -157,8 +158,11 @@ public class Player {
      public void setOffensePowerUp(PowerUp p) {
           this.offensePowerUp = p;
      }
-     public void setDefensePowerUp(PowerUp p) {
-       this.defensePowerUp = p;
+     public void addDefensePowerUp(PowerUp p) {
+       this.defensePowerUp.add(p);
+     }
+     public void removeDefensePowerUp(PowerUp p) {
+       this.defensePowerUp.remove(p);
      }
      public void setBombs(int i) {
        bombs = i;
