@@ -168,10 +168,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           audioPlayer.play("LASER_SHOT_1");
           if(e.getProjectileType().equalsIgnoreCase("shot")) {
           if(e.getState() == State.RED) 
-            enemyProjectiles.add((Projectile) new Shot(State.RED,e.getX()+(e.getHitBox().getWidth()/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity,"swag",2000));
+            enemyProjectiles.add((Projectile) new Shot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity,"swag",2000));
           
           else if(e.getState() == State.BLUE)
-            enemyProjectiles.add((Projectile) new Shot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity,"swag",2000));
+            enemyProjectiles.add((Projectile) new Shot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2),e.getY()+e.getHitBox().getHeight()-(Shot.DEFAULT_HITBOX_WIDTH/2),0,Projectile.ShotVelocity,"swag",2000));
           
           }
           e.resetShotCoolDown();
@@ -220,7 +220,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           e.move(false);
         if(!e.onScreen())
           enemies.remove(i);
-        System.out.println(e.onScreen());
         for (int j = 0; j < playerProjectiles.size(); j++) {
           Projectile p1 = playerProjectiles.get(j);
         //shoot  
