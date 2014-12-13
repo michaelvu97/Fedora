@@ -55,7 +55,7 @@ public class Shot extends Projectile {
                          path = workingDir + FileStore.SHOT_RED;
                } else {
                     //enemy shot image
-                         path = workingDir + FileStore.SHOT_RED;
+                         path = workingDir + FileStore.ENEMY_SHOT_RED;
                }
           } else if (state == State.BLUE) {
                if (yVelocity < 0) {
@@ -65,7 +65,7 @@ public class Shot extends Projectile {
                          path = workingDir + FileStore.SHOT_BLUE;
                } else {
                     //enemy shot image
-                         path = workingDir + FileStore.SHOT_BLUE;
+                         path = workingDir + FileStore.ENEMY_SHOT_BLUE;
                }
           }    
           
