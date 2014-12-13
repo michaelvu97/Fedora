@@ -66,24 +66,21 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     stateAlreadySwitched = false;
     addKeyListener(this);
     addMouseListener(this);
-    enemies.add(new Mook(State.RED, 0, 0, 1, 15, "Shot", null, 0, true,"stay"));
-    enemies.add(new Mook(State.RED, 660, 0, 1, 1, "Shot", null, 0, true,"non"));
-    enemies.get(1).setHealth(5);
+    enemies.add(new Mook(State.RED, 0, 70, 1, 15, "Shot", null, 0, "stay"));
+    enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", null, 0, "stay"));
     
     font_bold = new Font("Consolas", Font.BOLD, 32);
     font_reg = new Font("Consolas", Font.PLAIN, 32);
     
     powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
     powerUpPickups.add(new PowerUpPickup(300, 0, PowerUp.BOMB));
-    powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
-    powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
     player.setBombs(1);
     loadImages();
     loadSound();
-    //audioPlayer.play("Montage");
+    audioPlayer.play("Montage");
   }
   
   public void step () {
@@ -138,8 +135,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
         }
       }
-      
-      //Shooting
+      //Player Shooting
       if (!player.canShoot()) {
         player.setShotCoolDown(player.getShotCoolDown() - 1);
         
@@ -153,34 +149,35 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           if (player.getState()==State.RED) {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
-            else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
-            else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 3, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), -3, -1 * Projectile.ShotVelocity, "swag", 2000));
-            }
             else
-                 playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           } else {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
-            else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
-            else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 3, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), -3, -1 * Projectile.ShotVelocity, "swag", 2000));
-            }
             else
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           }
-          if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE)
-            player.setShotCoolDown(Player.MAXSHOTCOOLDOWN - 10);
-          else
-            player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
+          player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
           player.setCanShoot(false);
         }
+      }
+      //Enemy Shooting
+      for(int i = 0; i<enemies.size(); i++) {
+        Enemy e = enemies.get(i);
+        if(e.canShoot()) {
+          audioPlayer.play("LASER_SHOT_1");
+          if(e.getProjectileType().equalsIgnoreCase("shot")) {
+          if(e.getState() == State.RED) 
+            enemyProjectiles.add((Projectile) new Shot(State.RED,e.getX()+(e.getHitBox().getWidth()/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity,"swag",2000));
+          
+          else if(e.getState() == State.BLUE)
+            enemyProjectiles.add((Projectile) new Shot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity,"swag",2000));
+          
+          }
+          e.resetShotCoolDown();
+        }
+        else if(e.getShotCoolDown()>0) 
+          e.setShotCoolDown(e.getShotCoolDown() - 1);        
       }
       
       //Bombs
@@ -201,6 +198,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           playerProjectiles.remove(p);
         }
       }
+      //EnemyProjectiles Movement
+      for(int i = 0; i < enemyProjectiles.size(); i++) {
+        Projectile p = enemyProjectiles.get(i);
+        p.move();
+        if (p.getY() < Main.HEIGHT+100 && p.getClass().getSimpleName().equals("Shot")) {
+          playerProjectiles.remove(p);
+        }
+      }
       
       //enemy movement
       for (int i = 0; i < enemies.size(); i++) {
@@ -213,9 +218,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         }
         if(enemies.size()==1)
           e.move(false);
+        if(!e.onScreen())
+          enemies.remove(i);
+        System.out.println(e.onScreen());
         for (int j = 0; j < playerProjectiles.size(); j++) {
           Projectile p1 = playerProjectiles.get(j);
-          
+        //shoot  
           //if bomb
           if (p1.getClass().getSimpleName().equals("Bomb")) {
             RadialHitBox pHitBox = (RadialHitBox) p1.getHitBox();
@@ -230,7 +238,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             }
           }
           
-          
+         //normal shoot 
           if (p1.getClass().getSimpleName().equals("Shot")) {
             //MAKE SURE TO CHANGE CHECK FIRST ONCE RADIAL HITBOXES ARE ADDED
             HitBox eHitBox = e.getHitBox();
@@ -262,7 +270,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         player.setY(0);
       else if (player.getY() > (Main.HEIGHT - player.DEFAULT_HITBOX_HEIGHT))
         player.setY(Main.HEIGHT - player.DEFAULT_HITBOX_HEIGHT);
-      
       //Power Up Movement (Probably needs improvement)
       for (int i = 0; i < powerUpPickups.size(); i++) {
         PowerUpPickup p = powerUpPickups.get(i);
@@ -325,6 +332,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     
     //Enemy shots
+    for (int i = 0; i<enemyProjectiles.size(); i++) {
+      enemyProjectiles.get(i).paint(g);
+    }
     
     //Explosions
     for (int i = 0; i < explosions.size(); i++) {

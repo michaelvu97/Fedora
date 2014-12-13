@@ -12,13 +12,17 @@ public class Mook extends Enemy {
   
   public static int DEFAULT_HITBOX_WIDTH = 60;
   public static int DEFAULT_HITBOX_HEIGHT = 60;
-  public String version;
+  private String version;
+  public static int MAXSHOTCOOLDOWN = 120;
   
-  public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot,String version) {
-    super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine, canShoot);
+  
+  public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version) {
+    super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
     health = 1;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     this.version = version;
+    shotCoolDown = MAXSHOTCOOLDOWN;
+    
   }
   
   //@Override
@@ -27,11 +31,11 @@ public class Mook extends Enemy {
     //Todo: add shooting to animate.
     
     if(version.equalsIgnoreCase("stay")){
-      if(x<Main.WIDTH/2-DEFAULT_HITBOX_WIDTH){
+      if(y<300+startY&&x<Main.WIDTH/2-DEFAULT_HITBOX_WIDTH){
         xVelocity = 3;
         yVelocity -= (yVelocity/20);        
       }
-      else if(x>Main.WIDTH/2){
+      else if(x>Main.WIDTH/2&&y<300){
         xVelocity = -3;
         yVelocity -= (yVelocity/20);        
       }
@@ -41,16 +45,26 @@ public class Mook extends Enemy {
       }
       
     }
-    if(version.equalsIgnoreCase("non")){
+    if(version.equalsIgnoreCase("test")){
+      if(startX<Main.WIDTH/2){
+        xVelocity = 3;
+        yVelocity -= (yVelocity/20);        
+      }
+      else if(startX>Main.WIDTH/2){
+        xVelocity = -3;
+        yVelocity -= (yVelocity/20);        
+      }
       
     }
     if(collide) {
       switchDirections();
     }
-    if(x<0||x>(Main.WIDTH-DEFAULT_HITBOX_WIDTH))
-      xVelocity*=-1;
-    if(y<0||y>(Main.HEIGHT-DEFAULT_HITBOX_HEIGHT))
-      yVelocity*=-1;
+    if(!version.equalsIgnoreCase("test")){
+      if(x<0||x>(Main.WIDTH-DEFAULT_HITBOX_WIDTH))
+        xVelocity*=-1;
+      if(y<0||y>(Main.HEIGHT-DEFAULT_HITBOX_HEIGHT))
+        yVelocity*=-1;
+    }
   }
   
   public void move (boolean collide) {
@@ -64,6 +78,20 @@ public class Mook extends Enemy {
   public void switchDirections () {
     xVelocity*=-1;
     yVelocity*=-1;
+  }
+  public boolean onScreen(){
+    return (x > 0-DEFAULT_HITBOX_WIDTH && x < Main.WIDTH && y > 0-DEFAULT_HITBOX_HEIGHT && y < Main.HEIGHT);
+  }
+  public boolean canShoot() {
+    if(version.equalsIgnoreCase("stay")&&shotCoolDown<=0&&xVelocity==0)
+      return true;
+    else if(version.equalsIgnoreCase("test")&&x==startX+Main.WIDTH/4)
+      return true;
+    else
+      return false;
+  }
+  public void resetShotCoolDown() {
+    shotCoolDown = MAXSHOTCOOLDOWN;
   }
   
   @Override

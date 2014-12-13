@@ -10,8 +10,6 @@ public class FileStore {
                                  sound  = "Sound\\",
                             PLAYER_RED  = assets + "PlayerShipRed.png",
                             PLAYER_BLUE = assets + "PlayerShipBlue.png",
-                            MOOK_RED    = assets + "MookRed.png",
-                            MOOK_BLUE   = assets + "MookBlue.png",
                             SHOT_RED    = assets + "ShotRed.png",
                             SHOT_BLUE   = assets + "ShotBlue.png",
                             FAST_SHOT_RED = assets + "fastshotred.png",
@@ -22,6 +20,9 @@ public class FileStore {
                             POWERUP_SCATTER_SHOT = assets + "ScatterShotIcon.png",
                             POWERUP_EXTRA_SHIP = assets + "ExtraShipIcon.png",
                             POWERUP_SPEED_BOOST = assets + "SpeedBoostIcon.png",
+                            //Enemy Assets    
+                            MOOK_RED    = assets + "MookRed.png",
+                            MOOK_BLUE   = assets + "MookBlue.png",
                             //Effects
                             FX_BLUE_GLOW= assets + fx + "BlueGlow.png",
                             FX_RED_GLOW = assets + fx + "RedGlow.png",

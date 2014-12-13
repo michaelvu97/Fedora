@@ -17,8 +17,6 @@ package com.MRS.NeckbeardEngine;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.awt.Dimension;
-import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -26,7 +24,7 @@ import javax.swing.SwingUtilities;
 public class Main extends JFrame {
  
      public static final int FRAME_RATE = 16, //60 fps  
-                             HEIGHT = 720, //16:9 720 ratio
+                             HEIGHT = 900, //16:9 720 ratio
                              WIDTH = 720;
      
      public static void main (String[] args) {
@@ -66,7 +64,6 @@ public class Main extends JFrame {
                     TimerTask timerTask = new GameTimer(game); //GameTimer has game.step() in run()
                     Timer timer = new Timer(true);
                     timer.scheduleAtFixedRate(timerTask, 0, FRAME_RATE);
-                    
                }
           });
      }

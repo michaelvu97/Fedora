@@ -15,15 +15,17 @@ public abstract class Enemy {
   protected int health;
   protected int x;
   protected int y;
+  protected int startX;
+  protected int startY;
   protected double xVelocity;
   protected double yVelocity;
   protected String  projectileType;//will be more specific for every enemy
   protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
   protected HitBox hitBox;//hitbox not set to anything yet, because that will happen in the individual enemy classes
   protected long timeLine;//used to determine at what time they will enter the game screen/spawn
-  protected boolean canShoot;//checks to see if an enemy can fire
+  protected int shotCoolDown;//to calculate when to shoot
   
-  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, boolean canShoot) {
+  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
     this.state = state;
     this.x = x;
     this.y = y;
@@ -32,7 +34,8 @@ public abstract class Enemy {
     this.projectileType = projectileType;
     this.heldPowerUp = heldPowerUp;
     this.timeLine = timeLine;
-    this.canShoot = canShoot;
+    startX = x;
+    startY = y;
   }
   
   public void move(boolean collide) {
@@ -77,8 +80,8 @@ public abstract class Enemy {
   public long getTimeLine() {
     return timeLine;
   }
-  public boolean getCanShoot() {
-    return canShoot;
+  public int getShotCoolDown() {
+    return shotCoolDown;
   }
   
   //Mutators
@@ -109,9 +112,12 @@ public abstract class Enemy {
   public void setTimeLine(long timeLine) {
     this.timeLine = timeLine;
   }
-  public void setCanShoot(boolean canShoot) {
-    this.canShoot = canShoot;
-  }  
+  public void setShotCoolDown(int shotCoolDown) {
+    this.shotCoolDown = shotCoolDown;
+  }
   abstract public void paint(Graphics2D g);
+  abstract public boolean onScreen();
+  abstract public boolean canShoot();
+  abstract public void resetShotCoolDown();
   
 }
