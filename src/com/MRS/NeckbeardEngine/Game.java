@@ -25,10 +25,14 @@ import com.MRS.NeckbeardEngine.Projectiles.*;
 
 public class Game extends JPanel implements KeyListener, MouseListener {
   
-  public boolean started; //If the game has begun, this may become deprecated depending on how levels are handled
+  //If the game has begun, this may become deprecated depending on how levels are handled
+  public boolean started;
   public boolean paused;
   
+  //Makes sure that changes are only made once per key press
   private boolean stateAlreadySwitched;
+  private boolean bombAlreadyDeployed;
+  
   public KeyInputHandler keyInputHandler; //contains booleans for all keys
   
   //On screen object lists
@@ -63,7 +67,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //Variable setup
     started = false;
     paused = false;
+    
     stateAlreadySwitched = false;
+    bombAlreadyDeployed = false;
+    
     addKeyListener(this);
     addMouseListener(this);
     enemies.add(new Mook(State.RED, 0, 70, 1, 15, "Shot", null, 0, "stay"));
@@ -201,10 +208,16 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       }
       
       //Bombs
-      if (player.getBombs() > 0 && keyInputHandler.bomb) {
+      if (player.getBombs() > 0 && keyInputHandler.bomb && !bombAlreadyDeployed) {
         playerProjectiles.add((Projectile) new Bomb(State.BOTH, player.getX(), player.getY(), 0, 0, "", Bomb.DEFAULT_DURATION));
         player.setBombs(player.getBombs() - 1);
         audioPlayer.play("Bomb");
+        bombAlreadyDeployed = true;
+      }
+      
+      //Bomb key resetting
+      if (!keyInputHandler.bomb && bombAlreadyDeployed) {
+        bombAlreadyDeployed = false; 
       }
       
       //PlayerProjectiles Movement

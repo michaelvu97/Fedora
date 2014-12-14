@@ -18,6 +18,9 @@ package com.MRS.NeckbeardEngine;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import java.awt.Toolkit;
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -39,7 +42,16 @@ public class Main extends JFrame {
 //                    temp.setResizable(false);
 //                    Insets insets = temp.getInsets();
 //                    temp = null;
+                 
+                    //user screen size
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    double screenWidth         = screenSize.getWidth();
+                    double screenHeight        = screenSize.getHeight();
                     
+                    //determining frame location (centered)
+                    int FRAME_X             = (int) Math.floor( (screenWidth / 2) - (WIDTH/2) );
+                    int FRAME_Y             = (int) Math.floor( (screenHeight / 2) - (HEIGHT/2) );
+                   
                     //JFrame extension set up
                     Main main = new Main();
                     main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,6 +68,8 @@ public class Main extends JFrame {
                     game.setSize(WIDTH, HEIGHT);
                     
                     main.add(game);
+                    main.setLocationRelativeTo(null);
+                    main.setLocation(FRAME_X, FRAME_Y);
                     
                     main.setVisible(true);
                     game.requestFocus();
