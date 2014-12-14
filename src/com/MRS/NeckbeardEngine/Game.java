@@ -188,6 +188,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           player.setCanShoot(false);
         }
       }
+      
       //Enemy Shooting
       for(int i = 0; i<enemies.size(); i++) {
         Enemy e = enemies.get(i);
@@ -235,8 +236,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for(int i = 0; i < enemyProjectiles.size(); i++) {
         Projectile p = enemyProjectiles.get(i);
         p.move();
-        if (p.getY() < Main.HEIGHT+100 && p.getClass().getSimpleName().equals("Shot")) {
-          playerProjectiles.remove(p);
+        if (p.getY() > Main.HEIGHT + 100 && p.getClass().getSimpleName().equals("Shot")) {
+          enemyProjectiles.remove(i);
+        }
+        if (p.getClass().getSimpleName().equals("Shot") && State.compare(player.getState(), p.getState())) {
+          HitBox he = p.getHitBox();
+          HitBox hp = player.getHitBox();
+          if (HitBox.checkCollisionRectRect(he, hp)) {
+            explosions.add(new Explosion ((int) p.getX(), (int) p.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
+            enemyProjectiles.remove(i); 
+            player.setLives(player.getLives() - 1);
+          }
         }
       }
       

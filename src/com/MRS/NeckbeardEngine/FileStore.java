@@ -57,6 +57,24 @@ public class FileStore {
     "\\Assets\\HitExplosionOne\\GrenadeExplosion14.png",
     "\\Assets\\HitExplosionOne\\GrenadeExplosion15.png"};
   
+  public final static String[] HITEXPLOSIONONEFLIPPED = {
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion0.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion1.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion2.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion3.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion4.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion5.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion6.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion7.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion8.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion9.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion10.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion11.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion12.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion13.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion14.png",
+    "\\Assets\\HitExplosionOneFlipped\\GrenadeExplosion15.png"};
+  
   public final static String[] DEATHEXPLOSIONMEDIUM = {
     "\\Assets\\DeathExplosionMedium\\DeathExplosion0.png",
     "\\Assets\\DeathExplosionMedium\\DeathExplosion1.png",

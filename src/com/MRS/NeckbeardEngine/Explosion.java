@@ -22,11 +22,14 @@ public class Explosion {
   ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
   
   public static final String EXPLOSIONTYPE_HIT = "EXPLOSIONTYPE_HIT";
+  public static final String EXPLOSIONTYPE_HITFLIPPED = "EXPLOSIONTYPE_HITFLIPPED";
   public static final String EXPLOSIONTYPE_DEATHMEDIUM = "EXPLOSIONTYPE_DEATHMEDIUM";
   
   //Used to center the explosion properly
   public static final int HIT_OFFSET_X = -17;
   public static final int HIT_OFFSET_Y = -80;
+  public static final int HITFLIPPED_OFFSET_X = -20;
+  public static final int HITFLIPPED_OFFSET_Y = 0;
   public static final int DEATHMEDIUM_OFFSET_X = 0;
   public static final int DEATHMEDIUM_OFFSET_Y = 0;
   
@@ -54,6 +57,17 @@ public class Explosion {
       for (int i = 0; i < FileStore.DEATHEXPLOSIONMEDIUM.length; i++) {
         try {
           frames.add(frames.size(), ImageIO.read(new File (workingDir + FileStore.DEATHEXPLOSIONMEDIUM[i])));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    } else if (explosionType.equals(EXPLOSIONTYPE_HITFLIPPED)) {
+      this.x += HITFLIPPED_OFFSET_X;
+      this.y += HITFLIPPED_OFFSET_Y;
+      String workingDir = System.getProperty("user.dir"); 
+      for (int i = 0; i < FileStore.HITEXPLOSIONONEFLIPPED.length; i++) {
+        try {
+          frames.add(frames.size(), ImageIO.read(new File (workingDir + FileStore.HITEXPLOSIONONEFLIPPED[i])));
         } catch (IOException e) {
           e.printStackTrace();
         }
