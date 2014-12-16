@@ -47,7 +47,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private JFrame context;
   
-  BufferedImage img_blueGlow = null, img_redGlow = null, img_playerRed = null, img_playerBlue = null, img_mookRed = null, img_mookBlue = null, img_shotBlue = null, img_shotRed = null, img_spaceBG1 = null, img_vignette = null, img_redShield = null, img_blueShield = null;
+  BufferedImage img_blueGlow = null, img_redGlow = null, 
+                img_playerRed = null, img_playerBlue = null, 
+                img_mookRed = null, img_mookBlue = null, 
+                img_shotBlue = null, img_shotRed = null, 
+                img_spaceBG1 = null, img_vignette = null, 
+                img_redShield = null, img_blueShield = null;
   
   //More on screen object lists
   public ArrayList<Projectile> enemyProjectiles = new ArrayList<Projectile>();
