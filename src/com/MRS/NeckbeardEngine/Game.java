@@ -93,6 +93,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
     powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
     powerUpPickups.add(new PowerUpPickup(400, 0, PowerUp.SHIELD));
+    powerUpPickups.add(new PowerUpPickup(450, 0, PowerUp.EXTRA_SHIP));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
@@ -265,6 +266,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             player.setLives(player.getLives() - 1);
             deathClock = 120;
           }
+        }
+      }
+      for(int i = 0; i<player.getDefensePowerUps().size();i++) {
+        PowerUp p = player.getDefensePowerUp().get(i);
+        if(p == PowerUp.EXTRA_SHIP) {
+          player.setLife(player.getLive() + 1);
+          player.removeDefensePowerUp(PowerUp.EXTRA_SHIP);
+        }
+        if(p == PowerUp.SPEED_BOOST) {
+          player.setXVelocity(2);
+          player.setYVelocity(2);
         }
       }
       if(deathClock>0)
