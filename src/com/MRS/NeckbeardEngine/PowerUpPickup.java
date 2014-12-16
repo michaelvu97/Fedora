@@ -55,6 +55,8 @@ public class PowerUpPickup {
                img = ImageIO.read(new File(System.getProperty("user.dir") + FileStore.POWERUP_EXTRA_SHIP));
             else if (heldPowerUp == PowerUp.SPEED_BOOST)
                img = ImageIO.read(new File(System.getProperty("user.dir") + FileStore.POWERUP_SPEED_BOOST));
+            else if (heldPowerUp == PowerUp.SHIELD)
+               img = ImageIO.read(new File(System.getProperty("user.dir") + FileStore.POWERUP_SHIELD)); 
           } catch (IOException e) {}
           
           g.drawImage(img, x, y, null);

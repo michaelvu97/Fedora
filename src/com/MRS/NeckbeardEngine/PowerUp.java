@@ -6,7 +6,8 @@ public enum PowerUp {
   SCATTER_SHOT(2, true),
   BOMB(3,true),
   EXTRA_SHIP(0, false),
-  SPEED_BOOST(1, false);
+  SPEED_BOOST(1, false),
+  SHIELD(3, false);
   
   private int powerUp;
   private boolean offensive;
