@@ -20,13 +20,18 @@ public class FileStore {
                             POWERUP_SCATTER_SHOT = assets + "ScatterShotIcon.png",
                             POWERUP_EXTRA_SHIP = assets + "ExtraShipIcon.png",
                             POWERUP_SPEED_BOOST = assets + "SpeedBoostIcon.png",
+                            POWERUP_SHIELD = assets + "ShieldIcon.png",
+                            RED_SHIELD = assets + "RedShield.png",
+                            BLUE_SHIELD = assets + "BlueShield.png",
+                            
                             //Enemy Assets    
                             MOOK_RED    = assets + "MookRed.png",
                             MOOK_BLUE   = assets + "MookBlue.png",
                             ENEMY_SHOT_RED    = assets + "enemyShotRed.png",
-                            ENEMY_SHOT_BLUE   = assets + "enemyShotBlue.png",
+                            ENEMY_SHOT_BLUE   = assets + "enemyshotblue.png",
+                            ENEMY_SHOT_PURPLE = assets + "EnemyShotPurple.png",
                             ENEMY_FAST_SHOT_RED = assets + "enemyfastshotred.png",
-                            ENEMY_FAST_SHOT_BLUE = assets + "enemyfastshotblue.png",    
+                            ENEMY_FAST_SHOT_BLUE = assets + "enemyfastshotblue.png",
                             //Effects
                             FX_BLUE_GLOW= assets + fx + "BlueGlow.png",
                             FX_RED_GLOW = assets + fx + "RedGlow.png",
