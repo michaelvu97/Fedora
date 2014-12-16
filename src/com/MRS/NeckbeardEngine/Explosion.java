@@ -29,7 +29,7 @@ public class Explosion {
   public static final int HIT_OFFSET_X = -17;
   public static final int HIT_OFFSET_Y = -80;
   public static final int HITFLIPPED_OFFSET_X = -20;
-  public static final int HITFLIPPED_OFFSET_Y = 0;
+  public static final int HITFLIPPED_OFFSET_Y = 20;
   public static final int DEATHMEDIUM_OFFSET_X = 0;
   public static final int DEATHMEDIUM_OFFSET_Y = 0;
   
