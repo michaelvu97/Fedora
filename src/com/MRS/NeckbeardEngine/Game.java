@@ -30,7 +30,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   public boolean paused;
   // for when player loses life
   public int deathClock;
-  
+  public int speedBoostClock;
   //Makes sure that changes are only made once per key press
   private boolean stateAlreadySwitched;
   private boolean bombAlreadyDeployed;
@@ -76,6 +76,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     paused = false;
     
     deathClock = 0;
+    speedBoostClock = 0;
     
     stateAlreadySwitched = false;
     bombAlreadyDeployed = false;
@@ -94,6 +95,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
     powerUpPickups.add(new PowerUpPickup(400, 0, PowerUp.SHIELD));
     powerUpPickups.add(new PowerUpPickup(450, 0, PowerUp.EXTRA_SHIP));
+    powerUpPickups.add(new PowerUpPickup(500, 0, PowerUp.SPEED_BOOST));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
@@ -269,18 +271,28 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         }
       }
       for(int i = 0; i<player.getDefensePowerUps().size();i++) {
-        PowerUp p = player.getDefensePowerUp().get(i);
+        PowerUp p = player.getDefensePowerUps().get(i);
         if(p == PowerUp.EXTRA_SHIP) {
-          player.setLife(player.getLive() + 1);
+          player.setLives(player.getLives() + 1);
           player.removeDefensePowerUp(PowerUp.EXTRA_SHIP);
         }
-        if(p == PowerUp.SPEED_BOOST) {
-          player.setXVelocity(2);
-          player.setYVelocity(2);
+        if(p == PowerUp.SPEED_BOOST && speedBoostClock<=0) {
+            player.MAX_VELOCITY=10;
+            speedBoostClock = 1800;
+            player.removeDefensePowerUp(PowerUp.SPEED_BOOST);
         }
       }
+      
+      //speedBoost Timing
+      if(speedBoostClock<=0) 
+        player.MAX_VELOCITY=5;
+      else
+        speedBoostClock--;
+      
+      //deathClock timing
       if(deathClock>0)
         deathClock--;
+      
       //enemy movement
       for (int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
