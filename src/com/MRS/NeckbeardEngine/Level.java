@@ -16,6 +16,7 @@ public class Level {
     
     switch(frames) {
       case 600:
+        g.powerUpPickups.add(new PowerUpPickup(400, 0, PowerUp.SHIELD));
         g.enemies.add(new Mook(State.RED, 0, 70, 1, 15, "Shot", null, 0, "stay", Main.WIDTH/2));
         break;
       case 1200:
@@ -27,20 +28,19 @@ public class Level {
         break;
       case 2400:
         g.powerUpPickups.add(new PowerUpPickup(300, 0, PowerUp.BOMB));
+        g.powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
         g.enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", null, 0, "leave", Main.WIDTH/2));
         break;
       case 3000:
         g.enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", null, 0, "leave", Main.WIDTH/2));
         g.enemies.add(new Mook(State.RED, 0, 70, 1, 15, "Shot", null, 0, "stay", Main.WIDTH/2));
-        g.powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
-        g.powerUpPickups.add(new PowerUpPickup(400, 0, PowerUp.SHIELD));
         break;
       case 3600:
         g.enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", null, 0, "leave", Main.WIDTH/2));
         g.enemies.add(new Mook(State.RED, 0, 70, 1, 15, "Shot", null, 0, "stay", Main.WIDTH/2));
-        g.powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
         g.powerUpPickups.add(new PowerUpPickup(450, 0, PowerUp.EXTRA_SHIP));
         g.powerUpPickups.add(new PowerUpPickup(500, 0, PowerUp.SPEED_BOOST));
+        g.powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
         break;
       case 3660:
           g.enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", null, 0, "leave", Main.WIDTH/2));

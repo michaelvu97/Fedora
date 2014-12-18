@@ -20,7 +20,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
-import com.MRS.NeckbeardEngine.Enemies.*;
 import com.MRS.NeckbeardEngine.Projectiles.*;
 
 public class Game extends JPanel implements KeyListener, MouseListener {
@@ -47,8 +46,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private JFrame context;
   
-  BufferedImage img_blueGlow = null, img_redGlow = null, 
-                img_playerRed = null, img_playerBlue = null, 
+  BufferedImage img_playerRed = null, img_playerBlue = null, 
                 img_mookRed = null, img_mookBlue = null, 
                 img_shotBlue = null, img_shotRed = null, 
                 img_spaceBG1 = null, img_vignette = null, 
@@ -100,14 +98,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     player = new Player(500, 500, 3, State.RED);
     loadImages();
     loadSound();
-    audioPlayer.play("Montage");
+    audioPlayer.play("BGM1");
   }
   
   public void step () {
     /*
      * Called by main every time interval
      */
-    level.check();
     
     //Escape break
     if (keyInputHandler.escape && !paused) {
@@ -118,6 +115,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     
     if (!paused && player.getLives()>0) {
+      
+      //checks level and wave
+      level.check();
+      
       //Propulsion
       if (keyInputHandler.up && !keyInputHandler.down) {
         player.accelerateForward();
@@ -255,7 +256,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           HitBox he = p.getHitBox();
           HitBox hp = player.getHitBox();
           if (HitBox.checkCollisionRectRect(he, hp)) {
-            explosions.add(new Explosion ((int) p.getX(), (int) p.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
+            explosions.add(new Explosion ((int)player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
             enemyProjectiles.remove(i);
             player.setLives(player.getLives() - 1);
             deathClock = 120;
@@ -301,6 +302,25 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           boolean collide = HitBox.checkCollisionRectRect(e.hitBox, f.hitBox);          
           e.move(collide);
           f.move(collide);          
+          
+        }
+        //collision between Player and Enemy
+        if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState())) {
+          enemies.remove(e);
+          explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+          audioPlayer.play("Explosion1");
+          
+          explosions.add(new Explosion ((int) player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY()+Player.DEFAULT_HITBOX_HEIGHT/2, Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+            player.setLives(player.getLives() - 1);
+            deathClock = 120;
+            for(int j = 0; j<player.getDefensePowerUps().size();j++) {
+              PowerUp d = player.getDefensePowerUps().get(j);
+              if(d == PowerUp.SHIELD){
+                player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
+                player.setLives(player.getLives() + 1); 
+                deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
+              }
+            }
         }
         if(enemies.size()==1)
           e.move(false);
@@ -392,15 +412,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         backgrounds.get(i).move();
     }
     else if(player.getLives()==0){
-      for(int i = 0; i<20; i++){
+      for(int i = 0; i<30; i++){
         explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
         audioPlayer.play("Explosion1");        
       }
-       for(int i = 0; i<20; i++){
+       for(int i = 0; i<30; i++){
         explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HIT));
         audioPlayer.play("Explosion1");        
       }
-        for(int i = 0; i<20; i++){
+        for(int i = 0; i<30; i++){
         explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));
         audioPlayer.play("Explosion1");        
       }
@@ -425,8 +445,29 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     g.setColor(Color.RED);
     g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
     for(int i = 0; i<backgrounds.size();i++)
-        backgrounds.get(i).paint(g);
-       
+        backgrounds.get(i).paint(g);        
+    
+    //Enemies
+    for (int i = 0; i < enemies.size(); i++) {
+      enemies.get(i).paint(g);
+    }
+    
+    //Enemy shots
+    for (int i = 0; i<enemyProjectiles.size(); i++) {
+      enemyProjectiles.get(i).paint(g);
+    }    
+    
+    //Paint shots temporary
+    for (int i = 0; i < playerProjectiles.size(); i++) {
+      playerProjectiles.get(i).paint(g);
+    }
+    
+    //Power-Ups
+    for (int i = 0; i < powerUpPickups.size(); i++) {
+      powerUpPickups.get(i).paint(g);
+    }
+    
+    
      //flashing when life loss
     if(deathClock<=0 ||(deathClock>0&&deathClock%6==0)){
       player.paint(g);
@@ -442,17 +483,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             g.drawImage(img_blueShield, player.getX()-11,player.getY()-7,null);
         }
           
-      }    
-    
-    //Enemies
-    for (int i = 0; i < enemies.size(); i++) {
-      enemies.get(i).paint(g);
-    }
-    
-    //Enemy shots
-    for (int i = 0; i<enemyProjectiles.size(); i++) {
-      enemyProjectiles.get(i).paint(g);
-    }
+      }
     
     //Explosions
     for (int i = 0; i < explosions.size(); i++) {
@@ -461,17 +492,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         explosions.remove(i--);
       }
     }
-    
-    //Paint shots temporary
-    for (int i = 0; i < playerProjectiles.size(); i++) {
-      playerProjectiles.get(i).paint(g);
-    }
-    
-    //Power-Ups
-    for (int i = 0; i < powerUpPickups.size(); i++) {
-      powerUpPickups.get(i).paint(g);
-    }
-    
     /*
      * HUD Overlay
      */
@@ -556,8 +576,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     boolean noErrors = true;
     try {
       String workingDir = System.getProperty("user.dir"); 
-      img_blueGlow = ImageIO.read(new File (workingDir + FileStore.FX_BLUE_GLOW));
-      img_redGlow = ImageIO.read(new File (workingDir + FileStore.FX_RED_GLOW));
       img_spaceBG1 = ImageIO.read(new File (workingDir + FileStore.SPACE_BG_1));
       img_vignette = ImageIO.read(new File (workingDir + FileStore.FX_VIGNETTE));
       img_blueShield = ImageIO.read(new File (workingDir + FileStore.BLUE_SHIELD));

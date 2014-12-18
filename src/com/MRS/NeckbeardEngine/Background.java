@@ -9,13 +9,11 @@ import javax.imageio.ImageIO;
 public class Background {
   private int y1, y2;
   private double yVelocity;
-  private String file;
   private BufferedImage img = null;
   
   public Background (String file, double yVelocity){
     y1 = 0;
     this.yVelocity = yVelocity;
-    this.file = file;
     String workingDir = System.getProperty("user.dir");
     String path = workingDir + file;
     

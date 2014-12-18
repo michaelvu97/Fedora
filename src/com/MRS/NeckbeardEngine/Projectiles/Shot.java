@@ -22,12 +22,6 @@ public class Shot extends Projectile {
           //Hitbox instantiation
           hitBox = new HitBox(x,y,DEFAULT_HITBOX_WIDTH,DEFAULT_HITBOX_HEIGHT);
           
-          //Image loading
-          img = null;
-          try {
-               img = ImageIO.read(new File(imgPath));
-          } catch(IOException ioe){}
-          
           //Kill timing
           this.killTime = duration + System.currentTimeMillis();
      }
