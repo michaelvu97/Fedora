@@ -27,6 +27,8 @@ public class FileStore {
                             //Enemy Assets    
                             MOOK_RED    = assets + "MookRed.png",
                             MOOK_BLUE   = assets + "MookBlue.png",
+                            SHADE_RED = assets + "ShadeRed.png",
+                            SHADE_BLUE = assets + "ShadeBlue.png",
                             ENEMY_SHOT_RED    = assets + "enemyShotRed.png",
                             ENEMY_SHOT_BLUE   = assets + "enemyshotblue.png",
                             ENEMY_SHOT_PURPLE = assets + "EnemyShotPurple.png",
