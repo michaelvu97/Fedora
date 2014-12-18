@@ -59,6 +59,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   public ArrayList<Projectile> playerProjectiles = new ArrayList<Projectile>();
   public ArrayList<PowerUpPickup> powerUpPickups = new ArrayList<PowerUpPickup>();
   public ArrayList<Explosion> explosions = new ArrayList<Explosion>();
+  public ArrayList<Background> backgrounds = new ArrayList<Background>();
   
   public Level level;
   
@@ -96,6 +97,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     powerUpPickups.add(new PowerUpPickup(400, 0, PowerUp.SHIELD));
     powerUpPickups.add(new PowerUpPickup(450, 0, PowerUp.EXTRA_SHIP));
     powerUpPickups.add(new PowerUpPickup(500, 0, PowerUp.SPEED_BOOST));
+    
+    //base image, order from back to front
+    backgrounds.add(new Background(FileStore.SPACE_BG_1,1.0));
+    backgrounds.add(new Background(FileStore.TEST_MIDGROUND,2.0));
+    backgrounds.add(new Background(FileStore.TEST_FOREGROUND,3.0));
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
@@ -257,16 +263,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           HitBox hp = player.getHitBox();
           if (HitBox.checkCollisionRectRect(he, hp)) {
             explosions.add(new Explosion ((int) p.getX(), (int) p.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
-            enemyProjectiles.remove(i); 
+            enemyProjectiles.remove(i);
+            player.setLives(player.getLives() - 1);
+            deathClock = 120;
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
               PowerUp d = player.getDefensePowerUps().get(j);
               if(d == PowerUp.SHIELD){
                 player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
-                player.setLives(player.getLives() + 1);                         // so when it takes away life it return to normal, as if it didn't get hit
+                player.setLives(player.getLives() + 1); 
+                deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
               }
             }
-            player.setLives(player.getLives() - 1);
-            deathClock = 120;
           }
         }
       }
@@ -387,6 +394,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       } else if (stateAlreadySwitched) {
         stateAlreadySwitched = false; 
       }
+      
+      for(int i = 0; i<backgrounds.size();i++)
+        backgrounds.get(i).move();
     }
     else if(player.getLives()==0){
       for(int i = 0; i<20; i++){
@@ -419,11 +429,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     g.setRenderingHints(rh);
     
     //Paints all gui
-    g.setColor(Color.BLACK);
+    g.setColor(Color.RED);
     g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-    g.drawImage(img_spaceBG1, 0, 0, null);
+    for(int i = 0; i<backgrounds.size();i++)
+        backgrounds.get(i).paint(g);
+       
+     //flashing when life loss
+    if(deathClock<=0 ||(deathClock>0&&deathClock%6==0)){
+      player.paint(g);
+    }
     
-   //Shield
+     //Shield
     for(int i = 0; i<player.getDefensePowerUps().size();i++){
         PowerUp p = player.getDefensePowerUps().get(i);
         if(p==PowerUp.SHIELD){
@@ -433,11 +449,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             g.drawImage(img_blueShield, player.getX()-11,player.getY()-7,null);
         }
           
-      }
-     //flashing when life loss
-    if(deathClock<=0 ||(deathClock>0&&deathClock%6==0)){
-      player.paint(g);
-    }
+      }    
     
     //Enemies
     for (int i = 0; i < enemies.size(); i++) {

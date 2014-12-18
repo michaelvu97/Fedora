@@ -39,6 +39,8 @@ public class FileStore {
                             FX_RED_GLOW = assets + fx + "RedGlow.png",
                             FX_VIGNETTE = assets + fx + "Vignette.png",
                             SPACE_BG_1  = assets + "SpaceBG1.png",
+                            TEST_FOREGROUND = assets + "testForeGround.png",
+                            TEST_MIDGROUND = assets + "testmidground.png",
                             //Audio
                             BG_MUSIC_1  = assets + sound + "TestBGM1.wav",
                             MONTAGE     = assets + sound + "Montage.wav",
