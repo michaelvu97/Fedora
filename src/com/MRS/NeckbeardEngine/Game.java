@@ -72,6 +72,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   }
   
   public void initialize () {
+    level = new Level (this);
+    
     //Variable setup
     started = false;
     paused = false;
@@ -84,19 +86,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     addKeyListener(this);
     addMouseListener(this);
-    enemies.add(new Mook(State.RED, 0, 70, 1, 15, "Shot", null, 0, "stay"));
-    enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", null, 0, "stay"));
     
     font_bold = new Font("Consolas", Font.BOLD, 32);
     font_reg = new Font("Consolas", Font.PLAIN, 32);
     
-    powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
-    powerUpPickups.add(new PowerUpPickup(300, 0, PowerUp.BOMB));
-    powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
-    powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
-    powerUpPickups.add(new PowerUpPickup(400, 0, PowerUp.SHIELD));
-    powerUpPickups.add(new PowerUpPickup(450, 0, PowerUp.EXTRA_SHIP));
-    powerUpPickups.add(new PowerUpPickup(500, 0, PowerUp.SPEED_BOOST));
     
     //base image, order from back to front
     backgrounds.add(new Background(FileStore.SPACE_BG_1,1.0));
@@ -105,7 +98,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //audioPlayer.testSound
     player = new Player(500, 500, 3, State.RED);
-    player.setBombs(1);
     loadImages();
     loadSound();
     audioPlayer.play("Montage");
@@ -115,6 +107,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     /*
      * Called by main every time interval
      */
+    level.check();
     
     //Escape break
     if (keyInputHandler.escape && !paused) {

@@ -14,14 +14,16 @@ public class Mook extends Enemy {
   public static int DEFAULT_HITBOX_HEIGHT = 60;
   private String version;
   public static int MAXSHOTCOOLDOWN = 120;
+  public int shootPos; // where you want it to shoot/stop
   
   
-  public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version) {
+  public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version, int shootPos) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
     health = 1;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     this.version = version;
     shotCoolDown = MAXSHOTCOOLDOWN;
+    this.shootPos = shootPos;
     
   }
   
@@ -31,11 +33,11 @@ public class Mook extends Enemy {
     //Todo: add shooting to animate.
     
     if(version.equalsIgnoreCase("stay")){
-      if(y<300+startY&&x<Main.WIDTH/2-DEFAULT_HITBOX_WIDTH){
+      if(y<300+startY&&startX<Main.WIDTH/2&&x<=shootPos){
         xVelocity = 3;
         yVelocity -= (yVelocity/20);        
       }
-      else if(x>Main.WIDTH/2&&y<300){
+      else if(startX>Main.WIDTH/2&&y<300&&x>=shootPos){
         xVelocity = -3;
         yVelocity -= (yVelocity/20);        
       }
@@ -45,7 +47,7 @@ public class Mook extends Enemy {
       }
       
     }
-    if(version.equalsIgnoreCase("test")){
+    if(version.equalsIgnoreCase("leave")){
       if(startX<Main.WIDTH/2){
         xVelocity = 3;
         yVelocity -= (yVelocity/20);        
@@ -59,7 +61,7 @@ public class Mook extends Enemy {
     if(collide) {
       switchDirections();
     }
-    if(!version.equalsIgnoreCase("test")){
+    if(!version.equalsIgnoreCase("leave")){
       if(x<0||x>(Main.WIDTH-DEFAULT_HITBOX_WIDTH))
         xVelocity*=-1;
       if(y<0||y>(Main.HEIGHT-DEFAULT_HITBOX_HEIGHT))
@@ -85,7 +87,7 @@ public class Mook extends Enemy {
   public boolean canShoot() {
     if(version.equalsIgnoreCase("stay")&&shotCoolDown<=0&&xVelocity==0)
       return true;
-    else if(version.equalsIgnoreCase("test")&&x==startX+Main.WIDTH/4)
+    else if(version.equalsIgnoreCase("leave")&& (x==shootPos))
       return true;
     else
       return false;
