@@ -16,7 +16,7 @@ public class Level {
     
     switch(frames) {
       case 600:
-        g.enemies.add(new Mook(State.RED, 600, 0, -1, 10, "Shot", null, 0, "stay", Main.WIDTH/2+10));
+        g.enemies.add(new Starburt(State.RED, -200, 100, 5, 10, "Shot", null, 0, "stay"));
         break;
       case 1200:
         g.enemies.add(new Mook(State.BLUE, 600, 0, -1, 10, "Shot", null, 0, "leave", Main.WIDTH/2));

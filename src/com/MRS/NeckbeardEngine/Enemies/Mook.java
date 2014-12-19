@@ -16,15 +16,13 @@ public class Mook extends Enemy {
   public static int MAXSHOTCOOLDOWN = 120;
   public int shootPos; // where you want it to shoot/stop
   
-  
   public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version, int shootPos) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
     health = 1;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     this.version = version;
     shotCoolDown = MAXSHOTCOOLDOWN;
-    this.shootPos = shootPos;
-    
+    this.shootPos = shootPos;    
   }
   
   //@Override
@@ -33,12 +31,12 @@ public class Mook extends Enemy {
     //Todo: add shooting to animate.
     
     if(version.equalsIgnoreCase("stay")){
-      if(y<300+startY&&xVelocity>0&&x<=shootPos){
-        xVelocity = 3;
+      if(xVelocity>0&&x<=shootPos){
+        xVelocity = xSpeed;
         yVelocity -= (yVelocity/20);        
       }
-      else if(xVelocity<0&&y<300+startY&&x>=shootPos){
-        xVelocity = -3;
+      else if(xVelocity<0&&x>=shootPos){
+        xVelocity = -1*xSpeed;
         yVelocity -= (yVelocity/20);        
       }
       else{
@@ -49,20 +47,14 @@ public class Mook extends Enemy {
     }
     if(version.equalsIgnoreCase("leave")){
       if(xVelocity>0){
-        xVelocity = 3;
+        xVelocity = xSpeed;
         yVelocity -= (yVelocity/20);        
       }
       else if(xVelocity<0){
-        xVelocity = -3;
+        xVelocity = -1*xSpeed;
         yVelocity -= (yVelocity/20);        
       }
       
-    }
-    if(!version.equalsIgnoreCase("leave")){
-      if(x<0||x>(Main.WIDTH-DEFAULT_HITBOX_WIDTH))
-        xVelocity*=-1;
-      if(y<0||y>(Main.HEIGHT-DEFAULT_HITBOX_HEIGHT))
-        yVelocity*=-1;
     }
   }
   

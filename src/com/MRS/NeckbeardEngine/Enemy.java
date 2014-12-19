@@ -15,8 +15,6 @@ public abstract class Enemy {
   protected int health;
   protected int x;
   protected int y;
-  protected int startX;
-  protected int startY;
   protected double xVelocity;
   protected double yVelocity;
   protected String  projectileType;//will be more specific for every enemy
@@ -24,6 +22,8 @@ public abstract class Enemy {
   protected HitBox hitBox;//hitbox not set to anything yet, because that will happen in the individual enemy classes
   protected long timeLine;//used to determine at what time they will enter the game screen/spawn
   protected int shotCoolDown;//to calculate when to shoot
+  protected double xSpeed;
+  protected double ySpeed;
   
   public Enemy(State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
     this.state = state;
@@ -34,10 +34,10 @@ public abstract class Enemy {
     this.projectileType = projectileType;
     this.heldPowerUp = heldPowerUp;
     this.timeLine = timeLine;
-    startX = x;
-    startY = y;
+    xSpeed = Math.abs(xVelocity);
+    ySpeed = Math.abs(yVelocity);
   }
-    
+  
   //Accessors
   public State getState() {
     return state;   
