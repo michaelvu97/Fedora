@@ -34,6 +34,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   private boolean stateAlreadySwitched;
   private boolean bombAlreadyDeployed;
   
+  //Powerup Drop Chances
+  int dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield;
+  
   public KeyInputHandler keyInputHandler; //contains booleans for all keys
   
   //On screen object lists
@@ -70,6 +73,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   }
   
   public void initialize () {
+    
     level = new Level (this);
     
     //Variable setup
@@ -78,6 +82,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     deathClock = 0;
     speedBoostClock = 0;
+    
+    //chance setup
+    
+    dropChance = 5;
+    fastShot = 15;
+    rapidShot = 15;
+    scatterShot = 15;
+    bomb = 15;
+    extraShip = 15;
+    speedBoost = 15;
+    shield = 15;
     
     stateAlreadySwitched = false;
     bombAlreadyDeployed = false;
@@ -336,7 +351,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               if (e.getHealth() <= 0) {
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-                PowerUp p = PowerUp.getPowerUp(15,15,15,15,15,15,15,10);
+                PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
                 enemies.remove(e);
@@ -356,7 +371,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-                PowerUp p = PowerUp.getPowerUp(15,15,15,15,15,15,15,10);
+                PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
                 enemies.remove(e);                
