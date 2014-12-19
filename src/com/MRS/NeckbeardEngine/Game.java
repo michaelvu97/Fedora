@@ -95,7 +95,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     backgrounds.add(new Background(FileStore.TEST_FOREGROUND,3.0));
     
     //audioPlayer.testSound
-    player = new Player(500, 500, 3, State.RED);
+    player = new Player(500, 800, 3, State.RED);
     loadImages();
     loadSound();
     audioPlayer.play("BGM1");
@@ -299,10 +299,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         Enemy e = enemies.get(i);
         for(int j = i+1; j < enemies.size();j++) {
           Enemy f = enemies.get(j);
-          boolean collide = HitBox.checkCollisionRectRect(e.hitBox, f.hitBox);          
-          e.move(collide);
-          f.move(collide);          
-          
+          boolean collide = HitBox.checkCollisionRectRect(e.hitBox, f.hitBox);
+          if(collide)
+            Enemy.switchDirections(e,f);
         }
         //collision between Player and Enemy
         if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState())) {
@@ -322,8 +321,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               }
             }
         }
-        if(enemies.size()==1)
-          e.move(false);
+        
+        e.move();
         if(!e.onScreen())
           enemies.remove(i);
         for (int j = 0; j < playerProjectiles.size(); j++) {
@@ -337,8 +336,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               if (e.getHealth() <= 0) {
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+                PowerUp p = PowerUp.getPowerUp(15,15,15,15,15,15,15,10);
+                if(p!=null)
+                  powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
                 enemies.remove(e);
-                
               }
             }
           }
@@ -355,9 +356,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-                audioPlayer.play("Explosion1");
-                enemies.remove(e);
-                
+                PowerUp p = PowerUp.getPowerUp(15,15,15,15,15,15,15,10);
+                if(p!=null)
+                  powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
+                enemies.remove(e);                
               }
             }
           }

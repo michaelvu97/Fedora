@@ -37,18 +37,7 @@ public abstract class Enemy {
     startX = x;
     startY = y;
   }
-  
-  public void move(boolean collide) {
-    /*
-     * Increments the position by every
-     * frame of time
-     */
-    x += xVelocity;
-    y += yVelocity;
-    hitBox.setX(x);
-    hitBox.setY(y);
-  }
-  
+    
   //Accessors
   public State getState() {
     return state;   
@@ -115,9 +104,22 @@ public abstract class Enemy {
   public void setShotCoolDown(int shotCoolDown) {
     this.shotCoolDown = shotCoolDown;
   }
+  
   abstract public void paint(Graphics2D g);
   abstract public boolean onScreen();
   abstract public boolean canShoot();
   abstract public void resetShotCoolDown();
+  public abstract void move();
+  
+  public static void switchDirections(Enemy e, Enemy f){
+    
+    double tempXVelocity = e.xVelocity;
+    double tempYVelocity = e.yVelocity;
+    
+    e.xVelocity = f.xVelocity;
+    e.yVelocity = f.yVelocity;
+    f.xVelocity = tempXVelocity;
+    f.yVelocity = tempYVelocity;    
+  }
   
 }

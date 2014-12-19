@@ -28,16 +28,16 @@ public class Mook extends Enemy {
   }
   
   //@Override
-  public void animate (boolean collide) {
+  public void animate () {
     
     //Todo: add shooting to animate.
     
     if(version.equalsIgnoreCase("stay")){
-      if(y<300+startY&&startX<Main.WIDTH/2&&x<=shootPos){
+      if(y<300+startY&&xVelocity>0&&x<=shootPos){
         xVelocity = 3;
         yVelocity -= (yVelocity/20);        
       }
-      else if(startX>Main.WIDTH/2&&y<300&&x>=shootPos){
+      else if(xVelocity<0&&y<300+startY&&x>=shootPos){
         xVelocity = -3;
         yVelocity -= (yVelocity/20);        
       }
@@ -48,18 +48,15 @@ public class Mook extends Enemy {
       
     }
     if(version.equalsIgnoreCase("leave")){
-      if(startX<Main.WIDTH/2){
+      if(xVelocity>0){
         xVelocity = 3;
         yVelocity -= (yVelocity/20);        
       }
-      else if(startX>Main.WIDTH/2){
+      else if(xVelocity<0){
         xVelocity = -3;
         yVelocity -= (yVelocity/20);        
       }
       
-    }
-    if(collide) {
-      switchDirections();
     }
     if(!version.equalsIgnoreCase("leave")){
       if(x<0||x>(Main.WIDTH-DEFAULT_HITBOX_WIDTH))
@@ -69,20 +66,16 @@ public class Mook extends Enemy {
     }
   }
   
-  public void move (boolean collide) {
-    animate(collide);
+  public void move () {
+    animate();
     x+=xVelocity;
     y+=yVelocity;
     hitBox.setX(x);
     hitBox.setY(y);
   }
   
-  public void switchDirections () {
-    xVelocity*=-1;
-    yVelocity*=-1;
-  }
   public boolean onScreen(){
-    return (x > 0-DEFAULT_HITBOX_WIDTH && x < Main.WIDTH && y > 0-DEFAULT_HITBOX_HEIGHT && y < Main.HEIGHT);
+    return (x > 0-DEFAULT_HITBOX_WIDTH-100 && x < Main.WIDTH+100 && y > 0-DEFAULT_HITBOX_HEIGHT-100 && y < Main.HEIGHT+100);
   }
   public boolean canShoot() {
     if(version.equalsIgnoreCase("stay")&&shotCoolDown<=0&&xVelocity==0)

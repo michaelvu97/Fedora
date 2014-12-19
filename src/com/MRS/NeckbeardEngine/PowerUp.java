@@ -16,9 +16,41 @@ public enum PowerUp {
     this.offensive = offensive;
   }
   
-  public int getPowerUp() {
-    return powerUp;
+  public static PowerUp getPowerUp(int dropChance, int fastShot, int rapidFire, 
+                                   int scatterShot, int bomb, int extraShip, 
+                                   int speedBoost, int shield) {
+    
+    int dropCheck = (int)(100*Math.random()+1);
+    shield += fastShot+rapidFire+scatterShot+bomb+extraShip+speedBoost;
+    speedBoost += fastShot+rapidFire+scatterShot+bomb+extraShip;
+    extraShip += fastShot+rapidFire+scatterShot+bomb;
+    bomb += fastShot+rapidFire+scatterShot;
+    scatterShot += fastShot+rapidFire;
+    rapidFire += fastShot;
+    
+    if(dropCheck >= 1 && dropCheck <= dropChance){
+      int typeCheck = (int)(100*Math.random()+1);
+      if(typeCheck >= 1 && typeCheck <= fastShot)
+        return FAST_SHOT;
+      else if(typeCheck > fastShot && typeCheck <= rapidFire)
+        return RAPID_FIRE;
+      else if(typeCheck > rapidFire && typeCheck <= scatterShot)
+        return SCATTER_SHOT;
+      else if(typeCheck > scatterShot && typeCheck <= bomb)
+        return BOMB;
+      else if(typeCheck > bomb && typeCheck <= extraShip)
+        return EXTRA_SHIP;
+      else if(typeCheck > extraShip && typeCheck <= speedBoost)
+        return SPEED_BOOST;
+      else if(typeCheck > speedBoost && typeCheck <= shield)
+        return SHIELD;
+      else
+        return null;
+    }
+    else
+      return null;
   }
+  
   public boolean getOffensive() {
     return offensive;
   }
