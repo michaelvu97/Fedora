@@ -33,6 +33,8 @@ public class FileStore {
                             IRIS_RED_ACTIVE = assets + "IrisRedActive.png",
                             IRIS_BLUE = assets + "IrisBlue.png",
                             IRIS_BLUE_ACTIVE = assets + "IrisBlueActive.png",
+                            SHIFTER_RED = assets + "ShifterRed.png",
+                            SHIFTER_BLUE = assets + "ShifterBlue.png",
                             SHADE_RED = assets + "ShadeRed.png",
                             SHADE_BLUE = assets + "ShadeBlue.png",
                             ENEMY_SHOT_RED    = assets + "enemyShotRed.png",
