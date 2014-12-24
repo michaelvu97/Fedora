@@ -324,10 +324,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
           audioPlayer.play("Explosion1");
           
-          explosions.add(new Explosion ((int) player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY()+Player.DEFAULT_HITBOX_HEIGHT/2, Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+          explosions.add(new Explosion ((int) player.getX() + Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY()+Player.DEFAULT_HITBOX_HEIGHT/2, Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
           player.setLives(player.getLives() - 1);
           deathClock = 120;
-          for(int j = 0; j<player.getDefensePowerUps().size();j++) {
+          for(int j = 0; j < player.getDefensePowerUps().size();j++) {
             PowerUp d = player.getDefensePowerUps().get(j);
             if(d == PowerUp.SHIELD){
               player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
