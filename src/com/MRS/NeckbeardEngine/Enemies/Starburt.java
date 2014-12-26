@@ -16,7 +16,7 @@ public class Starburt extends Enemy {
   private boolean offScreen;
   
   
-  public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version) {
+  public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
     this.yVelocity = 0;
     health = 2;          
