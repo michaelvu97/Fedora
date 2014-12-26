@@ -77,7 +77,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   public void initialize () {
     
-    level = new Level (this);
+    player = new Player(360, 800, 3, State.RED);
+    level = new Level (this, player);
     
     //Variable setup
     started = false;
@@ -113,7 +114,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     backgrounds.add(new Background(FileStore.TEST_FOREGROUND,2.0));
     
     //audioPlayer.testSound
-    player = new Player(360, 800, 3, State.RED);
     loadImages();
     loadSound();
     audioPlayer.play("BGM1");

@@ -6,17 +6,19 @@ public class Level {
      
      Game g;
      private int frames;
-     public Level(Game g) {
+     private Player target;
+     public Level(Game g, Player target) {
           this.g = g;
           frames = 0;
-          
+          this.target = target;       
      }
      public void check() {
           frames++;
           
           switch(frames) {
-               case 600:
-                    g.enemies.add(new Iris(State.RED, 300, -128, 3, "Shot", null, 0));
+               case 180:
+                    g.enemies.add(new Shifter(State.BLUE, -72, 100, 3, 0, "Shot", null, 0, "stay", target, 0));
+                    //g.enemies.add(new Iris(State.RED, 300, -128, 3, "Shot", null, 0));
                     //g.enemies.add(new Starburt(State.RED, -200, 100, 5, 10, "Shot", null, 0));
 //                    g.enemies.add(new Mook(State.BLUE, -30, -50, 3, 4, "Shot", null, 0, "form3", Main.WIDTH/4));
 //                    g.enemies.add(new Mook(State.RED, -90, -110, 3, 4, "Shot", null, 0, "form3", Main.WIDTH/4));

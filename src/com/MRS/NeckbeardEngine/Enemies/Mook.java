@@ -118,7 +118,7 @@ public class Mook extends Enemy {
           return (x > 0-DEFAULT_HITBOX_WIDTH-100 && x < Main.WIDTH+100 && y > 0-DEFAULT_HITBOX_HEIGHT-100 && y < Main.HEIGHT+100);
      }
      public boolean canShoot() {
-          if(version.equalsIgnoreCase("stay")&&shotCoolDown<=0&&xVelocity==0)
+          if(version.equalsIgnoreCase("stay") && shotCoolDown <= 0 && xVelocity == 0)
                return true;
           else if((version.equalsIgnoreCase("leave") || version.equalsIgnoreCase("form1") || version.equalsIgnoreCase("form2") || version .equalsIgnoreCase("form3"))&& (x == shootPos))
                return true;

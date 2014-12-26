@@ -12,6 +12,8 @@ public class Iris extends Enemy {
      
      public static int DEFAULT_HITBOX_WIDTH = 64;
      public static int DEFAULT_HITBOX_HEIGHT = 128;
+     //The idea is that the Iris has a cycle of 3 sec doing nothing, 2 sec of charge, and 3 sec where the laser is active
+     //Initial cooldown represents the 3 sec of nothing and the 2 sec of charge
      public static int INITIAL_COOLDOWN = 300;
      
      public Iris (State state, int x, int y, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
@@ -34,6 +36,7 @@ public class Iris extends Enemy {
           hitBox.setY(y);
      }
      
+     //After the first fire, shotCoolDown gets 3 sec to represent the time to wait for the laser to dissapate
      public void resetShotCoolDown(){
           shotCoolDown = INITIAL_COOLDOWN + 180;
      }
