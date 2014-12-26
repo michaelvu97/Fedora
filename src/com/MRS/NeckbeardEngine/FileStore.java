@@ -8,6 +8,7 @@ public class FileStore {
   public final static String     assets = "\\Assets\\",
                                  fx     = "FX\\",
                                  sound  = "Sound\\",
+                                 lasers = "Lasers\\",
                    
                             //Player assets
                             PLAYER_RED     = assets + "PlayerShipRed.png",
@@ -29,6 +30,16 @@ public class FileStore {
                             //Shields
                             RED_SHIELD  = assets + "RedShield.png",
                             BLUE_SHIELD = assets + "BlueShield.png",
+
+                            //Lasers
+                            LASER_BLUE_HORIZONTAL_CHARGE = assets + lasers + "LaserBlueHorizontalCharge.png",
+                            LASER_BLUE_VERTICAL_CHARGE = assets + lasers + "LaserBlueVerticalCharge.png",
+                            LASER_BLUE_HORIZONTAL_ACTIVE = assets + lasers + "LaserBlueHorizontalActive.png",
+                            LASER_BLUE_VERTICAL_ACTIVE = assets + lasers + "LaserBlueVerticalActive.png",
+                            LASER_RED_HORIZONTAL_CHARGE = assets + lasers + "LaserRedHorizontalCharge.png",
+                            LASER_RED_VERTICAL_CHARGE = assets + lasers + "LaserRedVerticalCharge.png",
+                            LASER_RED_HORIZONTAL_ACTIVE = assets + lasers + "LaserRedHorizontalActive.png",
+                            LASER_RED_VERTICAL_ACTIVE = assets + lasers + "LaserRedVerticalActive.png",
                             
                             //Enemy Assets    
                             MOOK_RED         = assets + "MookRed.png",
