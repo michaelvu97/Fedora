@@ -37,6 +37,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   //Powerup Drop Chances
   int dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield;
   
+  //hit sound cycling
+  private int lastPlayedHit = 1;
+  
   public KeyInputHandler keyInputHandler; //contains booleans for all keys
   
   //On screen object lists
@@ -105,9 +108,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     
     //base image, order from back to front
-    backgrounds.add(new Background(FileStore.SPACE_BG_1,1.0));
-    backgrounds.add(new Background(FileStore.TEST_MIDGROUND,2.0));
-    backgrounds.add(new Background(FileStore.TEST_FOREGROUND,3.0));
+    backgrounds.add(new Background(FileStore.SPACE_BG_1,0));
+    backgrounds.add(new Background(FileStore.TEST_MIDGROUND,0.2));
+    backgrounds.add(new Background(FileStore.TEST_FOREGROUND,2.0));
     
     //audioPlayer.testSound
     player = new Player(500, 800, 3, State.RED);
@@ -272,6 +275,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           HitBox hp = player.getHitBox();
           if (HitBox.checkCollisionRectRect(he, hp)) {
             explosions.add(new Explosion ((int)player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
+            playRandomHit();
+            
             enemyProjectiles.remove(i);
             player.setLives(player.getLives() - 1);
             deathClock = 120;
@@ -367,7 +372,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)  && State.compare(e.getState(), p1.getState())) {
               e.setHealth(e.getHealth() - 1);
               explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
-              //play hit sound
+              playRandomHit();
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
@@ -429,18 +434,19 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         backgrounds.get(i).move();
     }
     else if(player.getLives()==0){
+      //The game is over, random explosions must appear
       for(int i = 0; i<30; i++){
         explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-        audioPlayer.play("Explosion1");        
+               
+      }
+      
+      for(int i = 0; i<30; i++){
+        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HIT));    
       }
       for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HIT));
-        audioPlayer.play("Explosion1");        
+        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));      
       }
-      for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));
-        audioPlayer.play("Explosion1");        
-      }
+       audioPlayer.play("Explosion1");
       player.setLives(player.getLives()-1);
     }
     repaint();
@@ -457,7 +463,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                                            RenderingHints.KEY_TEXT_ANTIALIASING,
                                            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     g.setRenderingHints(rh);
-    
     //Paints all gui
     g.setColor(Color.RED);
     g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
@@ -512,26 +517,28 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     /*
      * HUD Overlay
      */
-    g.setColor(Color.black);
-    g.setFont(font_bold);
-    g.drawString("Bombs: " + player.getBombs(), 0, 500);
-    g.setFont(font_reg);
-    if (player.getState() == State.RED) 
-      g.setColor(Color.RED);
-    else
-      g.setColor(Color.BLUE);
-    g.drawString("Bombs: " + player.getBombs(), 0, 500);
-    
-    g.setColor(Color.black);
-    g.setFont(font_bold);
-    g.drawString("Lives: " + player.getLives(), 0, 600);
-    if (player.getState() == State.RED) 
-      g.setColor(Color.RED);
-    else
-      g.setColor(Color.BLUE);
-    g.setFont(font_reg);
-    g.drawString("Lives: " + player.getLives(), 0, 600);
-    
+    if (player.getLives() >= 0) {
+      g.setColor(Color.black);
+      g.setFont(font_bold);
+      g.drawString("Bombs: " + player.getBombs(), 0, 500);
+      g.setFont(font_reg);
+      if (player.getState() == State.RED) 
+        g.setColor(Color.RED);
+      else
+        g.setColor(Color.BLUE);
+      g.drawString("Bombs: " + player.getBombs(), 0, 500);
+      
+      g.setColor(Color.black);
+      g.setFont(font_bold);
+      
+      g.drawString("Lives: " + player.getLives(), 0, 600);
+      if (player.getState() == State.RED) 
+        g.setColor(Color.RED);
+      else
+        g.setColor(Color.BLUE);
+      g.setFont(font_reg);
+      g.drawString("Lives: " + player.getLives(), 0, 600);
+    }
     //Game Over Animation
     if(player.getLives()<=0){
       g.setColor(Color.cyan);
@@ -544,7 +551,20 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   } 
   
   
-  
+  public void playRandomHit() {
+    switch (lastPlayedHit) {
+      case 1:
+        lastPlayedHit = 2;
+        break;
+      case 2:
+        lastPlayedHit = 3;
+      case 3:
+        lastPlayedHit = 1;
+        
+    }
+    String clip = "METAL_HIT_" + lastPlayedHit;
+    audioPlayer.play(clip);
+  }
   
   @Override
   public void keyPressed (KeyEvent e) {
@@ -613,10 +633,18 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.MONTAGE, "Montage"},
       {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
       {workingDir + FileStore.EXPLOSION_1, "Explosion1"},
-      {workingDir + FileStore.BOMB, "Bomb"}
+      {workingDir + FileStore.BOMB, "Bomb"},
+      {workingDir + FileStore.METAL_HIT_1, "METAL_HIT_1"},
+      {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
+      {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"}
     };
     
     audioPlayer = new Sound(clips); 
+    
+    //setting volume
+    audioPlayer.setVolume("METAL_HIT_1",-7F);
+    audioPlayer.setVolume("METAL_HIT_2",-7F);
+    audioPlayer.setVolume("METAL_HIT_2",-7F);
   }
   
   public void exitGame() {

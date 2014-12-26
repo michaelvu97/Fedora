@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Background {
-  private int y1, y2;
+  private double y1, y2;
   private double yVelocity;
   private BufferedImage img = null;
   
@@ -22,7 +22,7 @@ public class Background {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    y2 = y1 - img.getHeight(); 
+    y2 = -1 * img.getHeight(); 
   }
   public void move(){
     y1+=yVelocity;
@@ -30,12 +30,12 @@ public class Background {
     
     if(y1>=img.getHeight()){
       y1 = y2;
-      y2 = y1-img.getHeight();
+      y2 = -1 * img.getHeight();
     }
   }
   public void paint (Graphics2D g) {
-    g.drawImage(img,0,y1,null);
-    g.drawImage(img,0,y2,null);
+    g.drawImage(img,0,(int)y1,null);
+    g.drawImage(img,0,(int)y2,null);
   }
     
 }
