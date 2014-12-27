@@ -233,6 +233,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               enemyProjectiles.add((Projectile) new Shot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2),e.getY()+e.getHitBox().getHeight()-(Shot.DEFAULT_HITBOX_WIDTH/2),0,Projectile.ShotVelocity,"swag",2000));
             
           }
+          else if(e.getProjectileType().equalsIgnoreCase("starburtShot")) {
+            if(e.getState() == State.RED) {
+              enemyProjectiles.add((Projectile) new StarburtShot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,1,"swag",2000, player));
+            }
+            else if(e.getState() == State.BLUE) {
+              enemyProjectiles.add((Projectile) new StarburtShot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,1,"swag",2000, player));
+            }
+          }
           e.resetShotCoolDown();
         }
         else if(e.getShotCoolDown()>0) 

@@ -61,10 +61,10 @@ public class FileStore {
                             ENEMY_SHOT_PURPLE                 = assets + "EnemyShotPurple.png",
                             ENEMY_FAST_SHOT_RED               = assets + "enemyfastshotred.png",
                             ENEMY_FAST_SHOT_BLUE              = assets + "enemyfastshotblue.png",
-                            ENEMY_STARBURT_SHOT_RED_INACTIVE  = assets + "starburtshotredinactive",
-                            ENEMY_STARBURT_SHOT_RED_ACTIVE    = assets + "starburtshotredactive",
-                            ENEMY_STARBURT_SHOT_BLUE_INACTIVE = assets + "starburtshotblueinactive",
-                            ENEMY_STARBURT_SHOT_BLUE_ACTIVE   = assets + "starburtshotblueactive",
+                            ENEMY_STARBURT_SHOT_RED           = assets + "A",
+                            ENEMY_STARBURT_SHOT_RED_ACTIVE    = assets + "B",
+                            ENEMY_STARBURT_SHOT_BLUE          = assets + "C",
+                            ENEMY_STARBURT_SHOT_BLUE_ACTIVE   = assets + "D",
     
                             //Effects
                             FX_BLUE_GLOW    = assets + fx + "BlueGlow.png",

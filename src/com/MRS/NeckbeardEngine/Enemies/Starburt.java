@@ -12,17 +12,19 @@ public class Starburt extends Enemy {
   
   public static int DEFAULT_HITBOX_WIDTH = 128;
   public static int DEFAULT_HITBOX_HEIGHT = 128;
-  public static int MAXSHOTCOOLDOWN = 180;
+  public static int MAXSHOTCOOLDOWN = 360;
   private boolean offScreen;
-  
+  private Game game;
   
   public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
+    this.projectileType = "starburtShot";
     this.yVelocity = 0;
     health = 2;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     shotCoolDown = MAXSHOTCOOLDOWN;
     offScreen = true;
+    this.game = game;
   }
   
   //@Override
