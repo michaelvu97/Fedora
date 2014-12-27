@@ -235,10 +235,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           else if(e.getProjectileType().equalsIgnoreCase("starburtShot")) {
             if(e.getState() == State.RED) {
-              enemyProjectiles.add((Projectile) new StarburtShot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,1,"swag",2000, player));
-            }
-            else if(e.getState() == State.BLUE) {
-              enemyProjectiles.add((Projectile) new StarburtShot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,1,"swag",2000, player));
+              enemyProjectiles.add((Projectile) new StarburtShot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,1,"swag",20000, player));
+            } else if(e.getState() == State.BLUE) {
+              enemyProjectiles.add((Projectile) new StarburtShot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,1,"swag",20000, player));
             }
           }
           e.resetShotCoolDown();
