@@ -32,7 +32,6 @@ public class Shifter extends Enemy {
      
      //@Override
      public void animate () {
-          
           //Todo: add shooting to animate.
           //When creating "stay" Shifters, yVelocity = 0 and xVelocity magnitude = 3
           if(version.equalsIgnoreCase("stay")){
