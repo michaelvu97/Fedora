@@ -110,16 +110,16 @@ public abstract class Enemy {
   abstract public boolean canShoot();
   abstract public void resetShotCoolDown();
   public abstract void move();
-  
-  public static void switchDirections(Enemy e, Enemy f){
-    
-    double tempXVelocity = e.xVelocity;
-    double tempYVelocity = e.yVelocity;
-    
-    e.xVelocity = f.xVelocity;
-    e.yVelocity = f.yVelocity;
-    f.xVelocity = tempXVelocity;
-    f.yVelocity = tempYVelocity;    
-  }
+//  
+//  public static void switchDirections(Enemy e, Enemy f){
+//    
+//    double tempXVelocity = e.xVelocity;
+//    double tempYVelocity = e.yVelocity;
+//    
+//    e.xVelocity = f.xVelocity;
+//    e.yVelocity = f.yVelocity;
+//    f.xVelocity = tempXVelocity;
+//    f.yVelocity = tempYVelocity;    
+//  }
   
 }

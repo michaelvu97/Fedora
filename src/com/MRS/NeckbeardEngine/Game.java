@@ -317,12 +317,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       //enemy movement
       for (int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
-        for(int j = i+1; j < enemies.size();j++) {
-          Enemy f = enemies.get(j);
-          boolean collide = HitBox.checkCollisionRectRect(e.hitBox, f.hitBox);
-          if(collide)
-            Enemy.switchDirections(e,f);
-        }
+//        for(int j = i+1; j < enemies.size();j++) {
+//          Enemy f = enemies.get(j);
+//          boolean collide = HitBox.checkCollisionRectRect(e.hitBox, f.hitBox);
+//          if(collide)
+//            Enemy.switchDirections(e,f);
+//        }
         //collision between Player and Enemy
         if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState())) {
           enemies.remove(e);
