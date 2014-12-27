@@ -32,14 +32,14 @@ public class FileStore {
                             BLUE_SHIELD = assets + "BlueShield.png",
 
                             //Lasers
-                            LASER_BLUE_HORIZONTAL_CHARGE = assets + lasers + "LaserBlueHorizontalCharge.png",
-                            LASER_BLUE_VERTICAL_CHARGE = assets + lasers + "LaserBlueVerticalCharge.png",
-                            LASER_BLUE_HORIZONTAL_ACTIVE = assets + lasers + "LaserBlueHorizontalActive.png",
-                            LASER_BLUE_VERTICAL_ACTIVE = assets + lasers + "LaserBlueVerticalActive.png",
-                            LASER_RED_HORIZONTAL_CHARGE = assets + lasers + "LaserRedHorizontalCharge.png",
-                            LASER_RED_VERTICAL_CHARGE = assets + lasers + "LaserRedVerticalCharge.png",
-                            LASER_RED_HORIZONTAL_ACTIVE = assets + lasers + "LaserRedHorizontalActive.png",
-                            LASER_RED_VERTICAL_ACTIVE = assets + lasers + "LaserRedVerticalActive.png",
+                            LASER_BLUE_HORIZONTAL_CHARGE = assets + lasers + "LaserHorizontalBlueCharge.png",
+                            LASER_BLUE_VERTICAL_CHARGE   = assets + lasers + "LaserVerticalBlueCharge.png",
+                            LASER_BLUE_HORIZONTAL_ACTIVE = assets + lasers + "LaserHorizontalBlueActive.png",
+                            LASER_BLUE_VERTICAL_ACTIVE   = assets + lasers + "LaserVerticalBlueActive.png",
+                            LASER_RED_HORIZONTAL_CHARGE  = assets + lasers + "LaserHorizontalRedCharge.png",
+                            LASER_RED_VERTICAL_CHARGE    = assets + lasers + "LaserVerticalRedCharge.png",
+                            LASER_RED_HORIZONTAL_ACTIVE  = assets + lasers + "LaserHorizontalRedActive.png",
+                            LASER_RED_VERTICAL_ACTIVE    = assets + lasers + "LaserVerticalRedActive.png",
                             
                             //Enemy Assets    
                             MOOK_RED         = assets + "MookRed.png",

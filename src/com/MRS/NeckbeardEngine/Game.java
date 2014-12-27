@@ -276,7 +276,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         Projectile p = enemyProjectiles.get(i);
         p.move();
         if (p.getY() > Main.HEIGHT + 100 && p.getClass().getSimpleName().equals("Shot")) {
-          enemyProjectiles.remove(i);
+          enemyProjectiles.remove(p);
+        }
+        if (p.getKillTime() < System.currentTimeMillis()) {
+          enemyProjectiles.remove(p);
         }
         if (p.getClass().getSimpleName().equals("Shot") && State.compare(player.getState(), p.getState())&&deathClock<=0) { //added deathClock for time on invincibility
           HitBox he = p.getHitBox();
