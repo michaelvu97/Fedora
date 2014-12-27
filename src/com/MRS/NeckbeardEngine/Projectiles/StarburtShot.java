@@ -85,7 +85,6 @@ public class StarburtShot extends Projectile {
     }
     try {
       img = ImageIO.read(new File (path));
-      System.out.println("ho");
     } 
     catch (IOException e) {
       e.printStackTrace();
