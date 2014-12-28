@@ -8,11 +8,12 @@ import java.io.*;
 
 public class StarburtShot extends Projectile {
   //Constants
-  public static int DEFAULT_HITBOX_WIDTH = 13;
-  public static int DEFAULT_HITBOX_HEIGHT = 13;
+  public static int DEFAULT_HITBOX_WIDTH = 60;
+  public static int DEFAULT_HITBOX_HEIGHT = 60;
   
   //personal image
   private BufferedImage img;
+  private BufferedImage laser;
   
   //Player position
   private Player player;
@@ -20,6 +21,8 @@ public class StarburtShot extends Projectile {
   //lazor firing countdown
   private int coolDown;
   
+  //boolean if firing
+  private boolean active;
   public StarburtShot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration, Player player) {
     //Projectile class constructor    
     super(state, x, y, xVelocity, yVelocity, imgPath, duration);
@@ -36,16 +39,20 @@ public class StarburtShot extends Projectile {
     this.player = player;
     
     //CoolDown Setup
-    coolDown = 0;
+    coolDown = 1;
+    
+    // not active
+    active = false;
     
   }
   
   public void animate() {
-    if(y == (player.getY()+(Player.DEFAULT_HITBOX_HEIGHT/2))) {
+    if(y > player.getY()+20 && y < (player.getY()+Player.DEFAULT_HITBOX_HEIGHT-20) && !active) {
       yVelocity = 0;
       coolDown = 120;
+      active = true;
     }
-    if(coolDown<0)
+    if(active && coolDown<0)
     {
       hitBox.setX(0);
       hitBox.setWidth(800);
@@ -56,11 +63,14 @@ public class StarburtShot extends Projectile {
   
     public void move() {
     animate();
-    if(yVelocity == 0)
+    if(active){
       coolDown--;
+    }
     x += xVelocity;
     y += yVelocity;
     hitBox.setY(y);
+    if(coolDown==-180)
+      killTime = System.currentTimeMillis()+1;
   }
   
   public void paint(Graphics2D g) {
@@ -69,6 +79,9 @@ public class StarburtShot extends Projectile {
      * by Game
      */
     this.loadImage();
+    if(active){
+      g.drawImage(laser,0,y+DEFAULT_HITBOX_HEIGHT/2-6,null);
+    }
     g.drawImage(img,x,y,null);
   }
   
@@ -76,12 +89,42 @@ public class StarburtShot extends Projectile {
     
     String workingDir = System.getProperty("user.dir");
     String path = "";
+    if(active){
+      String file = "";
+      
+      if(state == State.RED){
+        if(coolDown > 1)
+          file = workingDir + FileStore.LASER_RED_HORIZONTAL_CHARGE;
+        else
+          file = workingDir + FileStore.LASER_RED_HORIZONTAL_ACTIVE;
+      }
+      else if (state == State.BLUE){
+        if(coolDown > 1)
+          file = workingDir + FileStore.LASER_BLUE_HORIZONTAL_CHARGE;
+        else
+          file = workingDir + FileStore.LASER_BLUE_HORIZONTAL_ACTIVE;
+      }
+      
+      try {
+        laser = ImageIO.read(new File (file));
+      } 
+      catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+      
     
     if (state == State.RED) {
-      path = workingDir + FileStore.ENEMY_STARBURT_SHOT_RED;
+      if(active)
+        path = workingDir + FileStore.ENEMY_STARBURT_SHOT_RED_ACTIVE;
+      else
+        path = workingDir + FileStore.ENEMY_STARBURT_SHOT_RED;
     }
     else if (state == State.BLUE) {
-      path = workingDir + FileStore.ENEMY_STARBURT_SHOT_BLUE;
+      if(active)
+        path = workingDir + FileStore.ENEMY_STARBURT_SHOT_BLUE_ACTIVE;
+      else
+        path = workingDir + FileStore.ENEMY_STARBURT_SHOT_BLUE;
     }
     try {
       img = ImageIO.read(new File (path));

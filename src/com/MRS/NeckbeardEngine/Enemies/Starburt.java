@@ -12,7 +12,7 @@ public class Starburt extends Enemy {
   
   public static int DEFAULT_HITBOX_WIDTH = 128;
   public static int DEFAULT_HITBOX_HEIGHT = 128;
-  public static int MAXSHOTCOOLDOWN = 360;
+  public static int MAXSHOTCOOLDOWN = 1200;
   private boolean offScreen;
   private Game game;
   
@@ -22,7 +22,7 @@ public class Starburt extends Enemy {
     this.yVelocity = 0;
     health = 2;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
-    shotCoolDown = MAXSHOTCOOLDOWN;
+    shotCoolDown = 120;
     offScreen = true;
     this.game = game;
   }

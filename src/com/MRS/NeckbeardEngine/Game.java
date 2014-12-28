@@ -280,7 +280,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         if (p.getKillTime() < System.currentTimeMillis()) {
           enemyProjectiles.remove(p);
         }
-        if (p.getClass().getSimpleName().equals("Shot") && State.compare(player.getState(), p.getState())&&deathClock<=0) { //added deathClock for time on invincibility
+        if ((p.getClass().getSimpleName().equalsIgnoreCase("Shot")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
           HitBox he = p.getHitBox();
           HitBox hp = player.getHitBox();
           if (HitBox.checkCollisionRectRect(he, hp)) {
@@ -300,6 +300,25 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             }
           }
         }
+        if ((p.getClass().getSimpleName().equalsIgnoreCase("StarburtShot")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
+          HitBox he = p.getHitBox();
+          HitBox hp = player.getHitBox();
+          if (HitBox.checkCollisionRectRect(he, hp)) {
+            explosions.add(new Explosion ((int)player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
+            playRandomHit();
+            
+            player.setLives(player.getLives() - 1);
+            deathClock = 120;
+            for(int j = 0; j<player.getDefensePowerUps().size();j++) {
+              PowerUp d = player.getDefensePowerUps().get(j);
+              if(d == PowerUp.SHIELD){
+                player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
+                player.setLives(player.getLives() + 1); 
+                deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
+              }
+            }
+          }
+        }    
       }
       for(int i = 0; i<player.getDefensePowerUps().size();i++) {
         PowerUp p = player.getDefensePowerUps().get(i);
@@ -447,7 +466,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       //The game is over, random explosions must appear
       for(int i = 0; i<30; i++){
         explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-               
+        
       }
       
       for(int i = 0; i<30; i++){
@@ -456,7 +475,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for(int i = 0; i<30; i++){
         explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));      
       }
-       audioPlayer.play("Explosion1");
+      audioPlayer.play("Explosion1");
       player.setLives(player.getLives()-1);
     }
     repaint();
