@@ -242,9 +242,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
             if(e.getState() == State.RED) {
-              enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-14,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
+              enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
             } else if(e.getState() == State.BLUE) {
-              enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-14,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
+              enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
             }
           }
           e.resetShotCoolDown();
@@ -438,6 +438,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
+                if(e.getProjectileType().equalsIgnoreCase("laser")){
+                  for(int k = 0; k < enemyProjectiles.size(); k++) {
+                    Projectile r = enemyProjectiles.get(k);
+                    
+                    if(State.compare(r.getState(),e.getState()) && (e.getX() == (r.getX() + 15 - (e.getHitBox().getWidth()/2))) && (e.getY() == (r.getY() + 20 - e.getHitBox().getHeight())))
+                      enemyProjectiles.remove(k);
+                  }
+                }
                 enemies.remove(e);   
                 audioPlayer.play("Explosion1");
               }
