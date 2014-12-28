@@ -438,6 +438,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
+                
+                //Stops Iris lasers for continuing to fire if they are destroyed
                 if(e.getProjectileType().equalsIgnoreCase("laser")){
                   for(int k = 0; k < enemyProjectiles.size(); k++) {
                     Projectile r = enemyProjectiles.get(k);
