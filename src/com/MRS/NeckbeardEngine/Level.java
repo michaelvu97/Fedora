@@ -17,15 +17,15 @@ public class Level {
           
           switch(frames) {
                case 180:
-                    //g.enemies.add(new Shifter(State.BLUE, -72, 100, 3, 0, "Shot", null, 0, "stay", target, 0));
-                    //g.enemies.add(new Iris(State.RED, 300, -128, 3, "Shot", null, 0));
-                    g.enemies.add(new Starburt(State.BLUE, -200, 100, 5, 10, "StarburtShot", null, 0));
+//                    g.enemies.add(new Shifter(State.BLUE, -72, 100, 3, 0, "Shot", null, 0, "stay", target, 0));
+                    g.enemies.add(new Iris(State.BLUE, 300, -128, 3, "Laser", null, 0));
+//                    g.enemies.add(new Starburt(State.BLUE, -200, 100, 5, 10, "StarburtShot", null, 0));
 //                    g.enemies.add(new Mook(State.BLUE, -30, -50, 3, 4, "Shot", null, 0, "form3", Main.WIDTH/4));
 //                    g.enemies.add(new Mook(State.RED, -90, -110, 3, 4, "Shot", null, 0, "form3", Main.WIDTH/4));
 //                    g.enemies.add(new Mook(State.BLUE, 750, -50, -3, 4, "Shot", null, 0, "form3", Main.WIDTH/4));
 //                    g.enemies.add(new Mook(State.RED, 810, -110, -3, 4, "Shot", null, 0, "form3", Main.WIDTH/4));
 //                    
-                    break;
+//                    break;
 //               case 750:
 //                    g.enemies.add(new Mook(State.BLUE, 720, 800, -4, -4, "Shot", null, 0, "form2", Main.WIDTH/2));
 //                    g.enemies.add(new Mook(State.RED, 780, 860, -4, -4, "Shot", null, 0, "form2", Main.WIDTH/2));
@@ -67,7 +67,7 @@ public class Level {
 //                    break;
 //               case 3900:
 //                    g.enemies.add(new Mook(State.RED, 600, 0, -1, 10, "Shot", null, 0, "leave", Main.WIDTH/2));
-//                    break;
+                    break;
                default:
                     
           }

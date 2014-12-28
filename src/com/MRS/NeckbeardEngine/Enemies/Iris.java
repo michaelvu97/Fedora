@@ -15,18 +15,23 @@ public class Iris extends Enemy {
      //The idea is that the Iris has a cycle of 3 sec doing nothing, 2 sec of charge, and 3 sec where the laser is active
      //Initial cooldown represents the 3 sec of nothing and the 2 sec of charge
      public static int INITIAL_COOLDOWN = 300;
-     
+     private int eyeClock;
      public Iris (State state, int x, int y, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
           super(state, x, y, 0, yVelocity, projectileType, heldPowerUp, timeLine);
           health = 2;
           hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
           shotCoolDown = INITIAL_COOLDOWN;
+          eyeClock = 0;
      }
      
      public void animate () {
           if (y > 0)
                yVelocity = 0;
           else {
+          }
+          if(eyeClock>0) {
+            resetShotCoolDown();
+            eyeClock--;
           }
      }
      
@@ -38,12 +43,14 @@ public class Iris extends Enemy {
      
      //After the first fire, shotCoolDown gets 3 sec to represent the time to wait for the laser to dissapate
      public void resetShotCoolDown(){
-          shotCoolDown = INITIAL_COOLDOWN + 180;
+          shotCoolDown = INITIAL_COOLDOWN;
      }
      
      public boolean canShoot() {
-          if(shotCoolDown<=0)
+       if(shotCoolDown<=0) {
+         eyeClock = 260;
                return true;
+       }
           else
                return false;
      }
@@ -60,12 +67,12 @@ public class Iris extends Enemy {
           String path = "";
           
           if (state == State.RED) {
-               if (shotCoolDown <= INITIAL_COOLDOWN && shotCoolDown > INITIAL_COOLDOWN - 180)
+               if (eyeClock<=0)
                     path = workingDir + FileStore.IRIS_RED;
                else
                     path = workingDir + FileStore.IRIS_RED_ACTIVE;
           } else if (state == State.BLUE) {
-               if (shotCoolDown <= INITIAL_COOLDOWN && shotCoolDown > INITIAL_COOLDOWN - 180)
+               if (eyeClock<=0)
                     path = workingDir + FileStore.IRIS_BLUE;
                else
                     path = workingDir + FileStore.IRIS_BLUE_ACTIVE;

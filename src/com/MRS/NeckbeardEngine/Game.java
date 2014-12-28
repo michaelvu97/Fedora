@@ -240,6 +240,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               enemyProjectiles.add((Projectile) new StarburtShot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,1,"swag",20000, player));
             }
           }
+          else if(e.getProjectileType().equalsIgnoreCase("laser")) {
+            if(e.getState() == State.RED) {
+              enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-5,0,0,Direction.DOWN));
+            } else if(e.getState() == State.BLUE) {
+              enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-5,0,0,Direction.DOWN));
+            }
+          }
           e.resetShotCoolDown();
         }
         else if(e.getShotCoolDown()>0) 
@@ -318,7 +325,26 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               }
             }
           }
-        }    
+        }
+        if ((p.getClass().getSimpleName().equalsIgnoreCase("Laser")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
+          HitBox he = p.getHitBox();
+          HitBox hp = player.getHitBox();
+          if (HitBox.checkCollisionRectRect(he, hp)) {
+            explosions.add(new Explosion ((int)player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
+            playRandomHit();
+            
+            player.setLives(player.getLives() - 1);
+            deathClock = 120;
+            for(int j = 0; j<player.getDefensePowerUps().size();j++) {
+              PowerUp d = player.getDefensePowerUps().get(j);
+              if(d == PowerUp.SHIELD){
+                player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
+                player.setLives(player.getLives() + 1); 
+                deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
+              }
+            }
+          }
+        }   
       }
       for(int i = 0; i<player.getDefensePowerUps().size();i++) {
         PowerUp p = player.getDefensePowerUps().get(i);

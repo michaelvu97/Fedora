@@ -32,31 +32,10 @@ public class Laser extends Projectile {
     * if the frame rate is ever changed,
     * this needs to be adjusted/dynamic
     */
-   
    killTime = (CHARGING_TIME + ACTIVE_TIME) * 16.6667 + System.currentTimeMillis();
-   
-   //orientation
-   switch (direction.getValue()) {
-     //The cases are the integer constants of the direction enum
-     case 2:
-       x = x - 15;
-       hitBox = new HitBox (x, y, 30, 980);
-       break;
-     case 4:
-       y = y - 15;
-       hitBox = new HitBox (x, y, 980, 30);
-       break;
-     case 1:
-       x = x - 15;
-       y = y - 980;
-       hitBox = new HitBox (x, y, 30, 980);
-       break;
-     case 3:
-       x = x - 980;
-       y = y - 15;
-       hitBox = new HitBox (x, y, 980, 30);
-       break;
-   }
+   //so it doesn't hit anything while charging
+   hitBox = new HitBox(x,y,0,0);
+     
    //preloading images
    imgCharge = null;
    imgActive = null;
@@ -71,7 +50,7 @@ public class Laser extends Projectile {
          imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_RED_HORIZONTAL_ACTIVE));
        }
      } else {
-       if (direction == Direction.RIGHT || direction == Direction.LEFT) {
+       if (direction == Direction.DOWN || direction == Direction.UP) {
          imgCharge = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_VERTICAL_CHARGE));
          imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_VERTICAL_ACTIVE));
        } else {
@@ -87,7 +66,7 @@ public class Laser extends Projectile {
   @Override
   public void paint (Graphics2D g) {
     if (charging) {
-      g.drawImage(imgCharge, x, y, null);
+      g.drawImage(imgCharge, x+2, y, null);
     } else {
       g.drawImage(imgActive, x, y, null);
     }
@@ -99,6 +78,24 @@ public class Laser extends Projectile {
     chargingClock++;
     if (chargingClock >= CHARGING_TIME) {
       charging = false;
+    }
+    if(!charging){
+       //orientation
+   switch (direction.getValue()) {
+     //The cases are the integer constants of the direction enum
+     case 2:
+       hitBox = new HitBox (x, y, 30, 980);
+       break;
+     case 4:
+       hitBox = new HitBox (x, y, 980, 30);
+       break;
+     case 1:
+       hitBox = new HitBox (x, y, 30, 980);
+       break;
+     case 3:
+       hitBox = new HitBox (x, y, 980, 30);
+       break;
+   }
     }
   }
   
