@@ -111,7 +111,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //base image, order from back to front
     backgrounds.add(new Background(FileStore.SPACE_BG_1,0));
     backgrounds.add(new Background(FileStore.TEST_MIDGROUND,0.2));
-    backgrounds.add(new Background(FileStore.TEST_FOREGROUND,2.0));
+    backgrounds.add(new Background(FileStore.TEST_FOREGROUND,0.4));
     
     //audioPlayer.testSound
     loadImages();
@@ -296,6 +296,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             
             enemyProjectiles.remove(i);
             player.setLives(player.getLives() - 1);
+            audioPlayer.play("Explosion1");
             deathClock = 120;
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
               PowerUp d = player.getDefensePowerUps().get(j);
@@ -315,6 +316,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             playRandomHit();
             
             player.setLives(player.getLives() - 1);
+            audioPlayer.play("Explosion1");
             deathClock = 120;
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
               PowerUp d = player.getDefensePowerUps().get(j);
@@ -334,6 +336,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             playRandomHit();
             
             player.setLives(player.getLives() - 1);
+            audioPlayer.play("Explosion1");
             deathClock = 120;
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
               PowerUp d = player.getDefensePowerUps().get(j);
@@ -415,6 +418,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
                 enemies.remove(e);
+                audioPlayer.play("Explosion1");
               }
             }
           }
@@ -434,7 +438,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
-                enemies.remove(e);                
+                enemies.remove(e);   
+                audioPlayer.play("Explosion1");
               }
             }
           }
