@@ -9,7 +9,7 @@ import java.io.*;
 public class StarburtShot extends Projectile {
   //Constants
   public static int DEFAULT_HITBOX_WIDTH = 60;
-  public static int DEFAULT_HITBOX_HEIGHT = 60;
+  public static int DEFAULT_HITBOX_HEIGHT = 30;
   
   //personal image
   private BufferedImage img;
@@ -23,8 +23,9 @@ public class StarburtShot extends Projectile {
   
   //boolean if firing
   private boolean active;
+  
   public StarburtShot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration, Player player) {
-    //Projectile class constructor    
+    //Projectile class constructor. StarburtShot yVelocity = 3    
     super(state, x, y, xVelocity, yVelocity, imgPath, duration);
     
     this.xVelocity = 0;
@@ -47,12 +48,12 @@ public class StarburtShot extends Projectile {
   }
   
   public void animate() {
-    if(y > player.getY()+20 && y < (player.getY()+Player.DEFAULT_HITBOX_HEIGHT-20) && !active) {
+    if(y > player.getY() + 20 && y < (player.getY() + Player.DEFAULT_HITBOX_HEIGHT - 20) && !active) {
       yVelocity = 0;
       coolDown = 120;
       active = true;
     }
-    if(active && coolDown<0)
+    if(active && coolDown < 0)
     {
       hitBox.setX(0);
       hitBox.setWidth(800);
@@ -69,7 +70,7 @@ public class StarburtShot extends Projectile {
     x += xVelocity;
     y += yVelocity;
     hitBox.setY(y);
-    if(coolDown==-180)
+    if(coolDown == -180)
       killTime = System.currentTimeMillis()+1;
   }
   
@@ -80,7 +81,7 @@ public class StarburtShot extends Projectile {
      */
     this.loadImage();
     if(active){
-      g.drawImage(laser,0,y+DEFAULT_HITBOX_HEIGHT/2-6,null);
+      g.drawImage(laser,0,y,null);
     }
     g.drawImage(img,x,y,null);
   }

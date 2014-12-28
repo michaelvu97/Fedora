@@ -29,9 +29,9 @@ public class Iris extends Enemy {
                yVelocity = 0;
           else {
           }
-          if(eyeClock>0) {
-            resetShotCoolDown();
-            eyeClock--;
+          if(eyeClock > 0) {
+               resetShotCoolDown();
+               eyeClock--;
           }
      }
      
@@ -47,16 +47,16 @@ public class Iris extends Enemy {
      }
      
      public boolean canShoot() {
-       if(shotCoolDown<=0) {
-         eyeClock = 260;
+          if(shotCoolDown <= 0) {
+               eyeClock = 300;
                return true;
-       }
+          }
           else
                return false;
      }
      
      public boolean onScreen(){
-          return (x > 0-DEFAULT_HITBOX_WIDTH-100 && x < Main.WIDTH+100 && y > 0-DEFAULT_HITBOX_HEIGHT-100 && y < Main.HEIGHT+100);
+          return (x > 0 - DEFAULT_HITBOX_WIDTH - 100 && x < Main.WIDTH + 100 && y > 0 - DEFAULT_HITBOX_HEIGHT - 100 && y < Main.HEIGHT + 100);
      }
      
      @Override
@@ -67,12 +67,12 @@ public class Iris extends Enemy {
           String path = "";
           
           if (state == State.RED) {
-               if (eyeClock<=0)
+               if (eyeClock <= 0)
                     path = workingDir + FileStore.IRIS_RED;
                else
                     path = workingDir + FileStore.IRIS_RED_ACTIVE;
           } else if (state == State.BLUE) {
-               if (eyeClock<=0)
+               if (eyeClock <= 0)
                     path = workingDir + FileStore.IRIS_BLUE;
                else
                     path = workingDir + FileStore.IRIS_BLUE_ACTIVE;
