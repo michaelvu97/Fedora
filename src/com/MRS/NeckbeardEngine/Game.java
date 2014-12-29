@@ -384,7 +384,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         //collision between Player and Enemy
         if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState())) {
           enemies.remove(e);
-          explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+          String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
+          explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
           audioPlayer.play("Explosion1");
           
           explosions.add(new Explosion ((int) player.getX() + Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY()+Player.DEFAULT_HITBOX_HEIGHT/2, Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
@@ -413,7 +414,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             if (HitBox.checkCollisionRectRadial(eHitBox, pHitBox)  && State.compare(e.getState(), p1.getState())) {
               e.setHealth(e.getHealth() - 1);
               if (e.getHealth() <= 0) {
-                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+                String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
+                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
@@ -434,7 +436,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playRandomHit();
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
-                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+                String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
+                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHLARGE));
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));

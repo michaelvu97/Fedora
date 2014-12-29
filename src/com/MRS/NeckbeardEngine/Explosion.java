@@ -24,6 +24,7 @@ public class Explosion {
   public static final String EXPLOSIONTYPE_HIT = "EXPLOSIONTYPE_HIT";
   public static final String EXPLOSIONTYPE_HITFLIPPED = "EXPLOSIONTYPE_HITFLIPPED";
   public static final String EXPLOSIONTYPE_DEATHMEDIUM = "EXPLOSIONTYPE_DEATHMEDIUM";
+  public static final String EXPLOSIONTYPE_DEATHLARGE = "EXPLOSIONTYPE_DEATHLARGE";
   
   //Used to center the explosion properly
   public static final int HIT_OFFSET_X = -17;
@@ -32,6 +33,8 @@ public class Explosion {
   public static final int HITFLIPPED_OFFSET_Y = 20;
   public static final int DEATHMEDIUM_OFFSET_X = 0;
   public static final int DEATHMEDIUM_OFFSET_Y = 0;
+  public static final int DEATHLARGE_OFFSET_X = -10;
+  public static final int DEATHLARGE_OFFSET_Y = -10;
   
   public Explosion (int x, int y, String explosionType) {
     
@@ -72,6 +75,17 @@ public class Explosion {
           e.printStackTrace();
         }
       }
+    } else if (explosionType.equals(EXPLOSIONTYPE_DEATHLARGE)) {
+      this.x += DEATHLARGE_OFFSET_X;
+      this.y += DEATHLARGE_OFFSET_Y;
+      String workingDir = System.getProperty("user.dir");
+      for (int i = 0; i < FileStore.DEATHEXPLOSIONLARGE.length; i++) {
+        try {
+          frames.add(frames.size(), ImageIO.read(new File (workingDir + FileStore.DEATHEXPLOSIONLARGE[i])));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
   
@@ -86,5 +100,13 @@ public class Explosion {
   public boolean getCompleted() {
     //True when there are no frames left.
     return animationCompleted;
+  }
+  
+  public static String getExplosionTypeByClass (String className) {
+    if (className.equals("Elite")) {
+      return EXPLOSIONTYPE_DEATHLARGE;
+    } else {
+      return EXPLOSIONTYPE_DEATHMEDIUM;
+    }
   }
 }

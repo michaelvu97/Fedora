@@ -89,7 +89,6 @@ public class Elite extends Enemy {
       return 1;
   }
   
-  //TEMPORARY. WAITING ON ELITE ASSETS
   @Override
   public void paint (Graphics2D g) {
     BufferedImage img = null;
