@@ -54,6 +54,8 @@ public class FileStore {
                             SHIFTER_BLUE     = assets + "Shifter"  + "Blue"            + ".png",
                             SHADE_RED        = assets + "Shade"    + "Red"             + ".png",
                             SHADE_BLUE       = assets + "Shade"    + "Blue"            + ".png",
+                            ELITE_RED        = assets + "Elite"    + "Red"             + ".png",
+                            ELITE_BLUE       = assets + "Elite"    + "Blue"            + ".png",
     
                             //Enemy shots
                             ENEMY_SHOT_RED                    = assets + "Enemy" + "Shot"     + "Red"    + ".png",

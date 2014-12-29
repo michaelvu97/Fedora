@@ -98,9 +98,9 @@ public class Elite extends Enemy {
     String path = "";
     
     if (state == State.RED) {
-      path = workingDir + FileStore.SHIFTER_RED;
+      path = workingDir + FileStore.ELITE_RED;
     } else if (state == State.BLUE) {
-      path = workingDir + FileStore.SHIFTER_BLUE;
+      path = workingDir + FileStore.ELITE_BLUE;
     }
     
     try {
