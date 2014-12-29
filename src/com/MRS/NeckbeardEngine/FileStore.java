@@ -87,7 +87,8 @@ public class FileStore {
                             METAL_HIT_1  = assets + sound + "MetalHit1.wav",
                             METAL_HIT_2  = assets + sound + "MetalHit2.wav",
                             METAL_HIT_3  = assets + sound + "MetalHit3.wav",
-                            EXPLOSION_1  = assets + sound + "Explosion1.wav";
+                            EXPLOSION_1  = assets + sound + "Explosion1.wav",
+                            EXPLOSION_2  = assets + sound + "Explosion2.wav";
   
   public final static String[] HITEXPLOSIONONE = {
     "\\Assets\\HitExplosionOne\\GrenadeExplosion0.png",

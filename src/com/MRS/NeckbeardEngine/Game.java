@@ -386,7 +386,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           enemies.remove(e);
           String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
           explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
-          audioPlayer.play("Explosion1");
+          audioPlayer.play("Explosion2");
           
           explosions.add(new Explosion ((int) player.getX() + Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY()+Player.DEFAULT_HITBOX_HEIGHT/2, Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
           player.setLives(player.getLives() - 1);
@@ -407,6 +407,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         for (int j = 0; j < playerProjectiles.size(); j++) {
           Projectile p1 = playerProjectiles.get(j);
           //shoot  
+          
+          
           //if bomb
           if (p1.getClass().getSimpleName().equals("Bomb")) {
             RadialHitBox pHitBox = (RadialHitBox) p1.getHitBox();
@@ -419,8 +421,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
+                if (e.getClass().getSimpleName().equals("Elite"))
+                  audioPlayer.play("Explosion2");
+                else
+                  audioPlayer.play("Explosion1");
                 enemies.remove(e);
-                audioPlayer.play("Explosion1");
+                
+                
               }
             }
           }
@@ -437,7 +444,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
                 String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
-                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), Explosion.EXPLOSIONTYPE_DEATHLARGE));
+                explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
@@ -706,6 +713,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.MONTAGE, "Montage"},
       {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
       {workingDir + FileStore.EXPLOSION_1, "Explosion1"},
+      {workingDir + FileStore.EXPLOSION_2, "Explosion2"},
       {workingDir + FileStore.BOMB, "Bomb"},
       {workingDir + FileStore.METAL_HIT_1, "METAL_HIT_1"},
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
