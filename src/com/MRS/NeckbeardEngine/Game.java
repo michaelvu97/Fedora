@@ -80,6 +80,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     player = new Player(360, 800, 3, State.RED);
     level = new Level (this, player);
     
+    /*
+     * TEMPORARY
+     */
+    player.setBombs(3);
+    
     //Variable setup
     started = false;
     paused = false;
@@ -255,7 +260,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       
       //Bombs
       if (player.getBombs() > 0 && keyInputHandler.bomb && !bombAlreadyDeployed) {
-        playerProjectiles.add((Projectile) new Bomb(State.BOTH, player.getX(), player.getY(), 0, 0, "", Bomb.DEFAULT_DURATION));
+        playerProjectiles.add((Projectile) new Bomb(State.BOTH, player.getX() + player.getHitBox().getWidth()/2, player.getY() + player.getHitBox().getHeight()/2, 0, 0, "", Bomb.DEFAULT_DURATION));
         player.setBombs(player.getBombs() - 1);
         audioPlayer.play("Bomb");
         bombAlreadyDeployed = true;
