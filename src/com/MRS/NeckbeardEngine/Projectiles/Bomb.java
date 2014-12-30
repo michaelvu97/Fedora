@@ -11,8 +11,8 @@ public class Bomb extends Projectile {
   
   //the current radius; used for animation
   private int radius;
-  private static int rate = 40;
-  public static double DEFAULT_DURATION = 500; 
+  private static int rate = 50;
+  public static double DEFAULT_DURATION = 1000; 
   private BufferedImage baseImg = null;
   
   public Bomb (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {
@@ -51,16 +51,17 @@ public class Bomb extends Projectile {
   @Override
   public void paint (Graphics2D g) {
     //transformations
-    double baseRadius = 490;
-    
-    BufferedImage after = new BufferedImage((int)radius, (int)radius, BufferedImage.TYPE_INT_ARGB);
-    AffineTransform at = new AffineTransform();
-    double scale = radius * 2 / baseRadius;
-    at.scale(scale, scale);
-    
-    AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
-    after = scaleOp.filter(baseImg, after);
+//    double baseRadius = 960;
+//    
+//    BufferedImage after = new BufferedImage((int)radius, (int)radius, BufferedImage.TYPE_INT_ARGB);
+//    AffineTransform at = new AffineTransform();
+//    double scale = radius / baseRadius;
+//    at.scale(scale, scale);
+//    
+//    AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
+//    after = scaleOp.filter(baseImg, after);
     //Draws the instance
-    g.drawImage(after, x - radius, y - radius, null);
+//    g.drawImage(after, (int) (x - (0.5*radius) + 20), (int) (y - (0.5*radius) + 20), null)
+    g.drawImage(baseImg, x - (radius/2), y - (radius/2) , radius, radius, null);
   }
 }
