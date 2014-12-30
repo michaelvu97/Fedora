@@ -14,6 +14,7 @@ public class Shot extends Projectile {
      
      //personal image
      private BufferedImage img;
+     private BufferedImage glow = null;
      
      public Shot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {
           //Projectile class constructor
@@ -33,6 +34,7 @@ public class Shot extends Projectile {
            * by Game
            */
           this.loadImage();
+          g.drawImage(glow, x - 128, y - 128, null);
           g.drawImage(img,x,y,null);
      }
      
@@ -40,8 +42,11 @@ public class Shot extends Projectile {
           
           String workingDir = System.getProperty("user.dir");
           String path = "";
+          String pathGlow = "";
           
           if (state == State.RED) {
+               pathGlow = workingDir + FileStore.FX_RED_GLOW;
+            
                if (yVelocity < 0) {
                     if (yVelocity == -1*Projectile.FastShotVelocity)
                          path = workingDir + FileStore.FAST_SHOT_RED;
@@ -52,6 +57,8 @@ public class Shot extends Projectile {
                          path = workingDir + FileStore.ENEMY_SHOT_RED;
                }
           } else if (state == State.BLUE) {
+               pathGlow = workingDir + FileStore.FX_BLUE_GLOW;
+            
                if (yVelocity < 0) {
                     if (yVelocity == -1*Projectile.FastShotVelocity)
                          path = workingDir + FileStore.FAST_SHOT_BLUE;
@@ -65,6 +72,7 @@ public class Shot extends Projectile {
           
           try {
                img = ImageIO.read(new File (path));
+               glow = ImageIO.read(new File (pathGlow));
           } catch (IOException e) {
                e.printStackTrace();
           }
