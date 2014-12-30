@@ -32,9 +32,7 @@ public class Player {
      
      //Constants
      public static int MAXSHOTCOOLDOWN = 20;
-     public static int DRAG = 5;
      public static int MAX_VELOCITY = 5;
-     public static int ACCELERATION = 5;
      public static int DEFAULT_HITBOX_WIDTH = 96;
      public static int DEFAULT_HITBOX_HEIGHT = 96;
      
@@ -61,25 +59,16 @@ public class Player {
      }
      
      public void accelerateForward () {
-          yVelocity -= ACCELERATION;
-          if (yVelocity < -1 * MAX_VELOCITY)
-               yVelocity = -1 * MAX_VELOCITY;
+          yVelocity = -MAX_VELOCITY;
      }
      public void accelerateBackward () {
-          yVelocity += ACCELERATION;
-          if (yVelocity > MAX_VELOCITY)
-               yVelocity = MAX_VELOCITY;
-          
+          yVelocity = MAX_VELOCITY;
      }
      public void accelerateRight () {
-          xVelocity += ACCELERATION;
-          if (xVelocity > MAX_VELOCITY)
-               xVelocity = MAX_VELOCITY;
+          xVelocity = MAX_VELOCITY;
      }
      public void accelerateLeft () {
-          xVelocity -= ACCELERATION;
-          if (xVelocity < -1 * MAX_VELOCITY) 
-               xVelocity = -1 * MAX_VELOCITY;
+          xVelocity = - MAX_VELOCITY;
      }
      
      public void switchState() {

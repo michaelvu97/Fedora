@@ -155,31 +155,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       if (keyInputHandler.left && !keyInputHandler.right) {
         player.accelerateLeft();
       }
+      if (!keyInputHandler.up && !keyInputHandler.down) {
+        player.setYVelocity(0);
+      }
+      if (!keyInputHandler.right && !keyInputHandler.left) {
+        player.setXVelocity(0);
+      }
       
-      //Vertical Drag
-      if (!keyInputHandler.up && !keyInputHandler.down && player.getYVelocity() != 0) {
-        if (Math.abs(player.getYVelocity()) <= Player.DRAG) {
-          player.setYVelocity(0);
-        } else {
-          if (player.getYVelocity() > 0) {
-            player.setYVelocity(player.getYVelocity() - Player.DRAG);//just set it to 0
-          } else {
-            player.setYVelocity(player.getYVelocity() + Player.DRAG);//just set it to 0
-          }
-        }
-      }
-      //Horizontal Drag
-      if (!keyInputHandler.right && !keyInputHandler.left && player.getXVelocity() != 0) {
-        if (Math.abs(player.getXVelocity()) <= Player.DRAG) {
-          player.setXVelocity(0);
-        } else {
-          if (player.getXVelocity() > 0) {
-            player.setXVelocity(player.getXVelocity() - Player.DRAG);//just set it to 0
-          } else {
-            player.setXVelocity(player.getXVelocity() + Player.DRAG);//just set it to 0
-          }
-        }
-      }
       //Player Shooting
       if (!player.canShoot()) {
         player.setShotCoolDown(player.getShotCoolDown() - 1);
