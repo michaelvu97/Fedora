@@ -487,9 +487,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         if (!stateAlreadySwitched) {
           if (player.getState() == State.RED) {
             player.setState(State.BLUE);
+            audioPlayer.play("SWITCH_STATE");
             stateAlreadySwitched = true;
           } else if (player.getState() == State.BLUE) {
             player.setState(State.RED);
+            audioPlayer.play("SWITCH_STATE");
             stateAlreadySwitched = true;
           }
         }
@@ -704,7 +706,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.BOMB, "Bomb"},
       {workingDir + FileStore.METAL_HIT_1, "METAL_HIT_1"},
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
-      {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"}
+      {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
+      {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"}
     };
     
     audioPlayer = new Sound(clips); 
