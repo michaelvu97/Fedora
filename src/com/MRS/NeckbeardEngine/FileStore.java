@@ -183,4 +183,41 @@ public class FileStore {
     "\\Assets\\DeathExplosionLarge\\DeathExplosion (" + 27 + ").png",
     "\\Assets\\DeathExplosionLarge\\DeathExplosion (" + 28 + ").png",
     "\\Assets\\DeathExplosionLarge\\DeathExplosion (" + 29 + ").png"};
+  
+  public final static String[] GAMEOVEREXPLOSION = {
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 1 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 2 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 3 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 4 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 5 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 6 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 7 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 8 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 9 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 10 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 11 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 12 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 13 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 14 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 15 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 16 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 17 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 18 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 19 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 20 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 21 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 22 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 23 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 24 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 25 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 26 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 27 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 28 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 29 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 30 + ").png",
+    "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 31 + ").png"
+  };
+  
+  
+  
 }

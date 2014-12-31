@@ -25,6 +25,7 @@ public class Explosion {
   public static final String EXPLOSIONTYPE_HITFLIPPED = "EXPLOSIONTYPE_HITFLIPPED";
   public static final String EXPLOSIONTYPE_DEATHMEDIUM = "EXPLOSIONTYPE_DEATHMEDIUM";
   public static final String EXPLOSIONTYPE_DEATHLARGE = "EXPLOSIONTYPE_DEATHLARGE";
+  public static final String EXPLOSIONTYPE_GAMEOVER = "EXPLOSIONTYPE_GAMEOVER";
   
   //Used to center the explosion properly
   public static final int HIT_OFFSET_X = -17;
@@ -35,6 +36,8 @@ public class Explosion {
   public static final int DEATHMEDIUM_OFFSET_Y = 0;
   public static final int DEATHLARGE_OFFSET_X = -10;
   public static final int DEATHLARGE_OFFSET_Y = -10;
+  public static final int GAMEOVER_OFFSET_X = 0;
+  public static final int GAMEOVER_OFFSET_Y = 0;
   
   public Explosion (int x, int y, String explosionType) {
     
@@ -86,6 +89,17 @@ public class Explosion {
           e.printStackTrace();
         }
       }
+    } else if (explosionType.equals(EXPLOSIONTYPE_GAMEOVER)) {
+      this.x += GAMEOVER_OFFSET_X;
+      this.y += GAMEOVER_OFFSET_Y;
+      String workingDir = System.getProperty("user.dir");
+      for (int i = 0; i < FileStore.GAMEOVEREXPLOSION.length; i++) {
+        try {
+          frames.add(frames.size(), ImageIO.read(new File (workingDir + FileStore.GAMEOVEREXPLOSION[i])));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
   
@@ -93,7 +107,13 @@ public class Explosion {
     if (animationPosition >= frames.size()) {
       animationCompleted = true;
     } else {
-      g.drawImage(frames.get(animationPosition++), x, y, null);
+      if (frames.size() == 31) {
+        // IMPORTANT: if any explosion animations are 31 frames long,
+        // this will no longer work
+        g.drawImage(frames.get(animationPosition++), x - ((Main.HEIGHT - Main.WIDTH) / 2), y, Main.HEIGHT, Main.HEIGHT, null);
+      } else {
+        g.drawImage(frames.get(animationPosition++), x, y, null);
+      }
     }
   }
   

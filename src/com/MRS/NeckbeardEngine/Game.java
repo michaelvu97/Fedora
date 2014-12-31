@@ -504,18 +504,28 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     else if(player.getLives()==0){
       //The game is over, random explosions must appear
-      for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-        
-      }
-      
-      for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HIT));    
-      }
-      for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));      
+//      for(int i = 0; i<30; i++){
+//        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+//        
+//      }
+//      
+//      for(int i = 0; i<30; i++){
+//        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HIT));    
+//      }
+//      for(int i = 0; i<30; i++){
+//        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));      
+//      }
+      playerProjectiles.add((Projectile) new Bomb(State.BOTH, Main.WIDTH/2, Main.HEIGHT/2, 0, 0, "", Bomb.DEFAULT_DURATION));
+      explosions.add(new Explosion (0,0, Explosion.EXPLOSIONTYPE_GAMEOVER));
+      for (int i = 0; i < enemies.size(); i++) {
+        Enemy e = enemies.get(i);
+        String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
+        explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
+        enemies.remove(e);
+        i--;
       }
       audioPlayer.play("Explosion1");
+      audioPlayer.play("Explosion2");
       player.setLives(player.getLives()-1);
     }
     repaint();
