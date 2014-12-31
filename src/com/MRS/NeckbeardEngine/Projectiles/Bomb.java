@@ -51,6 +51,8 @@ public class Bomb extends Projectile {
   @Override
   public void paint (Graphics2D g) {
     //transformations
+    
+    //DEPRECATED:
 //    double baseRadius = 960;
 //    
 //    BufferedImage after = new BufferedImage((int)radius, (int)radius, BufferedImage.TYPE_INT_ARGB);
@@ -62,6 +64,8 @@ public class Bomb extends Projectile {
 //    after = scaleOp.filter(baseImg, after);
     //Draws the instance
 //    g.drawImage(after, (int) (x - (0.5*radius) + 20), (int) (y - (0.5*radius) + 20), null)
-    g.drawImage(baseImg, x - (radius/2), y - (radius/2) , radius, radius, null);
+    
+    g.drawImage(baseImg, x - (radius), y - (radius) , radius * 2, radius * 2, null);
+
   }
 }
