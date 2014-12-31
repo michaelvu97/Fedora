@@ -10,20 +10,24 @@ public class Level {
   Game g;
   private int frames;
   private Player target;
+  private ArrayList<SpawnEvent> spawnEvents;
+  
   public Level(Game g, Player target) {
+    spawnEvents = new ArrayList<SpawnEvent>();
     this.g = g;
     frames = 0;
-    this.target = target;       
+    this.target = target; 
+    
+    
   }
   public void check() {
     frames++;
-    
+        
+    //wave loading
     switch(frames) {
       case 180:
-        ArrayList<Enemy> e1 = new DropInWave().unpack();
-        for (int i = 0; i < e1.size(); i++) {
-          g.enemies.add(e1.get(i));
-        }
+        addPackage(DropInWave.unpack(State.getRandom(), frames));
+        System.out.println(spawnEvents.size());
 //        g.enemies.add(new Elite(State.BLUE, 300, -100, 0, 3, "Shot", null, 0, target));
 //        g.enemies.add(new Shifter(State.BLUE, -72, 100, 3, 0, "Shot", null, 0, "stay", target, 0));
 //        g.enemies.add(new Iris(State.BLUE, 100, -128, 3, "Laser", null, 0));
@@ -82,7 +86,6 @@ public class Level {
         
     }
     
-    
 //    enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", null, 0, "leave", Main.WIDTH/2));
 //    enemies.add(new Mook(State.RED, 0, 70, 1, 15, "Shot", null, 0, "stay",Main.WIDTH/2));
 //    powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
@@ -92,5 +95,22 @@ public class Level {
 //    powerUpPickups.add(new PowerUpPickup(400, 0, PowerUp.SHIELD));
 //    powerUpPickups.add(new PowerUpPickup(450, 0, PowerUp.EXTRA_SHIP));
 //    powerUpPickups.add(new PowerUpPickup(500, 0, PowerUp.SPEED_BOOST));
+    
+    //Checking the spawnPackages
+    for (int i = 0; i < spawnEvents.size(); i++) {
+      SpawnEvent s = spawnEvents.get(i);
+      
+      if (frames >= s.getSpawnFrame()) {
+        g.enemies.add(s.getSpawnable());
+        spawnEvents.remove(s);
+        i--;
+      }
+    }
   }
+
+  public void addPackage (ArrayList<SpawnEvent> events) {
+    for (int i = 0; i < events.size(); i++) {
+      this.spawnEvents.add(events.get(i));
+    }
+  } 
 }

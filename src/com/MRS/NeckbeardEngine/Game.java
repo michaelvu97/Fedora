@@ -208,7 +208,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       }
       
       //Enemy Shooting
-      for(int i = 0; i<enemies.size(); i++) {
+      for(int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
         if(e.canShoot()) {
           audioPlayer.play("LASER_SHOT_1");
