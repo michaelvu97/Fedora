@@ -5,6 +5,11 @@ import com.MRS.NeckbeardEngine.Enemies.*;
 import java.util.ArrayList;
 
 public class DropInWave {
+  /*
+   * For help with waves, refer
+   * to "How To Wave.txt" in 
+   * the waves package
+   */
   
   //uninstantiatable
   private DropInWave () {}

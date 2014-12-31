@@ -15,6 +15,7 @@ public class SpawnEvent {
    * 
    * See the Waves package for the different waves
    * and implementation of SpawnEvents
+   * 
    */
   
   private int spawnFrame;
@@ -32,5 +33,13 @@ public class SpawnEvent {
   
   public Enemy getSpawnable() {
    return spawnable; 
+  }
+  
+  public void setSpawnFrame(int newFrame) {
+    this.spawnFrame = newFrame;
+  }
+  
+  public void setSpawnable(Enemy e) {
+    this.spawnable = e;
   }
 }

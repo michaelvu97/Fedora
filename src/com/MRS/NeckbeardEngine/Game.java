@@ -408,7 +408,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
-                if (e.getClass().getSimpleName().equals("Elite"))
+                String className = e.getClass().getSimpleName();
+                if (className.equals(FileStore.ELITE) || className.equals(FileStore.IRIS) || className.equals(FileStore.STARBURT))
                   audioPlayer.play("Explosion2");
                 else
                   audioPlayer.play("Explosion1");

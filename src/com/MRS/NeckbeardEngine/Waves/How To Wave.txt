@@ -15,3 +15,5 @@ of "unpack", so that it can produce the proper SpawnEvents accordingly.
      its list of SpawnEvents, and checks if the currentFrame is past
      or equal to the spawnFrame. If true, it spawns the target enemy
      into the game, and removes the event.
+
+-Waves can use other waves too by unpacking other waves into their own unpack method, however, time modifications may need to be made

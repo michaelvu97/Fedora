@@ -9,6 +9,13 @@ public class FileStore {
                                  fx     = "FX\\",
                                  sound  = "Sound\\",
                                  lasers = "Lasers\\",
+    
+                            //ClassNames
+                            ELITE = "Elite",
+                            STARBURT = "Starburt",
+                            MOOK = "Mook",
+                            IRIS = "Iris",
+    
                    
                             //Player assets
                             PLAYER_RED     = assets + "PlayerShip" + "Red"  + ".png",
@@ -43,20 +50,20 @@ public class FileStore {
                             LASER_RED_VERTICAL_ACTIVE    = assets + lasers + "Laser" + "Vertical"   + "Red"  + "Active" + ".png",
                             
                             //Enemy Assets    
-                            MOOK_RED         = assets + "Mook"     + "Red"             + ".png",
-                            MOOK_BLUE        = assets + "Mook"     + "Blue"            + ".png",
+                            MOOK_RED         = assets + MOOK       + "Red"             + ".png",
+                            MOOK_BLUE        = assets + MOOK       + "Blue"            + ".png",
                             STARBURT_RED     = assets + "Starburt" + "Red"             + ".png",
                             STARBURT_BLUE    = assets + "Starburt" + "Blue"            + ".png",
-                            IRIS_RED         = assets + "Iris"     + "Red"             + ".png",
-                            IRIS_RED_ACTIVE  = assets + "Iris"     + "Red"  + "Active" + ".png",
-                            IRIS_BLUE        = assets + "Iris"     + "Blue"            + ".png",
-                            IRIS_BLUE_ACTIVE = assets + "Iris"     + "Blue" + "Active" + ".png",
+                            IRIS_RED         = assets + IRIS       + "Red"             + ".png",
+                            IRIS_RED_ACTIVE  = assets + IRIS       + "Red"  + "Active" + ".png",
+                            IRIS_BLUE        = assets + IRIS       + "Blue"            + ".png",
+                            IRIS_BLUE_ACTIVE = assets + IRIS       + "Blue" + "Active" + ".png",
                             SHIFTER_RED      = assets + "Shifter"  + "Red"             + ".png",
                             SHIFTER_BLUE     = assets + "Shifter"  + "Blue"            + ".png",
                             SHADE_RED        = assets + "Shade"    + "Red"             + ".png",
                             SHADE_BLUE       = assets + "Shade"    + "Blue"            + ".png",
-                            ELITE_RED        = assets + "Elite"    + "Red"             + ".png",
-                            ELITE_BLUE       = assets + "Elite"    + "Blue"            + ".png",
+                            ELITE_RED        = assets + ELITE      + "Red"             + ".png",
+                            ELITE_BLUE       = assets + ELITE      + "Blue"            + ".png",
     
                             //Enemy shots
                             ENEMY_SHOT_RED                    = assets + "Enemy" + "Shot"     + "Red"    + ".png",
