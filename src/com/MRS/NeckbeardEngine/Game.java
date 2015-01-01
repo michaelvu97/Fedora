@@ -155,31 +155,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       if (keyInputHandler.left && !keyInputHandler.right) {
         player.accelerateLeft();
       }
+      if (!keyInputHandler.up && !keyInputHandler.down) {
+        player.setYVelocity(0);
+      }
+      if (!keyInputHandler.right && !keyInputHandler.left) {
+        player.setXVelocity(0);
+      }
       
-      //Vertical Drag
-      if (!keyInputHandler.up && !keyInputHandler.down && player.getYVelocity() != 0) {
-        if (Math.abs(player.getYVelocity()) <= Player.DRAG) {
-          player.setYVelocity(0);
-        } else {
-          if (player.getYVelocity() > 0) {
-            player.setYVelocity(player.getYVelocity() - Player.DRAG);//just set it to 0
-          } else {
-            player.setYVelocity(player.getYVelocity() + Player.DRAG);//just set it to 0
-          }
-        }
-      }
-      //Horizontal Drag
-      if (!keyInputHandler.right && !keyInputHandler.left && player.getXVelocity() != 0) {
-        if (Math.abs(player.getXVelocity()) <= Player.DRAG) {
-          player.setXVelocity(0);
-        } else {
-          if (player.getXVelocity() > 0) {
-            player.setXVelocity(player.getXVelocity() - Player.DRAG);//just set it to 0
-          } else {
-            player.setXVelocity(player.getXVelocity() + Player.DRAG);//just set it to 0
-          }
-        }
-      }
       //Player Shooting
       if (!player.canShoot()) {
         player.setShotCoolDown(player.getShotCoolDown() - 1);
@@ -193,29 +175,29 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           audioPlayer.play("LASER_SHOT_1");
           if (player.getState()==State.RED) {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
             else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 3, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), -3, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 3, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), -3, -1 * Projectile.ShotVelocity, "swag", 2000));
             }
             else
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           } 
           else {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.FastShotVelocity, "swag", 2000));
             else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 3, -1 * Projectile.ShotVelocity, "swag", 2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), -3, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 3, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), -3, -1 * Projectile.ShotVelocity, "swag", 2000));
             }
             else
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 40, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 43, player.getY(), 0, -1 * Projectile.ShotVelocity, "swag", 2000));
           }
           if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE)
             player.setShotCoolDown(Player.MAXSHOTCOOLDOWN - 10);
@@ -226,7 +208,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       }
       
       //Enemy Shooting
-      for(int i = 0; i<enemies.size(); i++) {
+      for(int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
         if(e.canShoot()) {
           audioPlayer.play("LASER_SHOT_1");
@@ -426,7 +408,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
-                if (e.getClass().getSimpleName().equals("Elite"))
+                String className = e.getClass().getSimpleName();
+                if (className.equals(FileStore.ELITE) || className.equals(FileStore.IRIS) || className.equals(FileStore.STARBURT))
                   audioPlayer.play("Explosion2");
                 else
                   audioPlayer.play("Explosion1");
@@ -505,9 +488,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         if (!stateAlreadySwitched) {
           if (player.getState() == State.RED) {
             player.setState(State.BLUE);
+            audioPlayer.play("SWITCH_STATE");
             stateAlreadySwitched = true;
           } else if (player.getState() == State.BLUE) {
             player.setState(State.RED);
+            audioPlayer.play("SWITCH_STATE");
             stateAlreadySwitched = true;
           }
         }
@@ -520,18 +505,28 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     else if(player.getLives()==0){
       //The game is over, random explosions must appear
-      for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
-        
-      }
-      
-      for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HIT));    
-      }
-      for(int i = 0; i<30; i++){
-        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));      
+//      for(int i = 0; i<30; i++){
+//        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+//        
+//      }
+//      
+//      for(int i = 0; i<30; i++){
+//        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HIT));    
+//      }
+//      for(int i = 0; i<30; i++){
+//        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));      
+//      }
+      playerProjectiles.add((Projectile) new Bomb(State.BOTH, Main.WIDTH/2, Main.HEIGHT/2, 0, 0, "", Bomb.DEFAULT_DURATION));
+      explosions.add(new Explosion (0,0, Explosion.EXPLOSIONTYPE_GAMEOVER));
+      for (int i = 0; i < enemies.size(); i++) {
+        Enemy e = enemies.get(i);
+        String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
+        explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
+        enemies.remove(e);
+        i--;
       }
       audioPlayer.play("Explosion1");
+      audioPlayer.play("Explosion2");
       player.setLives(player.getLives()-1);
     }
     repaint();
@@ -722,7 +717,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.BOMB, "Bomb"},
       {workingDir + FileStore.METAL_HIT_1, "METAL_HIT_1"},
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
-      {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"}
+      {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
+      {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"}
     };
     
     audioPlayer = new Sound(clips); 
