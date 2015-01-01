@@ -17,7 +17,8 @@ public class Level {
     
     switch(frames) {
       case 180:
-        g.enemies.add(new Elite(State.BLUE, 300, -100, 0, 3, "Shot", null, 0, target));
+        g.enemies.add(new Elite(State.BLUE, 300, -100, 1, 3, "Shot", null, 0, target));
+        g.enemies.add(new Elite(State.RED, 600, -100, -1, 3, "Shot", null, 0, target));
 //        g.enemies.add(new Shifter(State.BLUE, -72, 100, 3, 0, "Shot", null, 0, "stay", target, 0));
 //        g.enemies.add(new Iris(State.BLUE, 100, -128, 3, "Laser", null, 0));
 //        g.enemies.add(new Iris(State.BLUE, 500, -128, 3, "Laser", null, 0));
