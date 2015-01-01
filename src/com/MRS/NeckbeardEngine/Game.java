@@ -48,6 +48,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private Sound audioPlayer;
   
+  private String currentBGMTag = ""; 
+  
   private Font font_bold, font_reg;
   
   private JFrame context;
@@ -121,7 +123,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //audioPlayer.testSound
     loadImages();
     loadSound();
-    audioPlayer.play("BGM1");
+    currentBGMTag = "BGM1";
+    audioPlayer.play(currentBGMTag);
   }
   
   public void step () {
