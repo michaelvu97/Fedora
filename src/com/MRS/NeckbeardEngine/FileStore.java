@@ -83,9 +83,11 @@ public class FileStore {
                             FX_VIGNETTE     = assets + fx + "Vignette"      + ".png",
 
                             //Backgrounds
-                            SPACE_BG_1      = assets + "SpaceBG1"           + ".png",
-                            TEST_FOREGROUND = assets + "testForeGround"     + ".png",
-                            TEST_MIDGROUND  = assets + "testmidground"      + ".png",
+                            PARTICLE_LAYER_1 = assets + "ParticleLayer1" + ".png",
+                            PARTICLE_LAYER_2 = assets + "ParticleLayer2" + ".png",
+                            BASE_BG          = assets + "BaseBG"         + ".png",
+                            TEST_FOREGROUND  = assets + "testForeGround" + ".png",
+                            TEST_MIDGROUND   = assets + "testmidground"  + ".png",
     
                             //Audio
                             BG_MUSIC_1   = assets + sound + "TestBGM1.wav",

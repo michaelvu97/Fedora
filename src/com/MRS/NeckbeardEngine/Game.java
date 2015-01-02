@@ -116,7 +116,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     
     //base image, order from back to front
-    backgrounds.add(new Background(FileStore.SPACE_BG_1,0));
+    backgrounds.add(new Background(FileStore.BASE_BG,0));
+    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_1, 0.01));
+    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_2, 0.04));
     backgrounds.add(new Background(FileStore.TEST_MIDGROUND,0.2));
     backgrounds.add(new Background(FileStore.TEST_FOREGROUND,0.4));
     
@@ -696,7 +698,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     boolean noErrors = true;
     try {
       String workingDir = System.getProperty("user.dir"); 
-      img_spaceBG1 = ImageIO.read(new File (workingDir + FileStore.SPACE_BG_1));
       img_vignette = ImageIO.read(new File (workingDir + FileStore.FX_VIGNETTE));
       img_blueShield = ImageIO.read(new File (workingDir + FileStore.BLUE_SHIELD));
       img_redShield = ImageIO.read(new File (workingDir + FileStore.RED_SHIELD));
