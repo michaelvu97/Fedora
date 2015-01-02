@@ -150,4 +150,8 @@ public class Mook extends Enemy {
           
           g.drawImage(img, x, y, null);
      }
+     
+     public int getShootPos() {
+      return shootPos; 
+     }
 }
