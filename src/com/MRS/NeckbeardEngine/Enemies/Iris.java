@@ -16,18 +16,22 @@ public class Iris extends Enemy {
      //Initial cooldown represents the 3 sec of nothing and the 2 sec of charge
      public static int INITIAL_COOLDOWN = 300;
      private int eyeClock;
+     private int timesFired;
      public Iris (State state, int x, int y, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
           super(state, x, y, 0, yVelocity, projectileType, heldPowerUp, timeLine);
           health = 2;
           hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
           shotCoolDown = INITIAL_COOLDOWN;
           eyeClock = 0;
+          timesFired = 0;
      }
      
      public void animate () {
-          if (y > 0)
+          if (y > 0 && timesFired != 3)
                yVelocity = 0;
-          else {
+          else if (eyeClock == 120 && timesFired == 3){
+            yVelocity = -2;
+            eyeClock = 121;
           }
           if(eyeClock > 0) {
                resetShotCoolDown();
@@ -47,8 +51,9 @@ public class Iris extends Enemy {
      }
      
      public boolean canShoot() {
-          if(shotCoolDown <= 0) {
+          if(shotCoolDown <= 0 && timesFired != 3) {
                eyeClock = 300;
+               timesFired++;
                return true;
           }
           else

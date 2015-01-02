@@ -15,6 +15,7 @@ public class Starburt extends Enemy {
   public static int MAXSHOTCOOLDOWN = 300;
   private boolean offScreen;
   private Game game;
+  private int timesFired;
   
   public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
@@ -25,6 +26,7 @@ public class Starburt extends Enemy {
     shotCoolDown = 300;
     offScreen = true;
     this.game = game;
+    timesFired = 0;
   }
   
   //@Override
@@ -32,7 +34,8 @@ public class Starburt extends Enemy {
     
     if(offScreen){
     }
-    
+    else if (timesFired == 5) {
+    }
     else{
       if(x < 0)
         xVelocity = xSpeed;
@@ -59,9 +62,10 @@ public class Starburt extends Enemy {
     return (x > 0-DEFAULT_HITBOX_WIDTH-100 && x < Main.WIDTH+100 && y > 0-DEFAULT_HITBOX_HEIGHT-100 && y < Main.HEIGHT+100);
   }
   public boolean canShoot() {
-    if(shotCoolDown<=0)
+    if(shotCoolDown <= 0 && timesFired != 5) {
+      timesFired++;
       return true;
-    else
+    }
       return false;
   }
   @Override
