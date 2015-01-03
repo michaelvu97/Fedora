@@ -93,6 +93,7 @@ public class FileStore {
                             BG_MUSIC_1   = assets + sound + "TestBGM1.wav",
                             MONTAGE      = assets + sound + "Montage.wav",
                             LASER_SHOT_1 = assets + sound + "LaserShot.wav",
+                            LASERBEAM    = assets + sound + "LaserStandard.wav",
                             BOMB         = assets + sound + "Bomb.wav",
                             SWITCH_STATE = assets + sound + "SwitchState.wav",
                             METAL_HIT_1  = assets + sound + "MetalHit1.wav",

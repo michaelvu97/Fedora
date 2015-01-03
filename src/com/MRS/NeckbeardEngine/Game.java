@@ -216,8 +216,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for(int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
         if(e.canShoot()) {
-          audioPlayer.play("LASER_SHOT_1");
           if(e.getProjectileType().equalsIgnoreCase("shot")) {
+            
+            audioPlayer.play("LASER_SHOT_1");
+            
             if(e.getState() == State.RED) 
               enemyProjectiles.add((Projectile) new Shot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity,"swag",2000));
             
@@ -226,6 +228,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             
           }
           else if(e.getProjectileType().equalsIgnoreCase("starburtShot")) {
+            
+            System.out.println("StarburtSound");
+            audioPlayer.play("LASER_SHOT_1");
+            
             if(e.getState() == State.RED) {
               enemyProjectiles.add((Projectile) new StarburtShot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,3,"swag",20000, player));
             } else if(e.getState() == State.BLUE) {
@@ -233,6 +239,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             }
           }
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
+            audioPlayer.play("LASERBEAM");
             if(e.getState() == State.RED) {
               enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
             } else if(e.getState() == State.BLUE) {
@@ -716,6 +723,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.BG_MUSIC_1, "BGM1"},
       {workingDir + FileStore.MONTAGE, "Montage"},
       {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
+      {workingDir + FileStore.LASERBEAM, "LASERBEAM"},
       {workingDir + FileStore.EXPLOSION_1, "Explosion1"},
       {workingDir + FileStore.EXPLOSION_2, "Explosion2"},
       {workingDir + FileStore.BOMB, "Bomb"},
@@ -731,6 +739,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer.setVolume("METAL_HIT_1",-7F);
     audioPlayer.setVolume("METAL_HIT_2",-7F);
     audioPlayer.setVolume("METAL_HIT_2",-7F);
+    audioPlayer.setVolume("LASERBEAM",  -5F);
   }
   
   public void exitGame() {
