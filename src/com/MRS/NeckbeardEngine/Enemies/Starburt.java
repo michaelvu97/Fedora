@@ -34,7 +34,7 @@ public class Starburt extends Enemy {
     
     if(offScreen){
     }
-    else if (timesFired == 5) {
+    else if (timesFired >= 5) {
     }
     else{
       if(x < 0)

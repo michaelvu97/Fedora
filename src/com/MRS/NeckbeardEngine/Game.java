@@ -117,8 +117,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //base image, order from back to front
     backgrounds.add(new Background(FileStore.BASE_BG,0));
-    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_1, 0.01));
-    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_2, 0.04));
+    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_1, 0.03));
+    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_2, 0.07));
     backgrounds.add(new Background(FileStore.TEST_MIDGROUND,0.2));
     backgrounds.add(new Background(FileStore.TEST_FOREGROUND,0.4));
     

@@ -29,7 +29,7 @@ public class Iris extends Enemy {
      public void animate () {
           if (y > 0 && timesFired != 3)
                yVelocity = 0;
-          else if (eyeClock == 120 && timesFired == 3){
+          else if (eyeClock <= 0 && timesFired >= 3){
             yVelocity = -2;
             eyeClock = 121;
           }
