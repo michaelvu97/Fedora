@@ -60,6 +60,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     img_spaceBG1 = null, img_vignette = null, 
     img_redShield = null, img_blueShield = null;
   
+  BufferedImage[] img_gg = new BufferedImage[233];
+  private int currentGGFrame = 0;
+  
   //More on screen object lists
   public ArrayList<Projectile> enemyProjectiles = new ArrayList<Projectile>();
   public ArrayList<Projectile> playerProjectiles = new ArrayList<Projectile>();
@@ -646,9 +649,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     //Game Over Animation
     if(player.getLives()<=0){
-      g.setColor(Color.cyan);
-      g.setFont(new Font("Impact", Font.BOLD, 72));
-      g.drawString("GAME OVER",Main.WIDTH/2-150,Main.HEIGHT/2);
+//      g.setColor(Color.cyan);
+//      g.setFont(new Font("Impact", Font.BOLD, 72));
+//      g.drawString("GAME OVER",Main.WIDTH/2-150,Main.HEIGHT/2);
+      if (currentGGFrame < 233) {
+        g.drawImage(img_gg[currentGGFrame], 0, 0, null);
+        currentGGFrame++;
+      } else {
+        g.drawImage(img_gg[currentGGFrame - 1], 0, 0, null);
+      }
     }
     //Vignette
     g.drawImage(img_vignette, 0, 0, null);
@@ -721,6 +730,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       img_vignette = ImageIO.read(new File (workingDir + FileStore.FX_VIGNETTE));
       img_blueShield = ImageIO.read(new File (workingDir + FileStore.BLUE_SHIELD));
       img_redShield = ImageIO.read(new File (workingDir + FileStore.RED_SHIELD));
+      String[] ggList = FileStore.GameOverSequence();
+      for (int i = 0; i < ggList.length; i++) {
+        img_gg[i] = ImageIO.read(new File (workingDir + ggList[i]));
+      }
     } catch (IOException e) {
       e.printStackTrace();
       noErrors = false;
