@@ -53,7 +53,9 @@ public class Shot extends Projectile {
                     else
                          path = workingDir + FileStore.SHOT_RED;
                } else {
-                    //enemy shot image
+                    if (yVelocity == Projectile.FastShotVelocity)
+                         path = workingDir + FileStore.ENEMY_FAST_SHOT_RED;
+                    else
                          path = workingDir + FileStore.ENEMY_SHOT_RED;
                }
           } else if (state == State.BLUE) {
@@ -65,7 +67,9 @@ public class Shot extends Projectile {
                     else
                          path = workingDir + FileStore.SHOT_BLUE;
                } else {
-                    //enemy shot image
+                   if (yVelocity == Projectile.FastShotVelocity)
+                         path = workingDir + FileStore.ENEMY_FAST_SHOT_BLUE;
+                    else
                          path = workingDir + FileStore.ENEMY_SHOT_BLUE;
                }
           }    

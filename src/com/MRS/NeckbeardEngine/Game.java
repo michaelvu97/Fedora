@@ -219,7 +219,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for(int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
         if(e.canShoot()) {
-          if(e.getProjectileType().equalsIgnoreCase("shot")) {
+          if(e.getProjectileType().equalsIgnoreCase("shot") || e.getProjectileType().equalsIgnoreCase("rapidShot")) {
             
             audioPlayer.play("LASER_SHOT_1");
             
@@ -247,7 +247,34 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
             }
           }
+          else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {
+            
+            audioPlayer.play("LASER_SHOT_1");
+            
+            if(e.getState() == State.RED) {
+              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.FastShotVelocity, "swag", 2000));
+            } else if(e.getState() == State.BLUE) {
+              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.FastShotVelocity, "swag", 2000));
+            }
+          }
+          else if (e.getProjectileType().equalsIgnoreCase("scatterShot")) {
+            
+            audioPlayer.play("LASER_SHOT_1");
+            
+            if(e.getState() == State.RED) {
+              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity, "swag", 2000));
+              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 3, Projectile.ShotVelocity, "swag", 2000));
+              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -3, Projectile.ShotVelocity, "swag", 2000));
+            } else if(e.getState() == State.BLUE) {
+              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity, "swag", 2000));
+              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 3, Projectile.ShotVelocity, "swag", 2000));
+              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -3, Projectile.ShotVelocity, "swag", 2000));
+            }
+          }
           e.resetShotCoolDown();
+          if(e.getProjectileType().equalsIgnoreCase("rapidShot")) {
+            e.setShotCoolDown(e.getShotCoolDown()/2);
+          }
         } else if(e.getShotCoolDown()>0) {
           e.setShotCoolDown(e.getShotCoolDown() - 1); 
         }
@@ -288,7 +315,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             audioPlayer.play("LASERBEAM");
           }
         }
-        if (p.getY() > Main.HEIGHT + 100 && p.getClass().getSimpleName().equals("Shot")) {
+        if (p.getY() > Main.HEIGHT + 100 && (p.getClass().getSimpleName().equals("Shot") || p.getClass().getSimpleName().equals("fastShot") || p.getClass().getSimpleName().equals("scatterShot") || p.getClass().getSimpleName().equals("rapidShot"))) {
           enemyProjectiles.remove(p);
         }
         if (p.getKillTime() < System.currentTimeMillis()) {
@@ -400,12 +427,16 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
         }
         //collision between Player and Enemy
-        if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState())) {
-          enemies.remove(e);
-          String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
-          explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
-          audioPlayer.play("Explosion2");
-          
+        if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState()) && deathClock <= 0) {
+          if(!e.getClass().getSimpleName().equals("Shade")) {
+            enemies.remove(e);
+            String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
+            explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
+            audioPlayer.play("Explosion2");
+          }
+          else {
+            audioPlayer.play("Explosion2");
+          }
           explosions.add(new Explosion ((int) player.getX() + Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY()+Player.DEFAULT_HITBOX_HEIGHT/2, Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
           player.setLives(player.getLives() - 1);
           deathClock = 120;

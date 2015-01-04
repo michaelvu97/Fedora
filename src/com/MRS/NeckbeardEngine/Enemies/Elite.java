@@ -32,7 +32,7 @@ public class Elite extends Enemy {
   }
   
   public void animate() {
-    if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0)
+    if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
       active = true;
     
     if (active) {
