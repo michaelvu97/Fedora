@@ -20,8 +20,12 @@ import java.util.TimerTask;
 
 import java.awt.Toolkit;
 import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
 public class Main extends JFrame {
@@ -52,6 +56,14 @@ public class Main extends JFrame {
         int FRAME_X             = (int) Math.floor( (screenWidth / 2) - (WIDTH/2) );
         int FRAME_Y             = (int) Math.floor( (screenHeight / 2) - (HEIGHT/2) );
         
+        //Loading
+        JFrame loadingFrame = new JFrame("Loading");
+        loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loadingFrame.pack();
+        loadingFrame.setSize(WIDTH,11);
+        loadingFrame.setLocation(FRAME_X, FRAME_Y);
+        loadingFrame.setVisible(true);
+        
         //JFrame extension set up
         Main main = new Main();
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +82,7 @@ public class Main extends JFrame {
         main.add(game);
         main.setLocationRelativeTo(null);
         main.setLocation(FRAME_X, FRAME_Y);
-        
+        loadingFrame.setVisible(false);
         main.setVisible(true);
         game.requestFocus();
         
