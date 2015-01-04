@@ -528,6 +528,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     else if(player.getLives()==0){
       //The game is over, random explosions must appear
+      audioPlayer.stopAll();
 //      for(int i = 0; i<30; i++){
 //        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
 //        
@@ -750,7 +751,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer.setVolume("METAL_HIT_1",-7F);
     audioPlayer.setVolume("METAL_HIT_2",-7F);
     audioPlayer.setVolume("METAL_HIT_2",-7F);
-    audioPlayer.setVolume("LASERBEAM",  -5F);
+    audioPlayer.setVolume("LASERBEAM",  -7F);
   }
   
   public void exitGame() {

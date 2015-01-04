@@ -154,14 +154,16 @@ public class  Sound{
     //Pauses the selected clip
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-        Clip c = sounds.get(i).c; 
-        c.stop();
+        sounds.get(i).c.stop();
+        soundsBufferOne.get(i).c.stop();
+        soundsBufferTwo.get(i).c.stop();
       }
     }
   }
   
   public void loop(String id, int loops) {
     //Loops the selected clip (use LOOP_CONTINUOUSLY for forever)
+    //DEPRECATED
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
         Clip c = sounds.get(i).c; 
@@ -195,8 +197,16 @@ public class  Sound{
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
         Clip clip = sounds.get(i).c;
+        Clip clip1 = soundsBufferOne.get(i).c;
+        Clip clip2 = soundsBufferTwo.get(i).c;
+        
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        FloatControl gainControl1 = (FloatControl) clip1.getControl(FloatControl.Type.MASTER_GAIN);
+        FloatControl gainControl2 = (FloatControl) clip2.getControl(FloatControl.Type.MASTER_GAIN);
+        
         gainControl.setValue(vol);
+        gainControl1.setValue(vol);
+        gainControl2.setValue(vol);
       }
     }
     
@@ -245,7 +255,9 @@ public class  Sound{
   public void stopAll() {
     //Stops all clips
     for (int i = 0; i < sounds.size(); i++) {
-      sounds.remove(i);
+      sounds.get(i).c.stop();
+      soundsBufferOne.get(i).c.stop();
+      soundsBufferTwo.get(i).c.stop();
     }
   }
 }
