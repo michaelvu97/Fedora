@@ -31,6 +31,7 @@ public class Level {
         g.enemies.add(new Elite(State.RED, 600, -100, -1, 3, "Shot", null, 0, target));
 //=======
         addPackage(DropInWave.unpack(State.getRandom(), frames));
+        addPackage(StarburtWave.unpack(State.BLUE, frames, Main.WIDTH/2));
 //        g.enemies.add(new Elite(State.BLUE, 300, -100, 0, 3, "Shot", null, 0, target));
 //>>>>>>> origin/master
 //        g.enemies.add(new Shifter(State.BLUE, -72, 100, 3, 0, "Shot", null, 0, "stay", target, 0));
@@ -45,7 +46,7 @@ public class Level {
 //        
         break;
       case 360:
-        addPackage(IrisWave.unpack(State.BLUE, frames, Main.WIDTH/2));
+        //addPackage(IrisWave.unpack(State.BLUE, frames, Main.WIDTH/2));
         break;
 //      case 750:
 //        g.enemies.add(new Mook(State.BLUE, 720, 800, -4, -4, "Shot", null, 0, "form2", Main.WIDTH/2));

@@ -23,6 +23,7 @@ public class StarburtShot extends Projectile {
   
   //boolean if firing
   private boolean active;
+  private boolean playSound;
   
   public StarburtShot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration, Player player) {
     //Projectile class constructor. StarburtShot yVelocity = 3    
@@ -44,6 +45,7 @@ public class StarburtShot extends Projectile {
     
     // not active
     active = false;
+    playSound = false;
     
   }
   
@@ -52,6 +54,7 @@ public class StarburtShot extends Projectile {
       yVelocity = 0;
       coolDown = 120;
       active = true;
+      playSound = true;
     }
     if(active && coolDown < 0)
     {
@@ -135,5 +138,14 @@ public class StarburtShot extends Projectile {
     }
   }
   
+  public boolean getActive() {
+    return active;
+  }
+  public boolean getPlaySound() {
+    return playSound;
+  }
   
+  public void setPlaySound(boolean b) {
+    playSound = b;
+  }
 }

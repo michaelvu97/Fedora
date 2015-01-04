@@ -33,6 +33,8 @@ public class  Sound{
   
   //The list of all the sounds to be initialized and used
   public ArrayList<CustomClip> sounds = new ArrayList<CustomClip>(1);
+  public ArrayList<CustomClip> soundsBufferOne = new ArrayList<CustomClip>();
+  public ArrayList<CustomClip> soundsBufferTwo = new ArrayList<CustomClip>();
   
   public Sound(String[][] file){
     /*
@@ -49,27 +51,42 @@ public class  Sound{
     
     //Loading clips from the string[][] parameters
     try{
-      for(int i = 0; i<file.length;i++) {
-        
-        CustomClip clip = new CustomClip();
-        
-        //Setting the mixer
-        clip.c = (Clip)mixer.getLine(dataInfo); 
-        
-        //Filepath conversion to URL
-        URL filePath = new File(file[i][0]).toURI().toURL();
-        
-        //Creating the stream from URL
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(filePath);
-        
-        //Opening the stream into the target clip
-        clip.c.open(audioStream);
-        
-        //Assigning clip id
-        clip.id = file[i][1];
-        
-        //Adding the clip to the arraylist
-        sounds.add(i,clip);
+      for (int bufferLevel = 0; bufferLevel <= 2; bufferLevel++) {
+        for(int i = 0; i<file.length;i++) {
+          
+          CustomClip clip = new CustomClip();
+          
+          //Setting the mixer
+          clip.c = (Clip)mixer.getLine(dataInfo); 
+          
+          //Filepath conversion to URL
+          URL filePath = new File(file[i][0]).toURI().toURL();
+          
+          //Creating the stream from URL
+          AudioInputStream audioStream = AudioSystem.getAudioInputStream(filePath);
+          
+          //Opening the stream into the target clip
+          clip.c.open(audioStream);
+          
+          //Assigning clip id
+          clip.id = file[i][1];
+          
+          //Adding the clip to the arraylist
+          switch (bufferLevel) {
+            case 0:
+              sounds.add(i,clip);
+              break;
+            case 1:
+              soundsBufferOne.add(i,clip);
+              break;
+            case 2:
+              soundsBufferTwo.add(i,clip);
+              break;
+            default:
+              System.out.println("You shouldn't see this");
+              break;
+          }
+        }
       }
     }
     
@@ -83,9 +100,52 @@ public class  Sound{
     //Plays or resumes the selected clip
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-      Clip c = sounds.get(i).c; 
-      c.setMicrosecondPosition(0);
-      c.start();
+        
+        //The i value is correct, the most complete buffer should be overwritten
+        
+        Clip c0 = sounds.get(i).c; 
+        long buffer0Completion = c0.getMicrosecondPosition();
+        long buffer0Length = c0.getMicrosecondLength();
+        
+        Clip c1 = soundsBufferOne.get(i).c;
+        long buffer1Completion = c1.getMicrosecondPosition();
+        long buffer1Length = c1.getMicrosecondLength();
+        
+        Clip c2 = soundsBufferTwo.get(i).c;
+        long buffer2Completion = c2.getMicrosecondPosition();
+        long buffer2Length = c2.getMicrosecondLength();
+        /*
+         * checking sequentially through the buffers to see if they are playing
+         */
+        if (buffer0Completion != 0 && buffer0Completion - buffer0Length != 0) {
+          if (buffer1Completion != 0 && buffer1Completion - buffer1Length != 0) {
+            if (buffer2Completion != 0 && buffer2Completion - buffer1Length != 0) {
+              //in this case, all are playing, furthest into playing must be stopped
+              if (buffer0Completion > buffer1Completion && buffer0Completion > buffer2Completion) {
+                c0.setMicrosecondPosition(0);
+                c0.start();
+              } else if (buffer1Completion > buffer0Completion && buffer1Completion > buffer2Completion) {
+                c1.setMicrosecondPosition(0);
+                c1.start();
+              } else {
+                c2.setMicrosecondPosition(0);
+                c2.start();
+              }
+            } else {
+              c2.setMicrosecondPosition(0);
+              c2.start();
+            }
+          } else {
+            c1.setMicrosecondPosition(0);
+            c1.start();
+          }
+        } else {
+          c0.setMicrosecondPosition(0);
+          c0.start();
+        }
+        
+        //c.setMicrosecondPosition(0);
+        
       }
     }
   }
@@ -94,8 +154,8 @@ public class  Sound{
     //Pauses the selected clip
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-      Clip c = sounds.get(i).c; 
-      c.stop();
+        Clip c = sounds.get(i).c; 
+        c.stop();
       }
     }
   }
@@ -104,8 +164,8 @@ public class  Sound{
     //Loops the selected clip (use LOOP_CONTINUOUSLY for forever)
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-      Clip c = sounds.get(i).c; 
-      c.loop(loops);
+        Clip c = sounds.get(i).c; 
+        c.loop(loops);
       }
     }
   }
@@ -114,8 +174,8 @@ public class  Sound{
     //Scrub to position on selected clip
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-      Clip c = sounds.get(i).c; 
-      c.setMicrosecondPosition(start);
+        Clip c = sounds.get(i).c; 
+        c.setMicrosecondPosition(start);
       }
     }
   }
@@ -124,8 +184,8 @@ public class  Sound{
     //Set Loop Points on selected clip, must know frames
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-      Clip c = sounds.get(i).c; 
-      c.setLoopPoints(start,end);
+        Clip c = sounds.get(i).c; 
+        c.setLoopPoints(start,end);
       }
     }
   }
@@ -134,9 +194,9 @@ public class  Sound{
     //Set volume.(range is -80.0f to 6.0f) in db
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-      Clip clip = sounds.get(i).c;
-    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-    gainControl.setValue(vol);
+        Clip clip = sounds.get(i).c;
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(vol);
       }
     }
     
@@ -166,7 +226,7 @@ public class  Sound{
     //Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
-      sounds.remove(i);
+        sounds.remove(i);
       }
     }
   }
@@ -181,7 +241,7 @@ public class  Sound{
     //returns the number of clips
     return sounds.size();
   }
-    
+  
   public void stopAll() {
     //Stops all clips
     for (int i = 0; i < sounds.size(); i++) {

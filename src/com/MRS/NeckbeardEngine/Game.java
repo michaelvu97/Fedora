@@ -229,7 +229,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           else if(e.getProjectileType().equalsIgnoreCase("starburtShot")) {
             
-            System.out.println("StarburtSound");
+            System.out.println("StarburtSoundPlay");
             audioPlayer.play("LASER_SHOT_1");
             
             if(e.getState() == State.RED) {
@@ -247,9 +247,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             }
           }
           e.resetShotCoolDown();
+        } else if(e.getShotCoolDown()>0) {
+          e.setShotCoolDown(e.getShotCoolDown() - 1); 
         }
-        else if(e.getShotCoolDown()>0) 
-          e.setShotCoolDown(e.getShotCoolDown() - 1);        
       }
       
       //Bombs
@@ -280,10 +280,21 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for(int i = 0; i < enemyProjectiles.size(); i++) {
         Projectile p = enemyProjectiles.get(i);
         p.move();
+        if (p.getClass().getSimpleName().equals("StarburtShot")) {
+          StarburtShot s = (StarburtShot) p;
+          if (s.getActive() && s.getPlaySound()) {
+            s.setPlaySound(false);
+            audioPlayer.play("LASERBEAM");
+          }
+        }
         if (p.getY() > Main.HEIGHT + 100 && p.getClass().getSimpleName().equals("Shot")) {
           enemyProjectiles.remove(p);
         }
         if (p.getKillTime() < System.currentTimeMillis()) {
+          if (p.getClass().getSimpleName().equals("StarburtShot")) {
+            explosions.add(new Explosion((int)p.getX(), (int)p.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+            audioPlayer.play("Explosion1");
+          }
           enemyProjectiles.remove(p);
         }
         if ((p.getClass().getSimpleName().equalsIgnoreCase("Shot")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
