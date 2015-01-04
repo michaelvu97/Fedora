@@ -528,7 +528,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     }
     else if(player.getLives()==0){
       //The game is over, random explosions must appear
-      audioPlayer.stopAll();
+      audioPlayer.stopAllExcept("Explosion1");
+//      audioPlayer.stopAll();
 //      for(int i = 0; i<30; i++){
 //        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
 //        

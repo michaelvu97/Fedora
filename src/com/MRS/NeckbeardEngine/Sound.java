@@ -260,4 +260,14 @@ public class  Sound{
       soundsBufferTwo.get(i).c.stop();
     }
   }
+  
+  public void stopAllExcept (String tag) {
+    for (int i = 0; i < sounds.size(); i++) {
+      if (!sounds.get(i).id.equals(tag)) {
+        sounds.get(i).c.stop();
+        soundsBufferOne.get(i).c.stop();
+        soundsBufferTwo.get(i).c.stop();
+      }
+    }
+  }
 }
