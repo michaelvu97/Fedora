@@ -231,9 +231,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             
           }
           else if(e.getProjectileType().equalsIgnoreCase("starburtShot")) {
-            
-            System.out.println("StarburtSoundPlay");
-            audioPlayer.play("LASER_SHOT_1");
+            audioPlayer.play("STARBURT_SHOT");
             
             if(e.getState() == State.RED) {
               enemyProjectiles.add((Projectile) new StarburtShot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,3,"swag",20000, player));
@@ -750,6 +748,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.MONTAGE, "Montage"},
       {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
       {workingDir + FileStore.LASERBEAM, "LASERBEAM"},
+      {workingDir + FileStore.STARBURT_SHOT, "STARBURT_SHOT"},
       {workingDir + FileStore.EXPLOSION_1, "Explosion1"},
       {workingDir + FileStore.EXPLOSION_2, "Explosion2"},
       {workingDir + FileStore.BOMB, "Bomb"},
