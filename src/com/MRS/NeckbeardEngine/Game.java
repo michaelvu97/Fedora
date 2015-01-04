@@ -392,6 +392,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
 //          if(collide)
 //            Enemy.switchDirections(e,f);
 //        }
+        if (e.getClass().getSimpleName().equals("Shifter")) {
+          com.MRS.NeckbeardEngine.Enemies.Shifter s = (com.MRS.NeckbeardEngine.Enemies.Shifter) e;
+          if (s.playSound) {
+            audioPlayer.play("SWITCH_STATE");
+            s.playSound = false;
+          }
+        }
         //collision between Player and Enemy
         if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState())) {
           enemies.remove(e);
@@ -542,7 +549,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
 //      for(int i = 0; i<30; i++){
 //        explosions.add(new Explosion((int)(Main.WIDTH*Math.random()), (int)(Main.HEIGHT*Math.random()), Explosion.EXPLOSIONTYPE_HITFLIPPED));      
 //      }
-      playerProjectiles.add((Projectile) new Bomb(State.BOTH, Main.WIDTH/2, Main.HEIGHT/2, 0, 0, "", Bomb.DEFAULT_DURATION));
+      //playerProjectiles.add((Projectile) new Bomb(State.BOTH, Main.WIDTH/2, Main.HEIGHT/2, 0, 0, "", Bomb.DEFAULT_DURATION));
       explosions.add(new Explosion (0,0, Explosion.EXPLOSIONTYPE_GAMEOVER));
       for (int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);

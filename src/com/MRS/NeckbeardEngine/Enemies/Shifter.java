@@ -18,6 +18,7 @@ public class Shifter extends Enemy {
   private Player target;
   private int shootPos;
   private int shiftTimer;
+  public boolean playSound = false;
   
   public Shifter (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version, Player target, int shootPos) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
@@ -104,6 +105,7 @@ public class Shifter extends Enemy {
     //Changes Shifter state when cooldown is done and resets cooldown timer
     shiftTimer--;
     if (shiftTimer == 0) {
+      playSound = true;
       if (state == State.RED)
         state = State.BLUE;
       else
