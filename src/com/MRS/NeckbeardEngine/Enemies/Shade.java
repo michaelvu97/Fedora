@@ -28,7 +28,7 @@ public class Shade extends Enemy {
   private int shotTime;
   
   public ArrayList<Projectile> playerProjectiles;
-    public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, ArrayList<Projectile> playerProjectiles) {
+  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, ArrayList<Projectile> playerProjectiles) {
     super(state, x, y, xVelocity, yVelocity, projectileType);
     this.playerProjectiles = playerProjectiles;
     health = 70;          
@@ -38,6 +38,7 @@ public class Shade extends Enemy {
     pathTime = 0;
     shiftTime = SWITCH_STATE;
     shotCoolDown = MAXSHOTCOOLDOWN;
+    shotTime = SWITCH_SHOT;
     active = false;
     maxSpeedX = true;
   }
@@ -82,6 +83,19 @@ public class Shade extends Enemy {
         state = State.RED;
       
       randShiftTime = (int)(180*Math.random() +120);
+    }
+    
+    if(shotTime <= 0) {
+      int type = (int) (3*Math.random());
+      shotTime = SWITCH_SHOT;
+      if (type == 0 && !projectileType.equals("fastShot"))
+        projectileType = "fastShot";
+      else if (type == 1 && !projectileType.equals("rapidFire"))
+        projectileType = "rapidFire";
+      else if (type == 2 && !projectileType.equals("scatterShot"))
+        projectileType = "scatterShot";
+      else
+        shotTime = 0;
     }
     
     pathTime--;
