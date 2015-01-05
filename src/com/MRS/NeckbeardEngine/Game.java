@@ -58,7 +58,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     img_mookRed = null, img_mookBlue = null, 
     img_shotBlue = null, img_shotRed = null, 
     img_spaceBG1 = null, img_vignette = null, 
-    img_redShield = null, img_blueShield = null;
+    img_redShield = null, img_blueShield = null,
+    img_bombCounter = null;
   
   BufferedImage[] img_gg = new BufferedImage[233];
   private int currentGGFrame = 0;
@@ -547,7 +548,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for (int i = 0; i < powerUpPickups.size(); i++) {
         PowerUpPickup p = powerUpPickups.get(i);
         if (HitBox.checkCollisionRectRect(player.getHitBox(), p.getHitBox())) {
-          if (p.getHeldPowerUp() == PowerUp.BOMB) {
+          if (p.getHeldPowerUp() == PowerUp.BOMB && player.getBombs() < 3) {
             player.setBombs(player.getBombs() + 1);
           } else {
             if (p.getHeldPowerUp().getOffensive()) {
@@ -680,24 +681,67 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     if (player.getLives() >= 0) {
       g.setColor(Color.black);
       g.setFont(font_bold);
-      g.drawString("Bombs: " + player.getBombs(), 0, 500);
+      g.drawString("Bombs: " + player.getBombs(), 0, 890);
       g.setFont(font_reg);
       if (player.getState() == State.RED) 
         g.setColor(Color.RED);
       else
         g.setColor(Color.BLUE);
-      g.drawString("Bombs: " + player.getBombs(), 0, 500);
+      g.drawString("Bombs: " + player.getBombs(), 0, 890);
+      switch(player.getBombs()) {
+        case 1:
+          g.drawImage(img_bombCounter, 0, 900, null);
+          break;
+        case 2:
+          g.drawImage(img_bombCounter, 0, 900, null);
+          g.drawImage(img_bombCounter, 64, 900, null);
+          break;
+        case 3:
+          g.drawImage(img_bombCounter, 0, 900, null);
+          g.drawImage(img_bombCounter, 64, 900, null);
+          g.drawImage(img_bombCounter, 128, 900, null);
+          break;
+        default:
+      }
       
       g.setColor(Color.black);
       g.setFont(font_bold);
-      
-      g.drawString("Lives: " + player.getLives(), 0, 600);
+      g.drawString("Lives: " + player.getLives(), 0, 850);
       if (player.getState() == State.RED) 
         g.setColor(Color.RED);
       else
         g.setColor(Color.BLUE);
       g.setFont(font_reg);
-      g.drawString("Lives: " + player.getLives(), 0, 600);
+      g.drawString("Lives: " + player.getLives(), 0, 850);
+      
+      g.setColor(Color.black);
+      g.setFont(font_bold);
+      g.drawString("Current", 580, 850);
+      g.drawString("Weapon", 588, 880);
+      if (player.getState() == State.RED) 
+        g.setColor(Color.RED);
+      else
+        g.setColor(Color.BLUE);
+      g.setFont(font_reg);
+      g.drawString("Current", 580, 850);
+      g.drawString("Weapon", 588, 880);
+      g.setColor(Color.WHITE);
+      if (player.getOffensePowerUp() == PowerUp.FAST_SHOT) {
+        g.drawString("Fast", 605, 910);
+        g.drawString("Shot", 605, 940);
+      }
+      else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) {
+        g.drawString("Rapid", 599, 910);
+        g.drawString("Fire", 605, 940);
+      }
+      else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
+        g.drawString("Scatter", 580, 910);
+        g.drawString("Shot", 605, 940);
+      }
+      else {
+        g.drawString("Basic", 599, 910);
+        g.drawString("Shot", 605, 940);
+      }
     }
     //Game Over Animation
     if(player.getLives()<=0){
@@ -782,6 +826,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       img_vignette = ImageIO.read(new File (workingDir + FileStore.FX_VIGNETTE));
       img_blueShield = ImageIO.read(new File (workingDir + FileStore.BLUE_SHIELD));
       img_redShield = ImageIO.read(new File (workingDir + FileStore.RED_SHIELD));
+      img_bombCounter = ImageIO.read(new File (workingDir + FileStore.BOMB_COUNTER));
       String[] ggList = FileStore.GameOverSequence();
       for (int i = 0; i < ggList.length; i++) {
         img_gg[i] = ImageIO.read(new File (workingDir + ggList[i]));

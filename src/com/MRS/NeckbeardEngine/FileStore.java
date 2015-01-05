@@ -25,6 +25,7 @@ public class FileStore {
                             FAST_SHOT_RED  = assets + "FastShot"   + "Red"  + ".png",
                             FAST_SHOT_BLUE = assets + "FastShot"   + "Blue" + ".png",
                             BOMB_IMG       = assets + "Bomb"                + ".png",
+                            BOMB_COUNTER   = assets + "BombCounter"         + ".png",
                             
                             //Powerup icons
                             POWERUP_FAST         = assets + "FastShot"    + "Icon" + ".png",
