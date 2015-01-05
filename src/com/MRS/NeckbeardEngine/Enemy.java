@@ -18,22 +18,18 @@ public abstract class Enemy {
   protected double xVelocity;
   protected double yVelocity;
   protected String  projectileType;//will be more specific for every enemy
-  protected PowerUpPickup heldPowerUp;//if they have power up it is a type if not it is null
   protected HitBox hitBox;//hitbox not set to anything yet, because that will happen in the individual enemy classes
-  protected long timeLine;//used to determine at what time they will enter the game screen/spawn
   protected int shotCoolDown;//to calculate when to shoot
   protected double xSpeed;
   protected double ySpeed;
   
-  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
+  public Enemy(State state, int x, int y, double xVelocity, double yVelocity, String projectileType) {
     this.state = state;
     this.x = x;
     this.y = y;
     this.xVelocity = xVelocity;
     this.yVelocity = yVelocity;
     this.projectileType = projectileType;
-    this.heldPowerUp = heldPowerUp;
-    this.timeLine = timeLine;
     xSpeed = Math.abs(xVelocity);
     ySpeed = Math.abs(yVelocity);
   }
@@ -63,12 +59,6 @@ public abstract class Enemy {
   public String getProjectileType() {
     return projectileType;
   }
-  public PowerUpPickup getHeldPowerUp() {
-    return heldPowerUp;
-  }
-  public long getTimeLine() {
-    return timeLine;
-  }
   public int getShotCoolDown() {
     return shotCoolDown;
   }
@@ -94,12 +84,6 @@ public abstract class Enemy {
   }
   public void setProjectileType(String projectileType) {
     this.projectileType = projectileType;
-  }
-  public void setHeldPowerUp(PowerUpPickup heldPowerUp) {
-    this.heldPowerUp = heldPowerUp;
-  }
-  public void setTimeLine(long timeLine) {
-    this.timeLine = timeLine;
   }
   public void setShotCoolDown(int shotCoolDown) {
     this.shotCoolDown = shotCoolDown;

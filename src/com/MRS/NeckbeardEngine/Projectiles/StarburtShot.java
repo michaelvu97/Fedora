@@ -25,9 +25,9 @@ public class StarburtShot extends Projectile {
   private boolean active;
   private boolean playSound;
   
-  public StarburtShot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration, Player player) {
+  public StarburtShot (State state, int x, int y, double xVelocity, double yVelocity, double duration, Player player) {
     //Projectile class constructor. StarburtShot yVelocity = 3    
-    super(state, x, y, xVelocity, yVelocity, imgPath, duration);
+    super(state, x, y, xVelocity, yVelocity, duration);
     
     this.xVelocity = 0;
     

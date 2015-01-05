@@ -15,11 +15,11 @@ public class Bomb extends Projectile {
   public static double DEFAULT_DURATION = 1000; 
   private BufferedImage baseImg = null;
   
-  public Bomb (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {
+  public Bomb (State state, int x, int y, double xVelocity, double yVelocity, double duration) {
     //Constructor
     
     //Projectile constructor
-    super (state, x, y, xVelocity, yVelocity, imgPath, duration);
+    super (state, x, y, xVelocity, yVelocity, duration);
     
     //Sets up the radial hitbox
     this.radius = 10;

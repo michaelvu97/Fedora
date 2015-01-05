@@ -28,8 +28,8 @@ public class Shade extends Enemy {
   
   public ArrayList<Projectile> playerProjectiles;
   
-  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, ArrayList<Projectile> playerProjectiles) {
-    super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
+  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, ArrayList<Projectile> playerProjectiles) {
+    super(state, x, y, xVelocity, yVelocity, projectileType);
     this.playerProjectiles = playerProjectiles;
     health = 70;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);

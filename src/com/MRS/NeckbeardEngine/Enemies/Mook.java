@@ -16,8 +16,8 @@ public class Mook extends Enemy {
      public static int MAXSHOTCOOLDOWN = 120;
      public int shootPos; // where you want it to shoot/stop
      
-     public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version, int shootPos) {
-          super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
+     public Mook (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, String version, int shootPos) {
+          super(state, x, y, xVelocity, yVelocity, projectileType);
           health = 1;          
           hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
           this.version = version;

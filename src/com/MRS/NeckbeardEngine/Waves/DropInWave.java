@@ -18,17 +18,17 @@ public class DropInWave {
     ArrayList<SpawnEvent> spawnEvents = new ArrayList<SpawnEvent>();
     
     spawnEvents.add( new SpawnEvent (
-                                     new Mook(state, -30, -50, 3, 4, "Shot", null, 0, "stay", Main.WIDTH/2) 
+                                     new Mook(state, -30, -50, 3, 4, "Shot", "stay", Main.WIDTH/2) 
                                      , currentFrame
                                      ));
     
     spawnEvents.add( new SpawnEvent (
-                                     new Mook(state, -30 - Mook.DEFAULT_HITBOX_WIDTH, -50, 3, 4, "Shot", null, 0, "stay", Main.WIDTH/2 - Mook.DEFAULT_HITBOX_WIDTH) 
+                                     new Mook(state, -30 - Mook.DEFAULT_HITBOX_WIDTH, -50, 3, 4, "Shot", "stay", Main.WIDTH/2 - Mook.DEFAULT_HITBOX_WIDTH) 
                                      , currentFrame + 30
                                      ));
     
     spawnEvents.add( new SpawnEvent (
-                                     new Mook(state, -30 - (2 * Mook.DEFAULT_HITBOX_WIDTH), -50, 3, 4, "Shot", null, 0, "stay", Main.WIDTH/2 - (2*Mook.DEFAULT_HITBOX_WIDTH)) 
+                                     new Mook(state, -30 - (2 * Mook.DEFAULT_HITBOX_WIDTH), -50, 3, 4, "Shot", "stay", Main.WIDTH/2 - (2*Mook.DEFAULT_HITBOX_WIDTH)) 
                                      , currentFrame + 60
                                      ));
     

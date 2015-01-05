@@ -22,7 +22,7 @@ public class ShifterWave {
     ArrayList<SpawnEvent> events = new ArrayList<SpawnEvent>();
     
     events.add (new SpawnEvent (
-                                     new Shifter(targetState, -72, 100, 3, 0, "Shot", null, 0, "stay", target, 0)
+                                     new Shifter(targetState, -72, 100, 3, 0, "Shot", "stay", target, 0)
                                      , currentFrame
                                      ));
     

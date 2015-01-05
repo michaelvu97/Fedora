@@ -22,7 +22,7 @@ public class StarburtWave {
     ArrayList<SpawnEvent> events = new ArrayList<SpawnEvent>();
     
     events.add (new SpawnEvent (
-                                     new Starburt(targetState, -200, 100, 2.5, 10, "StarburtShot", null, 0)
+                                     new Starburt(targetState, -200, 100, 2.5, 10, "StarburtShot")
                                      , currentFrame
                                      ));
     

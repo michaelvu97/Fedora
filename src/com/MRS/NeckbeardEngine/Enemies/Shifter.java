@@ -20,8 +20,8 @@ public class Shifter extends Enemy {
   private int shiftTimer;
   public boolean playSound = false;
   
-  public Shifter (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, String version, Player target, int shootPos) {
-    super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
+  public Shifter (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, String version, Player target, int shootPos) {
+    super(state, x, y, xVelocity, yVelocity, projectileType);
     health = 1;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     this.version = version;

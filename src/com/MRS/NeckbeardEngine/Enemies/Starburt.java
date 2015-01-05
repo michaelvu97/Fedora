@@ -17,8 +17,8 @@ public class Starburt extends Enemy {
   private Game game;
   private int timesFired;
   
-  public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine) {
-    super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
+  public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType) {
+    super(state, x, y, xVelocity, yVelocity, projectileType);
     this.projectileType = "starburtShot";
     this.yVelocity = 0;
     health = 2;          

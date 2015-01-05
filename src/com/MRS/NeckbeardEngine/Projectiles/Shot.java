@@ -16,9 +16,9 @@ public class Shot extends Projectile {
      private BufferedImage img;
      private BufferedImage glow = null;
      
-     public Shot (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {
+     public Shot (State state, int x, int y, double xVelocity, double yVelocity, double duration) {
           //Projectile class constructor
-          super(state, x, y, xVelocity, yVelocity, imgPath, duration);
+          super(state, x, y, xVelocity, yVelocity, duration);
           
           //Hitbox instantiation
           hitBox = new HitBox(x,y,DEFAULT_HITBOX_WIDTH,DEFAULT_HITBOX_HEIGHT);

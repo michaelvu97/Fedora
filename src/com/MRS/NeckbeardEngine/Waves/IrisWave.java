@@ -22,7 +22,7 @@ public class IrisWave {
     ArrayList<SpawnEvent> events = new ArrayList<SpawnEvent>();
     
     events.add (new SpawnEvent (
-                                     new Iris(targetState, xLocation, -50, 4, "Laser", null, 0) 
+                                     new Iris(targetState, xLocation, -50, 4, "Laser") 
                                      , currentFrame
                                      ));
     

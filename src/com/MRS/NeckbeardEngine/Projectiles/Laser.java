@@ -26,7 +26,7 @@ public class Laser extends Projectile {
   public static int ACTIVE_TIME = 180;
   
   public Laser (State state, int x, int y, double xVelocity, double yVelocity, Direction direction) {
-   super(state, x, y, xVelocity, yVelocity, "", CHARGING_TIME + ACTIVE_TIME); 
+   super(state, x, y, xVelocity, yVelocity, CHARGING_TIME + ACTIVE_TIME); 
    this.direction = direction;
    
    /* frames are converted to a time value

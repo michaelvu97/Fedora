@@ -20,8 +20,8 @@ public class Elite extends Enemy {
   public static int MAXSHOTCOOLDOWN = 60;
   public static int SWITCH_DIRECTION = 90;
   
-  public Elite (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, Player target) {
-    super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
+  public Elite (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, Player target) {
+    super(state, x, y, xVelocity, yVelocity, projectileType);
     health = 3;
     hitBox = new HitBox(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     shotCoolDown = MAXSHOTCOOLDOWN;

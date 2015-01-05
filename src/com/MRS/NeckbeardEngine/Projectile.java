@@ -17,7 +17,6 @@ public abstract class Projectile {
      protected int y;
      protected double xVelocity;
      protected double yVelocity;
-     protected String imgPath;
      protected HitBox hitBox;
      protected double duration;
      protected double killTime;
@@ -29,13 +28,12 @@ public abstract class Projectile {
      public static double FastShotVelocity = 28;
      
      //Constructor
-     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, String imgPath, double duration) {
+     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, double duration) {
           this.state = state;
           this.x = x;
           this.y = y;
           this.xVelocity = xVelocity;
           this.yVelocity = yVelocity;
-          this.imgPath = imgPath;
           this.duration = duration;
      }
      //Accessors
@@ -53,9 +51,6 @@ public abstract class Projectile {
      }
      public double getYVelocity () {
           return yVelocity;
-     }
-     public String getImgPath () {
-          return imgPath;
      }
      public HitBox getHitBox () {
           return hitBox;
@@ -82,9 +77,6 @@ public abstract class Projectile {
      }
      public void setYVelocity (double yVelocity) {
           this.yVelocity = yVelocity;
-     }
-     public void setImgPath (String imgPath) {
-          this.imgPath = imgPath;
      }
      public void setHitBox (HitBox hitBox) {
           this.hitBox = hitBox;

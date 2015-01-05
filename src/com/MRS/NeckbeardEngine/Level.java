@@ -27,8 +27,8 @@ public class Level {
     switch(frames) {
       case 180:
 //<<<<<<< HEAD
-        g.enemies.add(new Elite(State.BLUE, 300, -100, 1, 3, "Shot", null, 0, target));
-        g.enemies.add(new Elite(State.RED, 600, -100, -1, 3, "Shot", null, 0, target));
+        g.enemies.add(new Elite(State.BLUE, 300, -100, 1, 3, "Shot", target));
+        g.enemies.add(new Elite(State.RED, 600, -100, -1, 3, "Shot", target));
 //=======
         addPackage(DropInWave.unpack(State.getRandom(), frames));
         addPackage(StarburtWave.unpack(State.BLUE, frames, Main.WIDTH/2));

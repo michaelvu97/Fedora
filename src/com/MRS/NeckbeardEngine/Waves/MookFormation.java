@@ -28,7 +28,7 @@ public class MookFormation {
     for (int i = 0; i < amount; i++) {
       spawnEvents.add( new SpawnEvent (
                                        //TODO: make the shot position random
-                                       new Mook(state, startX, -50, 3 * directionCoeff, 3, "Shot", null, 0, "form1", (int)(((Main.WIDTH - 100) * Math.random()) + 50))
+                                       new Mook(state, startX, -50, 3 * directionCoeff, 3, "Shot", "form1", (int)(((Main.WIDTH - 100) * Math.random()) + 50))
                                          , currentFrame + (delayTiming * i)
                                       )); System.out.println((int)(((Main.WIDTH - 100) * Math.random()) + 50));
     }
