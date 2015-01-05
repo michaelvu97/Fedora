@@ -27,10 +27,11 @@ public class Shade extends Enemy {
   private int randShiftTime;
   private int shotTime;
   
-  public ArrayList<Projectile> playerProjectiles;
-  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, ArrayList<Projectile> playerProjectiles) {
+  public Game g;
+  public int shieldHealth;
+  
+  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, Game g) {
     super(state, x, y, xVelocity, yVelocity, projectileType);
-    this.playerProjectiles = playerProjectiles;
     health = 70;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     xVelocity = 5;
@@ -41,6 +42,8 @@ public class Shade extends Enemy {
     shotTime = SWITCH_SHOT;
     active = false;
     maxSpeedX = true;
+    this.g = g;
+    shieldHealth = 12;
   }
   public void animate() {
     if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
@@ -66,8 +69,8 @@ public class Shade extends Enemy {
       }
     }
     
-    if(shiftTime <= 0 && playerProjectiles.size() > 0){
-      Projectile p = playerProjectiles.get(0);
+    if(shiftTime <= 0 && g.playerProjectiles.size() > 0){
+      Projectile p = g.playerProjectiles.get(0);
       if(p.getState() == State.RED)
         state = State.BLUE;      
       else
@@ -97,7 +100,11 @@ public class Shade extends Enemy {
       else
         shotTime = 0;
     }
+    if(g.deathClock == 119)
+      shieldHealth  += 5;
     
+    //
+    System.out.println(shieldHealth);
     pathTime--;
     shiftTime--;
     randShiftTime--;
@@ -142,15 +149,21 @@ public class Shade extends Enemy {
   public void paint (Graphics2D g) {
     BufferedImage img = null;
     BufferedImage icon = null;
+    BufferedImage shield = null;
     
     String workingDir = System.getProperty("user.dir");
     String path = "";
     String iconPath = "";
+    String shieldPath = "";
     
     if (state == State.RED) {
       path = workingDir + FileStore.SHADE_RED;
+      if(shieldHealth > 0)
+        shieldPath = workingDir + FileStore.RED_SHIELD;
     } else if (state == State.BLUE) {
       path = workingDir + FileStore.SHADE_BLUE;
+      if(shieldHealth > 0)
+        shieldPath = workingDir + FileStore.BLUE_SHIELD;
     }
     if(projectileType.equalsIgnoreCase("fastShot")) {
       iconPath = workingDir + FileStore.SHADE_FAST_SHOT;
@@ -165,13 +178,18 @@ public class Shade extends Enemy {
     try {
       if(!iconPath.equals(""))
         icon = ImageIO.read(new File(iconPath));
+      if(shieldHealth > 0)
+        shield = ImageIO.read(new File(shieldPath));
       img = ImageIO.read(new File(path));
     } catch (IOException e) {
       e.printStackTrace();
     }
+    g.drawImage(img, x, y, null);
     if(icon != null)
       g.drawImage(icon,50,55,null);
-    g.drawImage(img, x, y, null);
+    if(shieldHealth > 0)
+      g.drawImage(shield,x - 11, y - 11, null);
+    
     
     g.setColor(Color.WHITE);
     g.setFont(new Font("Consolas", Font.BOLD, 20));

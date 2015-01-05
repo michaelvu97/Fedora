@@ -189,7 +189,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, 2000));
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), -1 * Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), -1*Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
             }
             else
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
@@ -202,7 +202,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), -1 * Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), -1*Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
             }
             else
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 43, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
@@ -264,11 +264,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             if(e.getState() == State.RED) {
               enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity,   2000));
               enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1 * Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
+              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
             } else if(e.getState() == State.BLUE) {
               enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 3, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1 * Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
+              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
+              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
             }
           }
           e.resetShotCoolDown();
@@ -461,6 +461,18 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             HitBox eHitBox = e.getHitBox();
             if (HitBox.checkCollisionRectRadial(eHitBox, pHitBox)  && State.compare(e.getState(), p1.getState())) {
               e.setHealth(e.getHealth() - 1);
+              
+              if(e.getClass().getSimpleName().equals("Shade")){
+               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+               if(s.shieldHealth <= 10) {
+                 e.setHealth(e.getHealth()-(10-s.shieldHealth));
+                 s.shieldHealth = 0;
+               }
+               else
+                 s.shieldHealth -=10;
+               playerProjectiles.remove(p1);
+              }
+              
               if (e.getHealth() <= 0) {
                 String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
@@ -473,8 +485,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 else
                   audioPlayer.play("Explosion1");
                 enemies.remove(e);
-                
-                
               }
             }
           }
@@ -486,6 +496,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             HitBox pHitBox = p1.getHitBox();
             if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)  && State.compare(e.getState(), p1.getState())) {
               e.setHealth(e.getHealth() - 1);
+              
+              if(e.getClass().getSimpleName().equals("Shade")){
+               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+               if(s.shieldHealth > 0){
+               s.setHealth(s.getHealth() + 1);
+               s.shieldHealth--;
+               }
+              }
+              
               explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
               playRandomHit();
               playerProjectiles.remove(p1);
