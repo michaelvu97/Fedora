@@ -188,8 +188,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, 2000));
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, 2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 3, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), -3, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), -1 * Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
             }
             else
               playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
@@ -201,8 +201,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 3, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), -3, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), -1 * Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
             }
             else
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 43, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
@@ -263,12 +263,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             
             if(e.getState() == State.RED) {
               enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 3, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -3, Projectile.ShotVelocity,   2000));
+              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
+              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1 * Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
             } else if(e.getState() == State.BLUE) {
               enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity,   2000));
               enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 3, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -3, Projectile.ShotVelocity,   2000));
+              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1 * Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
             }
           }
           e.resetShotCoolDown();

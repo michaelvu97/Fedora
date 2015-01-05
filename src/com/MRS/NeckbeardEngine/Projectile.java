@@ -22,10 +22,9 @@ public abstract class Projectile {
      protected double killTime;
      
      //Static fields
-     public static double ShotVelocity = 14;
-     public static double ScatterShotXVelocity = 1;
-     public static double ScatterShotYVelocity = 1;
-     public static double FastShotVelocity = 28;
+     public static double ShotVelocity = 8;
+     public static double ScatterShotXVelocity = 3;
+     public static double FastShotVelocity = 16;
      
      //Constructor
      public Projectile (State state, int x, int y, double xVelocity, double yVelocity, double duration) {
