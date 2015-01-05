@@ -60,6 +60,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     img_spaceBG1 = null, img_vignette = null, 
     img_redShield = null, img_blueShield = null,
     img_bombCounter = null;
+    
   
   BufferedImage[] img_gg = new BufferedImage[233];
   private int currentGGFrame = 0;
@@ -217,6 +218,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       }
       
       //Enemy Shooting
+      //get rid of ifs and replace with getState()s
       for(int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
         if(e.canShoot()) {
@@ -271,6 +273,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
               enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
             }
+          }
+          else if (e.getProjectileType().equalsIgnoreCase("bomb")) {
+            Bomb b = new Bomb(e.getState(), e.getX() + e.getHitBox().getWidth()/2, e.getY() + e.getHitBox().getHeight()/2, 0, 0, Bomb.DEFAULT_DURATION);
+            b.setRate(1);
+            enemyProjectiles.add((Projectile)b);
           }
           e.resetShotCoolDown();
         } else if(e.getShotCoolDown()>0) {
@@ -383,7 +390,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               }
             }
           }
-        }   
+        }
+        if ((p.getClass().getSimpleName().equalsIgnoreCase("bomb")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) {
+          RadialHitBox he = p.getHitbox();
+          HitBox hp = player.getHitbox();
+          
+          if(HitBox.checkCollisionRectRadial(hp,he){
+            
+            
+            
+          }
+        }
       }
       for(int i = 0; i<player.getDefensePowerUps().size();i++) {
         PowerUp p = player.getDefensePowerUps().get(i);
@@ -688,6 +705,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       else
         g.setColor(Color.BLUE);
       g.drawString("Bombs: " + player.getBombs(), 0, 890);
+      
       switch(player.getBombs()) {
         case 1:
           g.drawImage(img_bombCounter, 0, 900, null);
@@ -718,6 +736,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       g.setFont(font_bold);
       g.drawString("Current", 580, 850);
       g.drawString("Weapon", 588, 880);
+      
       if (player.getState() == State.RED) 
         g.setColor(Color.RED);
       else

@@ -12,7 +12,6 @@ package com.MRS.NeckbeardEngine;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.net.*;
 import java.io.*;
 
 public class KeyInputHandler {

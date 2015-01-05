@@ -4,14 +4,14 @@ import com.MRS.NeckbeardEngine.*;
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;
-import java.awt.geom.AffineTransform;
 import java.io.*;
 
 public class Bomb extends Projectile {
   
   //the current radius; used for animation
   private int radius;
-  private static int rate = 50;
+  private int rate = 50;
+  
   public static double DEFAULT_DURATION = 1000; 
   private BufferedImage baseImg = null;
   
@@ -46,6 +46,10 @@ public class Bomb extends Projectile {
     //Scales hitbox from centre
     hitBox.setX(hitBox.getX() - radius);
     hitBox.setY(hitBox.getY() - radius);
+  }
+  
+  public void setRate(int rate) {
+    this.rate = rate;
   }
   
   @Override

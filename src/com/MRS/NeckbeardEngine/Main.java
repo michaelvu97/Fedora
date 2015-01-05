@@ -20,12 +20,8 @@ import java.util.TimerTask;
 
 import java.awt.Toolkit;
 import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.GridLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
 public class Main extends JFrame {

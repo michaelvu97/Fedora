@@ -6,7 +6,6 @@ import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.util.*;
 
 public class Shade extends Enemy {
   
@@ -20,12 +19,13 @@ public class Shade extends Enemy {
   public static int SWITCH_DIRECTION = 90;
   public static int SWITCH_SHOT = 900;
   public static int SWITCH_STATE = 120;
-  
+  public static int BOMB_COOLDOWN = 1220;
   
   private int pathTime;
   private int shiftTime;
   private int randShiftTime;
   private int shotTime;
+  private int bombTime;
   
   public Game g;
   public int shieldHealth;
@@ -44,6 +44,7 @@ public class Shade extends Enemy {
     maxSpeedX = true;
     this.g = g;
     shieldHealth = 0;
+    bombTime = 2420;
   }
   public void animate() {
     if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
@@ -88,7 +89,7 @@ public class Shade extends Enemy {
       randShiftTime = (int)(180*Math.random() +120);
     }
     
-    if(shotTime <= 0) {
+    if(shotTime <= 0 && bombTime>20) {
       int type = (int) (3*Math.random());
       shotTime = SWITCH_SHOT;
       if (type == 0 && !projectileType.equals("fastShot"))
@@ -100,6 +101,12 @@ public class Shade extends Enemy {
       else
         shotTime = 0;
     }
+    
+    if(bombTime <= 20) {
+      projectileType = "bomb";
+      
+    }
+    
     if(g.deathClock == 119)
       shieldHealth  += 5;
     
@@ -137,8 +144,12 @@ public class Shade extends Enemy {
   }
   
   public boolean canShoot() {
-    if (shotCoolDown <= 0 && active)
-      return true;
+    if (shotCoolDown <= 0 && active){
+      if(bombTime > 20 || bombTime <= 0)
+        return true;
+      else
+        return false;     
+    }
     else
       return false;
   }
@@ -171,6 +182,9 @@ public class Shade extends Enemy {
     }
     else if(projectileType.equalsIgnoreCase("scatterShot")) {
       iconPath = workingDir + FileStore.SHADE_SCATTER_SHOT;
+    }
+    else if(projectileType.equalsIgnoreCase("bomb")) {
+      iconPath = workingDir + FileStore.SHADE_BOMB;
     }
     
     try {

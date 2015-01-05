@@ -1,5 +1,4 @@
 package com.MRS.NeckbeardEngine;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;

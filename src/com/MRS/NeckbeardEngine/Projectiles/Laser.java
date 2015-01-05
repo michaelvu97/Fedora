@@ -19,7 +19,6 @@ public class Laser extends Projectile {
   private boolean charging = true;
   private int chargingClock = 0;
   private Direction direction;
-  private Enemy source;
   
   public static int CHARGING_TIME = 120; /*or something (tune this) once tuned, 
                                            the sound clip can be created based on the time values */

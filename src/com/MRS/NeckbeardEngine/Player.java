@@ -11,7 +11,6 @@ package com.MRS.NeckbeardEngine;
 
 import java.util.ArrayList;
 import java.awt.*;
-import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -24,7 +23,6 @@ public class Player {
      private int xVelocity, yVelocity;
      private State state;
      private boolean canShoot;
-     private boolean shield;
      private PowerUp offensePowerUp;
      private ArrayList<PowerUp> defensePowerUps = new ArrayList<PowerUp>();
      private HitBox hitBox;
@@ -159,7 +157,6 @@ public class Player {
      
      public void paint (Graphics2D g) {    
        String workingDir = System.getProperty("user.dir"); 
-       BufferedImage img_ship = null;
        String path_ship = "";
        if (state == State.RED) {
          path_ship = workingDir + FileStore.PLAYER_RED;

@@ -14,7 +14,6 @@ public class Starburt extends Enemy {
   public static int DEFAULT_HITBOX_HEIGHT = 128;
   public static int MAXSHOTCOOLDOWN = 300;
   private boolean offScreen;
-  private Game game;
   private int timesFired;
   
   public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType) {
@@ -25,7 +24,6 @@ public class Starburt extends Enemy {
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     shotCoolDown = 300;
     offScreen = true;
-    this.game = game;
     timesFired = 0;
   }
   
