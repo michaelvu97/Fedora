@@ -219,7 +219,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for(int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
         if(e.canShoot()) {
-          if(e.getProjectileType().equalsIgnoreCase("shot") || e.getProjectileType().equalsIgnoreCase("rapidShot")) {
+          if(e.getProjectileType().equalsIgnoreCase("shot") || e.getProjectileType().equalsIgnoreCase("rapidFire")) {
             
             audioPlayer.play("LASER_SHOT_1");
             
@@ -272,9 +272,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             }
           }
           e.resetShotCoolDown();
-          if(e.getProjectileType().equalsIgnoreCase("rapidShot")) {
-            e.setShotCoolDown(e.getShotCoolDown()/2);
-          }
         } else if(e.getShotCoolDown()>0) {
           e.setShotCoolDown(e.getShotCoolDown() - 1); 
         }

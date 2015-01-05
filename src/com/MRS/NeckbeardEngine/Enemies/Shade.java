@@ -20,15 +20,15 @@ public class Shade extends Enemy {
   public static int SWITCH_DIRECTION = 90;
   public static int SWITCH_SHOT = 900;
   public static int SWITCH_STATE = 120;
-
+  
   
   private int pathTime;
   private int shiftTime;
   private int randShiftTime;
+  private int shotTime;
   
   public ArrayList<Projectile> playerProjectiles;
-  
-  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, ArrayList<Projectile> playerProjectiles) {
+    public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, ArrayList<Projectile> playerProjectiles) {
     super(state, x, y, xVelocity, yVelocity, projectileType);
     this.playerProjectiles = playerProjectiles;
     health = 70;          
@@ -41,7 +41,6 @@ public class Shade extends Enemy {
     active = false;
     maxSpeedX = true;
   }
-  
   public void animate() {
     if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
       active = true;
@@ -88,7 +87,7 @@ public class Shade extends Enemy {
     pathTime--;
     shiftTime--;
     randShiftTime--;
-    
+    shotTime--;    
   }
   public void move() {
     animate();
@@ -109,7 +108,13 @@ public class Shade extends Enemy {
   }
   
   public void resetShotCoolDown() {
-    shotCoolDown = MAXSHOTCOOLDOWN;
+    if(projectileType.equalsIgnoreCase("rapidFire"))
+      shotCoolDown = MAXSHOTCOOLDOWN-10;
+    else if( projectileType.equalsIgnoreCase("scatterShot")){
+      shotCoolDown = 50;
+    }
+    else
+      shotCoolDown = MAXSHOTCOOLDOWN;
   }
   
   public boolean canShoot() {
@@ -122,22 +127,46 @@ public class Shade extends Enemy {
   @Override
   public void paint (Graphics2D g) {
     BufferedImage img = null;
+    BufferedImage icon = null;
     
     String workingDir = System.getProperty("user.dir");
     String path = "";
+    String iconPath = "";
     
     if (state == State.RED) {
       path = workingDir + FileStore.SHADE_RED;
     } else if (state == State.BLUE) {
       path = workingDir + FileStore.SHADE_BLUE;
     }
+    if(projectileType.equalsIgnoreCase("fastShot")) {
+      iconPath = workingDir + FileStore.SHADE_FAST_SHOT;
+    }
+    else if(projectileType.equalsIgnoreCase("rapidFire")) {
+      iconPath = workingDir + FileStore.SHADE_RAPID_FIRE;
+    }
+    else if(projectileType.equalsIgnoreCase("scatterShot")) {
+      iconPath = workingDir + FileStore.SHADE_SCATTER_SHOT;
+    }
     
     try {
+      if(!iconPath.equals(""))
+        icon = ImageIO.read(new File(iconPath));
       img = ImageIO.read(new File(path));
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
+    if(icon != null)
+      g.drawImage(icon,50,55,null);
     g.drawImage(img, x, y, null);
+    
+    g.setColor(Color.WHITE);
+    g.setFont(new Font("Consolas", Font.BOLD, 20));
+    g.drawString("Shade",115,70);
+    
+    g.setColor(Color.RED);
+    
+    g.fillRect(115,80,7*health,5);
+    
   }
+  
 }

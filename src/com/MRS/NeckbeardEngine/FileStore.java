@@ -36,7 +36,7 @@ public class FileStore {
                             POWERUP_SHIELD       = assets + "Shield"      + "Icon" + ".png",
     
                             //Shade Shot Icons
-                            SHADE_FAST         = assets + "FastShot"    + "Shade" + ".png",
+                            SHADE_FAST_SHOT    = assets + "FastShot"    + "Shade" + ".png",
                             SHADE_BOMB         = assets + "Bomb"        + "Shade" + ".png",
                             SHADE_RAPID_FIRE   = assets + "RapidFire"   + "Shade" + ".png",
                             SHADE_SCATTER_SHOT = assets + "ScatterShot" + "Shade" + ".png",
