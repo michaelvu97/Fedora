@@ -96,18 +96,19 @@ public class FileStore {
                             TEST_MIDGROUND   = assets + "testmidground"  + ".png",
     
                             //Audio
-                            BG_MUSIC_1   = assets + sound + "TestBGM1.wav",
-                            MONTAGE      = assets + sound + "Montage.wav",
-                            LASER_SHOT_1 = assets + sound + "LaserShot.wav",
-                            LASERBEAM    = assets + sound + "LaserStandard.wav",
-                            STARBURT_SHOT= assets + sound + "StarburtShot.wav",
-                            BOMB         = assets + sound + "Bomb.wav",
-                            SWITCH_STATE = assets + sound + "SwitchState.wav",
-                            METAL_HIT_1  = assets + sound + "MetalHit1.wav",
-                            METAL_HIT_2  = assets + sound + "MetalHit2.wav",
-                            METAL_HIT_3  = assets + sound + "MetalHit3.wav",
-                            EXPLOSION_1  = assets + sound + "Explosion1.wav",
-                            EXPLOSION_2  = assets + sound + "Explosion2.wav";
+                            BG_MUSIC_1    = assets + sound + "TestBGM1.wav",
+                            MONTAGE       = assets + sound + "Montage.wav",
+                            LASER_SHOT_1  = assets + sound + "LaserShot.wav",
+                            LASERBEAM     = assets + sound + "LaserStandard.wav",
+                            STARBURT_SHOT = assets + sound + "StarburtShot.wav",
+                            BG_MUSIC_SHADE= assets + sound + "ShadeFightMusic.wav",
+                            BOMB          = assets + sound + "Bomb.wav",
+                            SWITCH_STATE  = assets + sound + "SwitchState.wav",
+                            METAL_HIT_1   = assets + sound + "MetalHit1.wav",
+                            METAL_HIT_2   = assets + sound + "MetalHit2.wav",
+                            METAL_HIT_3   = assets + sound + "MetalHit3.wav",
+                            EXPLOSION_1   = assets + sound + "Explosion1.wav",
+                            EXPLOSION_2   = assets + sound + "Explosion2.wav";
   
   public final static String[] HITEXPLOSIONONE = {
     "\\Assets\\HitExplosionOne\\GrenadeExplosion0.png",
