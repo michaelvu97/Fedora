@@ -43,7 +43,7 @@ public class Shade extends Enemy {
     active = false;
     maxSpeedX = true;
     this.g = g;
-    shieldHealth = 12;
+    shieldHealth = 0;
   }
   public void animate() {
     if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
@@ -103,8 +103,6 @@ public class Shade extends Enemy {
     if(g.deathClock == 119)
       shieldHealth  += 5;
     
-    //
-    System.out.println(shieldHealth);
     pathTime--;
     shiftTime--;
     randShiftTime--;
