@@ -6,6 +6,7 @@ import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.*;
 
 public class Shade extends Enemy {
   
@@ -18,20 +19,24 @@ public class Shade extends Enemy {
   public static int MAXSHOTCOOLDOWN = 20;
   public static int SWITCH_DIRECTION = 90;
   public static int SWITCH_SHOT = 900;
+  public static int SWITCH_STATE = 120;
+
   
   private int pathTime;
-  private int shiftTime;  
+  private int shiftTime;
+  private int randShiftTime;
   
-  private Player player;
+  public ArrayList<Projectile> playerProjectiles;
   
-  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, Player player) {
+  public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, PowerUpPickup heldPowerUp, long timeLine, ArrayList<Projectile> playerProjectiles) {
     super(state, x, y, xVelocity, yVelocity, projectileType, heldPowerUp, timeLine);
-    this.player = player;
+    this.playerProjectiles = playerProjectiles;
     health = 70;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     xVelocity = 5;
     yVelocity = 5;
     pathTime = 0;
+    shiftTime = SWITCH_STATE;
     shotCoolDown = MAXSHOTCOOLDOWN;
     active = false;
     maxSpeedX = true;
@@ -61,8 +66,28 @@ public class Shade extends Enemy {
       }
     }
     
-    pathTime--;
+    if(shiftTime <= 0 && playerProjectiles.size() > 0){
+      Projectile p = playerProjectiles.get(0);
+      if(p.getState() == State.RED)
+        state = State.BLUE;      
+      else
+        state = State.RED;      
+      
+      shiftTime = SWITCH_STATE;
+    }
     
+    if(randShiftTime <= 0) {
+      if(state == State.RED)
+        state = State.BLUE;      
+      else
+        state = State.RED;
+      
+      randShiftTime = (int)(180*Math.random() +120);
+    }
+    
+    pathTime--;
+    shiftTime--;
+    randShiftTime--;
     
   }
   public void move() {
