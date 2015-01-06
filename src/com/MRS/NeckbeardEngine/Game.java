@@ -898,6 +898,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer.setVolume("METAL_HIT_2",-7F);
     audioPlayer.setVolume("METAL_HIT_2",-7F);
     audioPlayer.setVolume("LASERBEAM",  -7F);
+    audioPlayer.setVolume("BGM1", -5F);
   }
   
   public void exitGame() {

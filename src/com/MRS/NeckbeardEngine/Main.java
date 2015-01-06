@@ -4,11 +4,8 @@
  * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
  * Inception Date: 9/17/14
  * 
- * Dr. Java prefs/misc/indent level = 2
- * 
  * This project will eventually be a shoot 'em up game with the ability to switch states to gain advantages and avoid
- * certain obstacles. There will be different types of enemies, and boss fights. I don't really know what else to put
- * here, so yeah.
+ * certain obstacles. There will be different types of enemies, and boss fights.
  * 
  * This is the main running class. It holds an instance of Game in a JFrame, and uses Timers to update Game at a set rate.
  */
