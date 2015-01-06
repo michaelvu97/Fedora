@@ -240,9 +240,9 @@ public class FileStore {
   
   public static String[] GameOverSequence () {
     /*
-     * Because 233 is too many to do by hand
+     * Because 121 is too many to do by hand
      */
-    int size = 233;
+    int size = 121;
     String[] export = new String[size];
     String base = "\\Assets\\GameOver\\GameOver_";
     for (int i = 0; i < size; i++) {
@@ -258,4 +258,18 @@ public class FileStore {
     return export;
   }
   
+  public static String[] MenuSequence () {
+    int size = 604;
+    String[] export = new String[size];
+    String base = "\\Assets\\MenuBG\\MenuBG_1_";
+    for (int i = 0; i < size; i++) {
+      if ( i < 10)
+        export[i] = base + "0000" + i + ".jpg";
+      else if (i < 100)
+        export[i] = base + "000" + i + ".jpg";
+      else
+        export[i] = base + "00" + i + ".jpg";
+    }
+    return export;
+  }
 }
