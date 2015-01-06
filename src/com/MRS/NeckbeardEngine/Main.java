@@ -54,7 +54,7 @@ public class Main extends JFrame {
         loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loadingFrame.pack();
         loadingFrame.setSize(WIDTH,11);
-        loadingFrame.setLocation(FRAME_X, FRAME_Y);
+        loadingFrame.setLocation(FRAME_X, (int) (screenHeight / 2));
         loadingFrame.setVisible(true);
         
         //JFrame extension set up

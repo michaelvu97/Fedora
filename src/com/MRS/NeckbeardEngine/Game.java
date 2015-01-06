@@ -127,7 +127,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     loadImages();
     loadSound();
     currentBGMTag = "BGM1";
-    audioPlayer.play(currentBGMTag);
+    audioPlayer.loop(currentBGMTag, -1);
   }
   
   public void step () {
@@ -634,6 +634,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
 //      }
       //playerProjectiles.add((Projectile) new Bomb(State.BOTH, Main.WIDTH/2, Main.HEIGHT/2, 0, 0, "", Bomb.DEFAULT_DURATION));
       explosions.add(new Explosion (0,0, Explosion.EXPLOSIONTYPE_GAMEOVER));
+      explosions.add(new Explosion (player.getX(), player.getY(), Explosion.EXPLOSIONTYPE_DEATHLARGE));
+      player.setY(-5000);
       for (int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
         String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
@@ -785,7 +787,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
 //      g.setColor(Color.cyan);
 //      g.setFont(new Font("Impact", Font.BOLD, 72));
 //      g.drawString("GAME OVER",Main.WIDTH/2-150,Main.HEIGHT/2);
-      if (currentGGFrame < 233) {
+      if (currentGGFrame < 121) {
         g.drawImage(img_gg[currentGGFrame], 0, 0, null);
         currentGGFrame++;
       } else {
@@ -898,10 +900,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer = new Sound(clips); 
     
     //setting volume
-    audioPlayer.setVolume("METAL_HIT_1",-7F);
-    audioPlayer.setVolume("METAL_HIT_2",-7F);
-    audioPlayer.setVolume("METAL_HIT_2",-7F);
-    audioPlayer.setVolume("LASERBEAM",  -7F);
+    audioPlayer.setVolume("METAL_HIT_1",-13F);
+    audioPlayer.setVolume("METAL_HIT_2",-13F);
+    audioPlayer.setVolume("METAL_HIT_2",-13F);
+    audioPlayer.setVolume("LASER_SHOT_1", 2F);
+    audioPlayer.setVolume("LASERBEAM",  -8F);
     audioPlayer.setVolume("BGM1", -5F);
   }
   
