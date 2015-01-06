@@ -61,7 +61,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     img_spaceBG1 = null, img_vignette = null, 
     img_redShield = null, img_blueShield = null,
     img_bombCounter = null;
-    
+  
   
   BufferedImage[] img_gg = new BufferedImage[233];
   private int currentGGFrame = 0;
@@ -87,7 +87,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     player = new Player(360, 800, 3, State.RED);
     level = new Level (this, player);
-            
+    
     //Variable setup
     started = false;
     paused = false;
@@ -114,7 +114,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     font_bold = new Font("Consolas", Font.BOLD, 32);
     font_reg = new Font("Consolas", Font.PLAIN, 32);
-    
     
     //base image, order from back to front
     backgrounds.add(new Background(FileStore.BASE_BG,0));
@@ -499,14 +498,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               
               if(e.getClass().getSimpleName().equals("Shade")){
-               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
-               if(s.shieldHealth <= 10) {
-                 e.setHealth(e.getHealth()-(10-s.shieldHealth));
-                 s.shieldHealth = 0;
-               }
-               else
-                 s.shieldHealth -=10;
-               playerProjectiles.remove(p1);
+                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+                if(s.shieldHealth <= 10) {
+                  e.setHealth(e.getHealth()-(10-s.shieldHealth));
+                  s.shieldHealth = 0;
+                }
+                else
+                  s.shieldHealth -=10;
+                playerProjectiles.remove(p1);
               }
               
               if (e.getHealth() <= 0) {
@@ -534,11 +533,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               
               if(e.getClass().getSimpleName().equals("Shade")){
-               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
-               if(s.shieldHealth > 0){
-               s.setHealth(s.getHealth() + 1);
-               s.shieldHealth--;
-               }
+                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+                if(s.shieldHealth > 0){
+                  s.setHealth(s.getHealth() + 1);
+                  s.shieldHealth--;
+                }
               }
               
               explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
@@ -753,7 +752,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       g.drawString("Lives: " + player.getLives(), 0, 850);
       
       g.setColor(Color.black);
-      g.setFont(font_bold);
+      g.setFont(font_reg);
       g.drawString("Current", 580, 850);
       g.drawString("Weapon", 588, 880);
       
@@ -761,7 +760,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         g.setColor(Color.RED);
       else
         g.setColor(Color.BLUE);
-      g.setFont(font_reg);
+      g.setFont(font_bold);
       g.drawString("Current", 580, 850);
       g.drawString("Weapon", 588, 880);
       g.setColor(Color.WHITE);
