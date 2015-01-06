@@ -145,6 +145,9 @@ public class Player {
      public void setOffensePowerUp(PowerUp p) {
           this.offensePowerUp = p;
      }
+     public void removeOffensePowerUp() {
+       this.offensePowerUp = null;
+     }
      public void addDefensePowerUp(PowerUp p) {
        this.defensePowerUps.add(p);
      }

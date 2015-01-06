@@ -356,6 +356,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             
             enemyProjectiles.remove(i);
             player.setLives(player.getLives() - 1);
+            player.removeOffensePowerUp();
             audioPlayer.play("Explosion1");
             deathClock = 120;
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
@@ -376,6 +377,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             playRandomHit();
             
             player.setLives(player.getLives() - 1);
+            player.removeOffensePowerUp();
             audioPlayer.play("Explosion1");
             deathClock = 120;
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
@@ -396,6 +398,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             playRandomHit();
             
             player.setLives(player.getLives() - 1);
+            player.removeOffensePowerUp();
             audioPlayer.play("Explosion1");
             deathClock = 120;
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
@@ -468,6 +471,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           explosions.add(new Explosion ((int) player.getX() + Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY()+Player.DEFAULT_HITBOX_HEIGHT/2, Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
           player.setLives(player.getLives() - 1);
+          player.removeOffensePowerUp();
           deathClock = 120;
           for(int j = 0; j < player.getDefensePowerUps().size();j++) {
             PowerUp d = player.getDefensePowerUps().get(j);
@@ -582,7 +586,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           if (p.getHeldPowerUp() == PowerUp.BOMB && player.getBombs() < 3) {
             player.setBombs(player.getBombs() + 1);
           } else {
-            if (p.getHeldPowerUp().getOffensive()) {
+            if (p.getHeldPowerUp().getOffensive() && p.getHeldPowerUp() != PowerUp.BOMB) {
               player.setOffensePowerUp(p.getHeldPowerUp());
             } else {
               player.addDefensePowerUp(p.getHeldPowerUp());
