@@ -241,15 +241,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             audioPlayer.play("LASERBEAM");
             if(e.getState() == State.RED) {
               if(e.getClass().getSimpleName().equals("Shade"))
-                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN));
+                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e));
               else
-                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
+                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
             } 
             else if(e.getState() == State.BLUE) {
               if(e.getClass().getSimpleName().equals("Shade"))
-                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN));
+                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e));
               else
-                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
+                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
             }
           }
           else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {
@@ -318,6 +318,24 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             audioPlayer.play("LASERBEAM");
           }
         }
+        
+        //Remove lasers if parent is kill
+        if (p.getClass().getSimpleName().equals("Laser")) {
+          Laser laser = (Laser) p;
+          Enemy parent = laser.getParent();
+          boolean found = false;
+          for (int j = 0; j < enemies.size(); j++) {
+            if (enemies.get(j) == parent) {
+              found = true;
+              j = enemies.size();
+            }
+          }
+          
+          if (!found) {
+            enemyProjectiles.remove(p);
+          }
+        }
+        
         if (p.getY() > Main.HEIGHT + 100 && (p.getClass().getSimpleName().equals("Shot") || p.getClass().getSimpleName().equals("fastShot") || p.getClass().getSimpleName().equals("scatterShot") || p.getClass().getSimpleName().equals("rapidShot"))) {
           enemyProjectiles.remove(p);
         }
