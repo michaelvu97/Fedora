@@ -14,6 +14,7 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -51,7 +52,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private String currentBGMTag = ""; 
   
-  private Font font_bold, font_reg;
+  private Font font_bold, font_reg, hauser;
   
   private JFrame context;
   
@@ -112,8 +113,34 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     addKeyListener(this);
     addMouseListener(this);
     
-    font_bold = new Font("Consolas", Font.BOLD, 32);
-    font_reg = new Font("Consolas", Font.PLAIN, 32);
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    
+//    try{
+//      InputStream fStream = Game.class.getClassLoader().getResourceAsStream("Hauser.ttf");
+//      Font base = Font.createFont(Font.TRUETYPE_FONT, fStream);
+//      Font hauser = base.deriveFont(Font.PLAIN, 24);
+//      ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Hauser.ttf")));
+//    }
+//    catch (IOException|FontFormatException e){
+//    }
+    
+    try {
+      ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Hauser.ttf")));
+    } 
+    catch(IOException|FontFormatException e) {
+    }
+    
+//    try {
+//      hauser = Font.createFont(Font.TRUETYPE_FONT, new File("Hauser.ttf"));
+//      hauser = hauser.deriveFont(32F);
+//    }
+//    catch (IOException|FontFormatException e){
+//    }
+    
+    hauser = new Font("Hauser", Font.PLAIN, 36);
+    
+    font_bold = new Font("Consolas", Font.BOLD, 36);
+    font_reg = new Font("Consolas", Font.PLAIN, 36);
     
     //base image, order from back to front
     backgrounds.add(new Background(FileStore.BASE_BG,0));
@@ -742,13 +769,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       }
       
       g.setColor(Color.black);
-      g.setFont(font_bold);
+      g.setFont(hauser);
       g.drawString("Lives: " + player.getLives(), 0, 850);
       if (player.getState() == State.RED) 
         g.setColor(Color.RED);
       else
         g.setColor(Color.BLUE);
-      g.setFont(font_reg);
+      g.setFont(hauser);
       g.drawString("Lives: " + player.getLives(), 0, 850);
       
       g.setColor(Color.black);
