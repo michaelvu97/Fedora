@@ -26,8 +26,10 @@ public class Shade extends Enemy {
   private int shotTime;
   private int laserTime;
   
+  
   public Game g;
   public int shieldHealth;
+  public boolean playSwitchSound = false;
   
   public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, Game g) {
     super(state, x, y, xVelocity, yVelocity, projectileType);
@@ -88,10 +90,11 @@ public class Shade extends Enemy {
       
       randShiftTime = (int)(180*Math.random() +120);
     }
-    
     if(shotTime <= 0 && laserTime>20) {
       int type = (int) (3*Math.random());
       shotTime = SWITCH_SHOT;
+      
+      playSwitchSound = true;
       if (type == 0 && !projectileType.equals("fastShot"))
         projectileType = "fastShot";
       else if (type == 1 && !projectileType.equals("rapidFire"))
@@ -114,6 +117,7 @@ public class Shade extends Enemy {
     shiftTime--;
     randShiftTime--;
     shotTime--;    
+    laserTime--;
   }
   public void move() {
     animate();

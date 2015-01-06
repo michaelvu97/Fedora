@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 import com.MRS.NeckbeardEngine.Projectiles.*;
+import com.MRS.NeckbeardEngine.Enemies.*;
 
 public class Game extends JPanel implements KeyListener, MouseListener {
   
@@ -445,6 +446,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           if (s.playSound) {
             audioPlayer.play("SWITCH_STATE");
             s.playSound = false;
+          }
+        }
+        if (e.getClass().getSimpleName().equals("Shade")) {
+          Shade shade = (Shade) e;
+          if (shade.playSwitchSound) {
+            audioPlayer.play("SHADE_SWITCH");
+            shade.playSwitchSound = false;
           }
         }
         //collision between Player and Enemy
@@ -879,7 +887,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.METAL_HIT_1, "METAL_HIT_1"},
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
-      {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"}
+      {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"},
+      {workingDir + FileStore.SHADE_SWITCH, "SHADE_SWITCH"}
     };
     
     audioPlayer = new Sound(clips); 
