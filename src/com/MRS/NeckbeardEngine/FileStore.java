@@ -106,6 +106,7 @@ public class FileStore {
                             BOMB          = assets + sound + "Bomb.wav",
                             SWITCH_STATE  = assets + sound + "SwitchState.wav",
                             SHADE_SWITCH  = assets + sound + "ShadeSwitchWeapon.wav",
+                            MENU_FX       = assets + sound + "MenuFX.wav",
                             METAL_HIT_1   = assets + sound + "MetalHit1.wav",
                             METAL_HIT_2   = assets + sound + "MetalHit2.wav",
                             METAL_HIT_3   = assets + sound + "MetalHit3.wav",
