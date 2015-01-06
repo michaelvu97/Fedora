@@ -240,9 +240,16 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
             audioPlayer.play("LASERBEAM");
             if(e.getState() == State.RED) {
-              enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
-            } else if(e.getState() == State.BLUE) {
-              enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
+              if(e.getClass().getSimpleName().equals("Shade"))
+                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN));
+              else
+                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
+            } 
+            else if(e.getState() == State.BLUE) {
+              if(e.getClass().getSimpleName().equals("Shade"))
+                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN));
+              else
+                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN));
             }
           }
           else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {

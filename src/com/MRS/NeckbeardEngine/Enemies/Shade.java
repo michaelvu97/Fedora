@@ -24,6 +24,7 @@ public class Shade extends Enemy {
   private int shiftTime;
   private int randShiftTime;
   private int shotTime;
+  private int laserTime;
   
   public Game g;
   public int shieldHealth;
@@ -88,7 +89,7 @@ public class Shade extends Enemy {
       randShiftTime = (int)(180*Math.random() +120);
     }
     
-    if(shotTime <= 0) {
+    if(shotTime <= 0 && laserTime>20) {
       int type = (int) (3*Math.random());
       shotTime = SWITCH_SHOT;
       if (type == 0 && !projectileType.equals("fastShot"))
@@ -101,7 +102,11 @@ public class Shade extends Enemy {
         shotTime = 0;
     }
     
-        
+    if(laserTime <= 20) {
+      projectileType = "bomb";
+      
+    }
+    
     if(g.deathClock == 119)
       shieldHealth  += 5;
     
@@ -140,7 +145,10 @@ public class Shade extends Enemy {
   
   public boolean canShoot() {
     if (shotCoolDown <= 0 && active){
+      if(laserTime > 20 || laserTime <= 0)
         return true;
+      else
+        return false;     
     }
     else
       return false;
