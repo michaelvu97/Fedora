@@ -86,12 +86,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     player = new Player(360, 800, 3, State.RED);
     level = new Level (this, player);
-    
-    /*
-     * TEMPORARY
-     */
-    player.setBombs(3);
-    
+            
     //Variable setup
     started = false;
     paused = false;
@@ -274,11 +269,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
             }
           }
-          else if (e.getProjectileType().equalsIgnoreCase("bomb")) {
-            Bomb b = new Bomb(e.getState(), e.getX() + e.getHitBox().getWidth()/2, e.getY() + e.getHitBox().getHeight()/2, 0, 0, Bomb.DEFAULT_DURATION);
-            b.setRate(1);
-            enemyProjectiles.add((Projectile)b);
-          }
+          
           e.resetShotCoolDown();
         } else if(e.getShotCoolDown()>0) {
           e.setShotCoolDown(e.getShotCoolDown() - 1); 
@@ -389,16 +380,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
                 deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
               }
             }
-          }
-        }
-        if ((p.getClass().getSimpleName().equalsIgnoreCase("bomb")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) {
-          RadialHitBox he = p.getHitbox();
-          HitBox hp = player.getHitbox();
-          
-          if(HitBox.checkCollisionRectRadial(hp,he){
-            
-            
-            
           }
         }
       }

@@ -19,13 +19,11 @@ public class Shade extends Enemy {
   public static int SWITCH_DIRECTION = 90;
   public static int SWITCH_SHOT = 900;
   public static int SWITCH_STATE = 120;
-  public static int BOMB_COOLDOWN = 1220;
   
   private int pathTime;
   private int shiftTime;
   private int randShiftTime;
   private int shotTime;
-  private int bombTime;
   
   public Game g;
   public int shieldHealth;
@@ -34,8 +32,6 @@ public class Shade extends Enemy {
     super(state, x, y, xVelocity, yVelocity, projectileType);
     health = 70;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
-    xVelocity = 5;
-    yVelocity = 5;
     pathTime = 0;
     shiftTime = SWITCH_STATE;
     shotCoolDown = MAXSHOTCOOLDOWN;
@@ -44,11 +40,14 @@ public class Shade extends Enemy {
     maxSpeedX = true;
     this.g = g;
     shieldHealth = 0;
-    bombTime = 2420;
   }
   public void animate() {
-    if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
+    if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 200 && !active){
       active = true;
+      xVelocity = 5;
+      yVelocity = 5;
+      maxSpeedX = true;
+    }
     
     if (active) {
       if (x < 0 || x > Main.WIDTH - DEFAULT_HITBOX_WIDTH)
@@ -89,7 +88,7 @@ public class Shade extends Enemy {
       randShiftTime = (int)(180*Math.random() +120);
     }
     
-    if(shotTime <= 0 && bombTime>20) {
+    if(shotTime <= 0) {
       int type = (int) (3*Math.random());
       shotTime = SWITCH_SHOT;
       if (type == 0 && !projectileType.equals("fastShot"))
@@ -102,11 +101,7 @@ public class Shade extends Enemy {
         shotTime = 0;
     }
     
-    if(bombTime <= 20) {
-      projectileType = "bomb";
-      
-    }
-    
+        
     if(g.deathClock == 119)
       shieldHealth  += 5;
     
@@ -145,10 +140,7 @@ public class Shade extends Enemy {
   
   public boolean canShoot() {
     if (shotCoolDown <= 0 && active){
-      if(bombTime > 20 || bombTime <= 0)
         return true;
-      else
-        return false;     
     }
     else
       return false;
