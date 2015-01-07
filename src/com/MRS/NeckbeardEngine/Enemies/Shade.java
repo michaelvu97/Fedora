@@ -21,7 +21,11 @@ public class Shade extends Enemy {
   
   public static int MAXSHOTCOOLDOWN = 20;
   public static int SWITCH_DIRECTION = 90;
+<<<<<<< HEAD
   public static int SWITCH_SHOT = 5*60;
+=======
+  public static int SWITCH_SHOT = 120;
+>>>>>>> origin/master
   public static int SWITCH_STATE = 900;
   
   private int pathTime;
