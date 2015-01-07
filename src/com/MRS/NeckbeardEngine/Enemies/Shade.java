@@ -14,18 +14,20 @@ public class Shade extends Enemy {
   
   private boolean active;
   private boolean maxSpeedX;
+  private boolean laserMove;
+  private boolean laserShoot;
+  private boolean laserWipe;
+  private boolean laserRight;
   
   public static int MAXSHOTCOOLDOWN = 20;
   public static int SWITCH_DIRECTION = 90;
-  public static int SWITCH_SHOT = 900;
-  public static int SWITCH_STATE = 120;
+  public static int SWITCH_SHOT = 5*60;
+  public static int SWITCH_STATE = 900;
   
   private int pathTime;
   private int shiftTime;
   private int randShiftTime;
   private int shotTime;
-  private int laserTime;
-  
   
   public Game g;
   public int shieldHealth;
@@ -41,6 +43,10 @@ public class Shade extends Enemy {
     shotTime = SWITCH_SHOT;
     active = false;
     maxSpeedX = true;
+    laserMove = false;
+    laserShoot = false;
+    laserWipe = false;
+    laserRight = false;
     this.g = g;
     shieldHealth = 0;
   }
@@ -49,10 +55,8 @@ public class Shade extends Enemy {
       active = true;
       xVelocity = 5;
       yVelocity = 5;
-      maxSpeedX = true;
-    }
-    
-    if (active) {
+    }    
+    else if (active && !laserMove && !laserShoot && !laserWipe) {
       if (x < 0 || x > Main.WIDTH - DEFAULT_HITBOX_WIDTH)
         xVelocity *= -1;
       if (y < 0 || y > (Main.HEIGHT / 2) - DEFAULT_HITBOX_HEIGHT)
@@ -71,6 +75,82 @@ public class Shade extends Enemy {
         maxSpeedX = !maxSpeedX;
       }
     }
+    else if (laserMove){
+      if(x > Main.WIDTH/2-DEFAULT_HITBOX_WIDTH/2){
+        
+        if(x < Main.WIDTH-DEFAULT_HITBOX_WIDTH) {
+          xVelocity = 4;
+        }
+        else {
+          xVelocity = 0;
+        }
+        
+      }
+      else {
+        
+        if(x > 0) {
+          xVelocity = -4;
+        }
+        else {
+          xVelocity = 0;
+        }
+        
+      }
+      if(y>85){
+        if(y > 90) {
+          yVelocity = -4;
+        }
+        else {
+          yVelocity = 0;
+        }
+      }
+      else if(y < 90) {
+        if(y < 85) {
+          yVelocity = 4;
+        }
+        else {
+          yVelocity = 0;
+        }
+      }
+      if(xVelocity == 0 && yVelocity == 0) {
+        laserMove = false;
+        laserWipe = true;
+        laserRight = (x > Main.WIDTH/2);
+      }        
+    }
+    else if(laserWipe) {
+      
+      if(laserRight) {
+        xVelocity  = -3.46667;
+        if(x > Main.WIDTH-DEFAULT_HITBOX_WIDTH - 4)
+          laserShoot = true;
+        if(x < 0) {
+          xVelocity = 0;
+          laserWipe = false;
+          shotTime = 0;
+          shiftTime = SWITCH_STATE;
+          active = true;
+          xVelocity = 5;
+          yVelocity = 5;
+          randShiftTime = 0;
+        }
+      }
+      else {
+        xVelocity  = 3.46667;
+        if(x < 4)
+          laserShoot = true;
+        if(x > Main.WIDTH-DEFAULT_HITBOX_HEIGHT){
+          xVelocity = 0;
+          laserWipe = false;
+          shotTime = 0;
+          shiftTime = SWITCH_STATE;
+          active = true;
+          xVelocity = 5;
+          yVelocity = 5;
+        }
+      }
+      
+    }
     
     if(shiftTime <= 0 && g.playerProjectiles.size() > 0){
       Projectile p = g.playerProjectiles.get(0);
@@ -83,17 +163,16 @@ public class Shade extends Enemy {
     }
     
     if(randShiftTime <= 0) {
-      if(state == State.RED)
+      if(state == State.RED && !projectileType.equals("laser"))
         state = State.BLUE;      
-      else
+      else if(!projectileType.equals("laser"))
         state = State.RED;
-      
-      randShiftTime = (int)(180*Math.random() +120);
+      randShiftTime = (int)(180*Math.random()+120);
     }
-    if(shotTime <= 0 && laserTime>20) {
-      int type = (int) (3*Math.random());
+    
+    if(shotTime <= 0) {
+      int type = (int) (4*Math.random());
       shotTime = SWITCH_SHOT;
-      
       playSwitchSound = true;
       if (type == 0 && !projectileType.equals("fastShot"))
         projectileType = "fastShot";
@@ -101,13 +180,13 @@ public class Shade extends Enemy {
         projectileType = "rapidFire";
       else if (type == 2 && !projectileType.equals("scatterShot"))
         projectileType = "scatterShot";
+      else if (type == 3){
+        projectileType = "laser";
+        laserMove = true;
+        shiftTime = randShiftTime = shotTime = 1000;
+      }
       else
         shotTime = 0;
-    }
-    
-    if(laserTime <= 20) {
-      projectileType = "bomb";
-      
     }
     
     if(g.deathClock == 119)
@@ -117,7 +196,6 @@ public class Shade extends Enemy {
     shiftTime--;
     randShiftTime--;
     shotTime--;    
-    laserTime--;
   }
   public void move() {
     animate();
@@ -148,11 +226,12 @@ public class Shade extends Enemy {
   }
   
   public boolean canShoot() {
-    if (shotCoolDown <= 0 && active){
-      if(laserTime > 20 || laserTime <= 0)
-        return true;
-      else
-        return false;     
+    if (shotCoolDown <= 0 && active && !projectileType.equalsIgnoreCase("laser")){
+      return true;
+    }
+    else if (projectileType.equalsIgnoreCase("laser") && laserShoot) {
+      laserShoot = false;
+      return true;
     }
     else
       return false;
@@ -187,7 +266,7 @@ public class Shade extends Enemy {
     else if(projectileType.equalsIgnoreCase("scatterShot")) {
       iconPath = workingDir + FileStore.SHADE_SCATTER_SHOT;
     }
-    else if(projectileType.equalsIgnoreCase("bomb")) {
+    else if(projectileType.equalsIgnoreCase("laser")) {
       iconPath = workingDir + FileStore.SHADE_BOMB;
     }
     

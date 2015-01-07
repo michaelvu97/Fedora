@@ -26,13 +26,12 @@ public class Level {
     //wave loading
     switch(frames) {
       case 180:
-          g.enemies.add(new Shade(State.BLUE, 312, -100, 0, 2, "shot", g));
-        
+        g.enemies.add(new Shade(State.BLUE, 312, -100, 0, 2, "shot", g));
 //<<<<<<< HEAD
-//        g.powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
-//        g.powerUpPickups.add(new PowerUpPickup(300, 0, PowerUp.BOMB));
-//        g.powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
-//        g.powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
+        g.powerUpPickups.add(new PowerUpPickup(250, 0, PowerUp.SCATTER_SHOT));
+        g.powerUpPickups.add(new PowerUpPickup(300, 0, PowerUp.BOMB));
+        g.powerUpPickups.add(new PowerUpPickup(200, 0, PowerUp.RAPID_FIRE));
+        g.powerUpPickups.add(new PowerUpPickup(150, 150, PowerUp.FAST_SHOT));
 //        g.enemies.add(new Elite(State.BLUE, 300, -100, 1, 3, "Shot", target));
 //        g.enemies.add(new Elite(State.RED, 600, -100, -1, 3, "Shot", target));
 ////=======

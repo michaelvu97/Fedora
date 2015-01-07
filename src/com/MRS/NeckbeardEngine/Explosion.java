@@ -123,7 +123,7 @@ public class Explosion {
   }
   
   public static String getExplosionTypeByClass (String className) {
-    if (className.equals(FileStore.ELITE) || className.equals(FileStore.IRIS) || className.equals(FileStore.STARBURT)) {
+    if (className.equals(FileStore.ELITE) || className.equals(FileStore.SHADE) || className.equals(FileStore.IRIS) || className.equals(FileStore.STARBURT)) {
       return EXPLOSIONTYPE_DEATHLARGE;
     } else {
       return EXPLOSIONTYPE_DEATHMEDIUM;

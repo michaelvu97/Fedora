@@ -53,7 +53,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   private String currentBGMTag = ""; 
   
-  private Font font_bold, font_reg, hauser;
+  private Font hauser;
   
   private JFrame context;
   
@@ -127,9 +127,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     hauser = new Font("Hauser", Font.PLAIN, 36);
     
-    font_bold = new Font("Consolas", Font.BOLD, 36);
-    font_reg = new Font("Consolas", Font.PLAIN, 36);
-    
     //base image, order from back to front
     backgrounds.add(new Background(FileStore.BASE_BG,0));
     backgrounds.add(new Background(FileStore.PARTICLE_LAYER_1, 0.03));
@@ -144,7 +141,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     inMenu = true;
     paused = true;
     audioPlayer.loop("MENU_FX", -1);
-    currentBGMTag = "BGM1";
+    currentBGMTag = "Montage";
   }
   
   public void start () {
@@ -268,18 +265,29 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             }
           }
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
-            audioPlayer.play("LASERBEAM");
             if(e.getState() == State.RED) {
-              if(e.getClass().getSimpleName().equals("Shade"))
-                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e));
-              else
+              if(e.getClass().getSimpleName().equals("Shade")){
+                Laser l = new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e);
+                l.setChargingClock(Laser.CHARGING_TIME-1);
+                enemyProjectiles.add((Projectile) l );
+                audioPlayer.play("LASERSHADE");
+              }
+              else{
                 enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
+                audioPlayer.play("LASERBEAM");
+              }
             } 
             else if(e.getState() == State.BLUE) {
-              if(e.getClass().getSimpleName().equals("Shade"))
-                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e));
-              else
+              if(e.getClass().getSimpleName().equals("Shade")){
+                Laser l = new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e);
+                l.setChargingClock(Laser.CHARGING_TIME-1);
+                enemyProjectiles.add((Projectile) l );
+                audioPlayer.play("LASERSHADE");
+              }
+              else{
                 enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
+                audioPlayer.play("LASERBEAM");
+              }
             }
           }
           else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {
@@ -348,9 +356,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             audioPlayer.play("LASERBEAM");
           }
         }
-        
+                
         //Remove lasers if parent is kill
-        if (p.getClass().getSimpleName().equals("Laser")) {
+        if (p.getClass().getSimpleName().equalsIgnoreCase("laser")) {
           Laser laser = (Laser) p;
           Enemy parent = laser.getParent();
           boolean found = false;
@@ -364,8 +372,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           if (!found) {
             enemyProjectiles.remove(p);
           }
+          if(p.xVelocity < 0 && p.x <= Shade.DEFAULT_HITBOX_WIDTH/2-15){
+            enemyProjectiles.remove(p);
+          }
+            else if (p.xVelocity > 0 && p.x >= Main.WIDTH - Shade.DEFAULT_HITBOX_WIDTH/2 -15) {
+            enemyProjectiles.remove(p);
+            }
         }
-        
         if (p.getY() > Main.HEIGHT + 100 && (p.getClass().getSimpleName().equals("Shot") || p.getClass().getSimpleName().equals("fastShot") || p.getClass().getSimpleName().equals("scatterShot") || p.getClass().getSimpleName().equals("rapidShot"))) {
           enemyProjectiles.remove(p);
         }
@@ -528,14 +541,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               
               if(e.getClass().getSimpleName().equals("Shade")){
-                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
-                if(s.shieldHealth <= 10) {
-                  e.setHealth(e.getHealth()-(10-s.shieldHealth));
-                  s.shieldHealth = 0;
-                }
-                else
-                  s.shieldHealth -=10;
-                playerProjectiles.remove(p1);
+               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+               if(s.shieldHealth <= 10) {
+                 e.setHealth(e.getHealth()-(10-s.shieldHealth));
+                 s.shieldHealth = 0;
+               }
+               else
+                 s.shieldHealth -=10;
+               playerProjectiles.remove(p1);
               }
               
               if (e.getHealth() <= 0) {
@@ -563,11 +576,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               
               if(e.getClass().getSimpleName().equals("Shade")){
-                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
-                if(s.shieldHealth > 0){
-                  s.setHealth(s.getHealth() + 1);
-                  s.shieldHealth--;
-                }
+               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+               if(s.shieldHealth > 0){
+               s.setHealth(s.getHealth() + 1);
+               s.shieldHealth--;
+               }
               }
               
               explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
@@ -745,15 +758,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      * HUD Overlay
      */
     if (player.getLives() >= 0) {
-      g.setColor(Color.black);
-      g.setFont(hauser);
-      g.drawString("Bombs: " + player.getBombs(), 0, 890);
-      g.setFont(font_reg);
       if (player.getState() == State.RED) 
-        g.setColor(Color.RED);
+        g.setColor(new Color(220, 42, 42));
       else
-        g.setColor(Color.BLUE);
-      g.drawString("Bombs: " + player.getBombs(), 0, 890);
+        g.setColor(new Color(56, 128, 207));
+      g.setFont(hauser);
+      g.drawString("Bombs: " + player.getBombs(), 5, 890);
+      g.drawString("Bombs: " + player.getBombs(), 5, 890);
       
       switch(player.getBombs()) {
         case 1:
@@ -770,44 +781,27 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           break;
         default:
       }
+
+      g.drawString("Lives: " + player.getLives(), 5, 850);
       
-      g.setColor(Color.black);
-      g.setFont(hauser);
-      g.drawString("Lives: " + player.getLives(), 0, 850);
-      if (player.getState() == State.RED) 
-        g.setColor(Color.RED);
-      else
-        g.setColor(Color.BLUE);
-      g.setFont(hauser);
-      g.drawString("Lives: " + player.getLives(), 0, 850);
-      
-      g.setColor(Color.black);
-      g.setFont(hauser);
-      g.drawString("Current", 580, 850);
-      g.drawString("Weapon", 588, 880);
-      
-      if (player.getState() == State.RED) 
-        g.setColor(Color.RED);
-      else
-        g.setColor(Color.BLUE);
-      g.setFont(hauser);
-      g.drawString("Current", 580, 850);
-      g.drawString("Weapon", 588, 880);
+      g.drawString("Current", 575, 850);
+      g.drawString("Weapon", 575, 880);
+
       g.setColor(Color.WHITE);
       if (player.getOffensePowerUp() == PowerUp.FAST_SHOT) {
         g.drawString("Fast", 605, 910);
         g.drawString("Shot", 605, 940);
       }
       else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) {
-        g.drawString("Rapid", 599, 910);
-        g.drawString("Fire", 605, 940);
+        g.drawString("Rapid", 600, 910);
+        g.drawString("Fire", 610, 940);
       }
       else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
         g.drawString("Scatter", 580, 910);
-        g.drawString("Shot", 605, 940);
+        g.drawString("Shot", 610, 940);
       }
       else {
-        g.drawString("Basic", 599, 910);
+        g.drawString("Basic", 600, 910);
         g.drawString("Shot", 605, 940);
       }
     }
@@ -928,6 +922,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.MONTAGE, "Montage"},
       {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
       {workingDir + FileStore.LASERBEAM, "LASERBEAM"},
+      {workingDir + FileStore.LASERSHADE, "LASERSHADE"},
       {workingDir + FileStore.STARBURT_SHOT, "STARBURT_SHOT"},
       {workingDir + FileStore.EXPLOSION_1, "Explosion1"},
       {workingDir + FileStore.EXPLOSION_2, "Explosion2"},
@@ -948,6 +943,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer.setVolume("METAL_HIT_2",-13F);
     audioPlayer.setVolume("LASER_SHOT_1", 2F);
     audioPlayer.setVolume("LASERBEAM",  -8F);
+    audioPlayer.setVolume("LASERSHADE", -8F);
     audioPlayer.setVolume("BGM1", -5F);
   }
   
