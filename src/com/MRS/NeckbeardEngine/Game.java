@@ -141,7 +141,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     inMenu = true;
     paused = true;
     audioPlayer.loop("MENU_FX", -1);
-    currentBGMTag = "Montage";
+    currentBGMTag = "BGM1";
   }
   
   public void start () {
@@ -499,6 +499,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             audioPlayer.play("SHADE_SWITCH");
             shade.playSwitchSound = false;
           }
+          if (shade.getHealth() < 10 && shade.getHealth() > 0 && !shade.montagePlaying) {
+            audioPlayer.loop("MONTAGE_BUILD", -1);
+            audioPlayer.stop(currentBGMTag);
+            shade.montagePlaying = true;
+          }
         }
         //collision between Player and Enemy
         if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState()) && deathClock <= 0) {
@@ -552,6 +557,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               }
               
               if (e.getHealth() <= 0) {
+                if (e.getClass().getSimpleName().equals("Shade")) {
+                  audioPlayer.stop("MONTAGE_BUILD");
+                  audioPlayer.play("MONTAGE_DROP");
+                }
                 String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
@@ -569,7 +578,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           
           //normal shoot 
           if (p1.getClass().getSimpleName().equals("Shot")) {
-            //MAKE SURE TO CHANGE CHECK FIRST ONCE RADIAL HITBOXES ARE ADDED
             HitBox eHitBox = e.getHitBox();
             HitBox pHitBox = p1.getHitBox();
             if (HitBox.checkCollisionRectRect(eHitBox,pHitBox)  && State.compare(e.getState(), p1.getState())) {
@@ -587,6 +595,10 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playRandomHit();
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
+                if (e.getClass().getSimpleName().equals("Shade")) {
+                  audioPlayer.stop("MONTAGE_BUILD");
+                  audioPlayer.play("MONTAGE_DROP");
+                }
                 String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
                 PowerUp p = PowerUp.getPowerUp(dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield);
@@ -932,7 +944,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
       {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"},
       {workingDir + FileStore.SHADE_SWITCH, "SHADE_SWITCH"},
-      {workingDir + FileStore.MENU_FX, "MENU_FX"}
+      {workingDir + FileStore.MENU_FX, "MENU_FX"},
+      {workingDir + FileStore.MONTAGE_BUILD, "MONTAGE_BUILD"},
+      {workingDir + FileStore.MONTAGE_DROP, "MONTAGE_DROP"}
     };
     
     audioPlayer = new Sound(clips); 
