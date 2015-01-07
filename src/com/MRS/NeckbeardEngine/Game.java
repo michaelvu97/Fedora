@@ -113,29 +113,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     addKeyListener(this);
     addMouseListener(this);
     
-    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     
-//    try{
-//      InputStream fStream = Game.class.getClassLoader().getResourceAsStream("Hauser.ttf");
-//      Font base = Font.createFont(Font.TRUETYPE_FONT, fStream);
-//      Font hauser = base.deriveFont(Font.PLAIN, 24);
-//      ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Hauser.ttf")));
-//    }
-//    catch (IOException|FontFormatException e){
-//    }
-    
+    //loading fonts
     try {
-      ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Hauser.ttf")));
-    } 
-    catch(IOException|FontFormatException e) {
+      GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+      String workingDir = System.getProperty("user.dir");
+      ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(workingDir + "\\com\\MRS\\NeckbeardEngine\\Hauser.ttf")));
+    } catch (IOException|FontFormatException e) {
+      e.printStackTrace();
     }
-    
-//    try {
-//      hauser = Font.createFont(Font.TRUETYPE_FONT, new File("Hauser.ttf"));
-//      hauser = hauser.deriveFont(32F);
-//    }
-//    catch (IOException|FontFormatException e){
-//    }
     
     hauser = new Font("Hauser", Font.PLAIN, 36);
     
@@ -743,7 +729,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      */
     if (player.getLives() >= 0) {
       g.setColor(Color.black);
-      g.setFont(font_bold);
+      g.setFont(hauser);
       g.drawString("Bombs: " + player.getBombs(), 0, 890);
       g.setFont(font_reg);
       if (player.getState() == State.RED) 
@@ -779,7 +765,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       g.drawString("Lives: " + player.getLives(), 0, 850);
       
       g.setColor(Color.black);
-      g.setFont(font_reg);
+      g.setFont(hauser);
       g.drawString("Current", 580, 850);
       g.drawString("Weapon", 588, 880);
       
@@ -787,7 +773,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         g.setColor(Color.RED);
       else
         g.setColor(Color.BLUE);
-      g.setFont(font_bold);
+      g.setFont(hauser);
       g.drawString("Current", 580, 850);
       g.drawString("Weapon", 588, 880);
       g.setColor(Color.WHITE);
