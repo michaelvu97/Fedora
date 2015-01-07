@@ -36,10 +36,8 @@ public class Laser extends Projectile {
    killTime = (CHARGING_TIME + ACTIVE_TIME) * 16.6667 + System.currentTimeMillis();
    //so it doesn't hit anything while charging
    hitBox = new HitBox(x,y,0,0);
-     
    //the parent object needs to be binded to the laser, in case the parent dies
    this.parent = parent;
-   
    //preloading images
    imgCharge = null;
    imgActive = null;
@@ -102,7 +100,7 @@ public class Laser extends Projectile {
    }
     }
   }
-  
+
   public Enemy getParent() {
     return parent;
   }
@@ -114,8 +112,12 @@ public class Laser extends Projectile {
   public int getChargingClock() {
     return chargingClock; 
   }
+  public void setChargingClock(int time) {
+    chargingClock = time;
+  }
   
   public Direction getDirection() {
     return direction;
   }
+  
 }

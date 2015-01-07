@@ -84,6 +84,10 @@ public abstract class Projectile {
           this.duration = duration;
      }
      
+     public void setKillTime (double killTime) {
+       this.killTime = killTime;
+     }
+     
      public void move () {
        x += xVelocity;
        y += yVelocity;

@@ -268,18 +268,29 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             }
           }
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
-            audioPlayer.play("LASERBEAM");
             if(e.getState() == State.RED) {
-              if(e.getClass().getSimpleName().equals("Shade"))
-                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e));
-              else
+              if(e.getClass().getSimpleName().equals("Shade")){
+                Laser l = new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e);
+                l.setChargingClock(Laser.CHARGING_TIME-1);
+                enemyProjectiles.add((Projectile) l );
+                audioPlayer.play("LASERSHADE");
+              }
+              else{
                 enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
+                audioPlayer.play("LASERBEAM");
+              }
             } 
             else if(e.getState() == State.BLUE) {
-              if(e.getClass().getSimpleName().equals("Shade"))
-                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e));
-              else
+              if(e.getClass().getSimpleName().equals("Shade")){
+                Laser l = new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e);
+                l.setChargingClock(Laser.CHARGING_TIME-1);
+                enemyProjectiles.add((Projectile) l );
+                audioPlayer.play("LASERSHADE");
+              }
+              else{
                 enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
+                audioPlayer.play("LASERBEAM");
+              }
             }
           }
           else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {
@@ -348,9 +359,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             audioPlayer.play("LASERBEAM");
           }
         }
-        
+                
         //Remove lasers if parent is kill
-        if (p.getClass().getSimpleName().equals("Laser")) {
+        if (p.getClass().getSimpleName().equalsIgnoreCase("laser")) {
           Laser laser = (Laser) p;
           Enemy parent = laser.getParent();
           boolean found = false;
@@ -364,8 +375,13 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           if (!found) {
             enemyProjectiles.remove(p);
           }
+          if(p.xVelocity < 0 && p.x <= Shade.DEFAULT_HITBOX_WIDTH/2-15){
+            enemyProjectiles.remove(p);
+          }
+            else if (p.xVelocity > 0 && p.x >= Main.WIDTH - Shade.DEFAULT_HITBOX_WIDTH/2 -15) {
+            enemyProjectiles.remove(p);
+            }
         }
-        
         if (p.getY() > Main.HEIGHT + 100 && (p.getClass().getSimpleName().equals("Shot") || p.getClass().getSimpleName().equals("fastShot") || p.getClass().getSimpleName().equals("scatterShot") || p.getClass().getSimpleName().equals("rapidShot"))) {
           enemyProjectiles.remove(p);
         }
@@ -528,14 +544,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               
               if(e.getClass().getSimpleName().equals("Shade")){
-                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
-                if(s.shieldHealth <= 10) {
-                  e.setHealth(e.getHealth()-(10-s.shieldHealth));
-                  s.shieldHealth = 0;
-                }
-                else
-                  s.shieldHealth -=10;
-                playerProjectiles.remove(p1);
+               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+               if(s.shieldHealth <= 10) {
+                 e.setHealth(e.getHealth()-(10-s.shieldHealth));
+                 s.shieldHealth = 0;
+               }
+               else
+                 s.shieldHealth -=10;
+               playerProjectiles.remove(p1);
               }
               
               if (e.getHealth() <= 0) {
@@ -563,11 +579,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               e.setHealth(e.getHealth() - 1);
               
               if(e.getClass().getSimpleName().equals("Shade")){
-                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
-                if(s.shieldHealth > 0){
-                  s.setHealth(s.getHealth() + 1);
-                  s.shieldHealth--;
-                }
+               com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+               if(s.shieldHealth > 0){
+               s.setHealth(s.getHealth() + 1);
+               s.shieldHealth--;
+               }
               }
               
               explosions.add(new Explosion((int)p1.getX(), (int)p1.getY(), Explosion.EXPLOSIONTYPE_HIT));
@@ -928,6 +944,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.MONTAGE, "Montage"},
       {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
       {workingDir + FileStore.LASERBEAM, "LASERBEAM"},
+      {workingDir + FileStore.LASERSHADE, "LASERSHADE"},
       {workingDir + FileStore.STARBURT_SHOT, "STARBURT_SHOT"},
       {workingDir + FileStore.EXPLOSION_1, "Explosion1"},
       {workingDir + FileStore.EXPLOSION_2, "Explosion2"},
@@ -948,6 +965,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer.setVolume("METAL_HIT_2",-13F);
     audioPlayer.setVolume("LASER_SHOT_1", 2F);
     audioPlayer.setVolume("LASERBEAM",  -8F);
+    audioPlayer.setVolume("LASERSHADE", -8F);
     audioPlayer.setVolume("BGM1", -5F);
   }
   
