@@ -259,18 +259,14 @@ public class FileStore {
     return export;
   }
   
-  public static String[] MenuSequence () {
-    int size = 604;
-    String[] export = new String[size];
-    String base = "\\Assets\\MenuBG\\MenuBG_1_";
-    for (int i = 0; i < size; i++) {
-      if ( i < 10)
-        export[i] = base + "0000" + i + ".jpg";
-      else if (i < 100)
-        export[i] = base + "000" + i + ".jpg";
-      else
-        export[i] = base + "00" + i + ".jpg";
-    }
-    return export;
+  public static String MenuSequence (int frame) {
+    String whiteSpace = "";
+    if (frame < 10) 
+      whiteSpace = "0000";
+    else if (frame < 100) 
+      whiteSpace = "000";
+    else
+      whiteSpace = "00";
+    return "\\Assets\\MenuBG\\MenuBG_1_" + whiteSpace + frame + ".jpg";
   }
 }

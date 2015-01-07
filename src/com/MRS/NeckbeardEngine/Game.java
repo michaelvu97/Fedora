@@ -29,6 +29,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   //If the game has begun, this may become deprecated depending on how levels are handled
   public boolean started;
   public boolean paused;
+  public boolean inMenu;
   // for when player loses life
   public int deathClock;
   public int speedBoostClock;
@@ -66,6 +67,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   BufferedImage[] img_gg = new BufferedImage[233];
   private int currentGGFrame = 0;
+  private int currentMenuFrame = 0;
   
   //More on screen object lists
   public ArrayList<Projectile> enemyProjectiles = new ArrayList<Projectile>();
@@ -138,8 +140,18 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //audioPlayer.testSound
     loadImages();
     loadSound();
+    
+    inMenu = true;
+    paused = true;
+    audioPlayer.loop("MENU_FX", -1);
     currentBGMTag = "BGM1";
+  }
+  
+  public void start () {
     audioPlayer.loop(currentBGMTag, -1);
+    inMenu = false;
+    paused = false;
+    audioPlayer.stop("MENU_FX");
   }
   
   public void step () {
@@ -148,11 +160,16 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      */
     
     //Escape break
-    if (keyInputHandler.escape && !paused) {
+    if (keyInputHandler.escape && !paused && !inMenu) {
       paused = true;
       exitGame();
-    } else if (paused && keyInputHandler.escape) {
+    } else if (paused && keyInputHandler.escape && !inMenu) {
       paused = false;
+    }
+    
+    //start game from menu
+    if (inMenu && keyInputHandler.switchState) {
+      start();
     }
     
     if (!paused && player.getLives()>0) {
@@ -809,6 +826,19 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     //Vignette
     g.drawImage(img_vignette, 0, 0, null);
     
+    if (inMenu) {
+      try {
+        BufferedImage menuFrame = ImageIO.read(new File (System.getProperty("user.dir") + FileStore.MenuSequence(currentMenuFrame++)));
+        g.drawImage(menuFrame, 0, 0, null);
+        g.setColor(Color.DARK_GRAY);
+        g.drawString("Press Space", 250, 800);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      if (currentMenuFrame >= 604) {
+        currentMenuFrame = 0;
+      }
+    }
   } 
   
   
@@ -906,7 +936,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
       {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"},
-      {workingDir + FileStore.SHADE_SWITCH, "SHADE_SWITCH"}
+      {workingDir + FileStore.SHADE_SWITCH, "SHADE_SWITCH"},
+      {workingDir + FileStore.MENU_FX, "MENU_FX"}
     };
     
     audioPlayer = new Sound(clips); 
