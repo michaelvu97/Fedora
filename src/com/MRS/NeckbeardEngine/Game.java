@@ -86,7 +86,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   public void initialize () {
     
-    player = new Player(360, 800, 3, State.RED, this);
+    player = new Player(360, 800, 3, State.BLUE, this);
     level = new Level (this, player);
     
     //Variable setup

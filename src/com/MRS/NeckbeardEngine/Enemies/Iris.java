@@ -17,8 +17,8 @@ public class Iris extends Enemy {
      public static int INITIAL_COOLDOWN = 300;
      private int eyeClock;
      private int timesFired;
-     public Iris (State state, int x, int y, double yVelocity, String projectileType) {
-          super(state, x, y, 0, yVelocity, projectileType);
+     public Iris (State state, int x, String projectileType) {
+          super(state, x, -130, 0, 2, projectileType);
           health = 2;
           hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
           shotCoolDown = INITIAL_COOLDOWN;

@@ -19,6 +19,7 @@ public class Shifter extends Enemy {
   private int shootPos;
   private int shiftTimer;
   public boolean playSound = false;
+  private boolean active = false;
   
   public Shifter (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, String version, Player target, int shootPos) {
     super(state, x, y, xVelocity, yVelocity, projectileType);
@@ -31,55 +32,19 @@ public class Shifter extends Enemy {
     shiftTimer = SHIFT_COOLDOWN;
   }
   
-  //@Override
-  public void animate () {
-    //Todo: add shooting to animate.
-    //When creating "stay" Shifters, yVelocity = 0 and xVelocity magnitude = 3
+public void animate () {
+    // 4
     if(version.equalsIgnoreCase("stay")){
-      if(x < target.getX() - 10)
-        xVelocity = xSpeed;    
-      else if(x > target.getX() + 10)
-        xVelocity = -1 * xSpeed;    
-      else
+      if((xVelocity > 0 && x >= shootPos) || (xVelocity < 0 && x <= shootPos)){
         xVelocity = 0;
+        yVelocity = 0;
+      }
+      
     }
-    if(version.equalsIgnoreCase("leave")){
-      if(xVelocity > 0){
-        xVelocity = xSpeed;
-        yVelocity -= (yVelocity/20);        
-      }
-      else if(xVelocity < 0){
-        xVelocity = -1 * xSpeed;
-        yVelocity -= (yVelocity/20);        
-      }
-    }
-    
-    //Diagonal move downward formation. 4 Velocity magnitude
-    if(version.equalsIgnoreCase("form1")) {
-      if (xVelocity > 0) {
-        xVelocity = xSpeed;
-        yVelocity = ySpeed;
-      }
-      else if (xVelocity < 0) {
-        xVelocity = -1 * xSpeed;
-        yVelocity = ySpeed;
-      }
-    }
-    
-    //Diagonal move upward formation. 4 Velocity magnitude
-    if(version.equalsIgnoreCase("form2")) {
-      if (xVelocity > 0) {
-        xVelocity = xSpeed;
-        yVelocity = -1 * ySpeed;
-      }
-      else if (xVelocity < 0) {
-        xVelocity = -1 * xSpeed;
-        yVelocity = -1 * ySpeed;
-      }
-    }
+    //4 velocity for leave
     
     //V-shaped move formation, fires a bottom point of V. 3 xVelocity, 4 yVelocity
-    if(version.equalsIgnoreCase("form3")) {
+    if(version.equalsIgnoreCase("form")) {
       if (xVelocity > 0) {
         if (x < Main.WIDTH/4) {
           xVelocity = xSpeed;
@@ -101,7 +66,19 @@ public class Shifter extends Enemy {
         }
       }
     }
-    
+    //bounces around 4 velocity
+    if(version.equalsIgnoreCase("patrol")){
+      if(!active && ((yVelocity >= 0 && y > 0 && ((xVelocity >= 0 && x > 0) || (xVelocity < 0 && x < Main.WIDTH - DEFAULT_HITBOX_HEIGHT))) || (yVelocity < 0 && y < Main.HEIGHT-DEFAULT_HITBOX_HEIGHT && ((xVelocity >= 0 && x > 0) || (xVelocity < 0 && x < Main.WIDTH - DEFAULT_HITBOX_HEIGHT))))){
+        active = true;
+      }
+      else if(active){
+        if (x < 0 || x > Main.WIDTH - DEFAULT_HITBOX_WIDTH)
+          xVelocity *= -1;
+        if (y < 0 || y > Main.HEIGHT  - DEFAULT_HITBOX_HEIGHT)
+          yVelocity *= -1;
+      }
+    }
+  
     //Changes Shifter state when cooldown is done and resets cooldown timer
     shiftTimer--;
     if (shiftTimer == 0) {
@@ -113,6 +90,7 @@ public class Shifter extends Enemy {
       shiftTimer = SHIFT_COOLDOWN;
     }
   }
+
   
   public void move () {
     animate();
@@ -125,11 +103,15 @@ public class Shifter extends Enemy {
   public boolean onScreen(){
     return (x > 0 - DEFAULT_HITBOX_WIDTH - 100 && x < Main.WIDTH + 100 && y > 0 - DEFAULT_HITBOX_HEIGHT - 100 && y < Main.HEIGHT + 100);
   }
+  
   public boolean canShoot() {
-    if(version.equalsIgnoreCase("stay") && shotCoolDown <= 0 && xVelocity == 0) 
+    if( version.equalsIgnoreCase("stay") && shotCoolDown <= 0 && xVelocity == 0)
       return true;
-    else if((version.equalsIgnoreCase("leave") || version.equalsIgnoreCase("form1") || version.equalsIgnoreCase("form2") || version .equalsIgnoreCase("form3")) && (x == shootPos))
+    else if((version.equalsIgnoreCase("leave") || version.equalsIgnoreCase("form"))&& (x > shootPos - Math.abs(xVelocity) && x < shootPos))
       return true;
+    else if(version.equalsIgnoreCase("patrol") && shotCoolDown <= 0)
+      return true;
+    
     else
       return false;
   }

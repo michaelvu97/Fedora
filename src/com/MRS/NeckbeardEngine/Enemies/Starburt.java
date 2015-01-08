@@ -16,10 +16,8 @@ public class Starburt extends Enemy {
   private boolean offScreen;
   private int timesFired;
   
-  public Starburt (State state, int x, int y, double xVelocity, double yVelocity, String projectileType) {
-    super(state, x, y, xVelocity, yVelocity, projectileType);
-    this.projectileType = "starburtShot";
-    this.yVelocity = 0;
+  public Starburt (State state, int x, int y, double xVelocity) {
+    super(state, x, y, xVelocity, 0, "starburtShot");
     health = 2;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     shotCoolDown = 300;
