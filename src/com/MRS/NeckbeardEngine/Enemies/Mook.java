@@ -89,7 +89,7 @@ public class Mook extends Enemy {
   public boolean canShoot() {
     if( version.equalsIgnoreCase("stay") && shotCoolDown <= 0 && xVelocity == 0)
       return true;
-    else if((version.equalsIgnoreCase("leave") || version.equalsIgnoreCase("form"))&& (x > shootPos - Math.abs(xVelocity) && x < shootPos))
+    else if((version.equalsIgnoreCase("leave") || version.equalsIgnoreCase("form"))&& (x > shootPos - Math.abs(xVelocity) && x <= shootPos))
       return true;
     else if(version.equalsIgnoreCase("patrol") && shotCoolDown <= 0)
       return true;
