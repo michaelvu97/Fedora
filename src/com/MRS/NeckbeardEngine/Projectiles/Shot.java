@@ -16,12 +16,15 @@ public class Shot extends Projectile {
      private BufferedImage img;
      private BufferedImage glow = null;
      
-     public Shot (State state, int x, int y, double xVelocity, double yVelocity) {
+     public Shot (State state, int x, int y, double xVelocity, double yVelocity, double duration) {
           //Projectile class constructor
-          super(state, x, y, xVelocity, yVelocity);
+          super(state, x, y, xVelocity, yVelocity, duration);
           
           //Hitbox instantiation
           hitBox = new HitBox(x,y,DEFAULT_HITBOX_WIDTH,DEFAULT_HITBOX_HEIGHT);
+          
+          //Kill timing
+          this.killTime = duration + System.currentTimeMillis();
      }
      
      @Override

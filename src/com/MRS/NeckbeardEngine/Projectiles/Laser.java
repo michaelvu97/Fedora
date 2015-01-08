@@ -21,14 +21,12 @@ public class Laser extends Projectile {
   private Direction direction;
   private Enemy parent;
   
-  private double killTime;
-  
   public static int CHARGING_TIME = 120; /*or something (tune this) once tuned, 
                                            the sound clip can be created based on the time values */
   public static int ACTIVE_TIME = 180;
   
   public Laser (State state, int x, int y, double xVelocity, double yVelocity, Direction direction, Enemy parent) {
-   super(state, x, y, xVelocity, yVelocity); 
+   super(state, x, y, xVelocity, yVelocity, CHARGING_TIME + ACTIVE_TIME); 
    this.direction = direction;
    
    /* frames are converted to a time value
@@ -120,14 +118,6 @@ public class Laser extends Projectile {
   
   public Direction getDirection() {
     return direction;
-  }
-  
-  public void setKillTime(double d) {
-    killTime = d;
-  }
-  
-  public double getKillTime() {
-    return killTime;
   }
   
 }

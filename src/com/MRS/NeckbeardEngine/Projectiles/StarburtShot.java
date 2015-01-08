@@ -21,15 +21,13 @@ public class StarburtShot extends Projectile {
   //lazor firing countdown
   private int coolDown;
   
-  private double killTime;
-  
   //boolean if firing
   private boolean active;
   private boolean playSound;
   
   public StarburtShot (State state, int x, int y, double xVelocity, double yVelocity, double duration, Player player) {
     //Projectile class constructor. StarburtShot yVelocity = 3    
-    super(state, x, y, xVelocity, yVelocity);
+    super(state, x, y, xVelocity, yVelocity, duration);
     
     this.xVelocity = 0;
     
@@ -149,13 +147,5 @@ public class StarburtShot extends Projectile {
   
   public void setPlaySound(boolean b) {
     playSound = b;
-  }
-  
-  public double getKillTime() {
-    return killTime;
-  }
-  
-  public void setKillTime(double d) {
-    killTime = d;
   }
 }

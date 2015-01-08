@@ -18,6 +18,8 @@ public abstract class Projectile {
      protected double xVelocity;
      protected double yVelocity;
      protected HitBox hitBox;
+     protected double duration;
+     protected double killTime;
      
      //Static fields
      public static double ShotVelocity = 8;
@@ -25,12 +27,13 @@ public abstract class Projectile {
      public static double FastShotVelocity = 16;
      
      //Constructor
-     public Projectile (State state, int x, int y, double xVelocity, double yVelocity) {
+     public Projectile (State state, int x, int y, double xVelocity, double yVelocity, double duration) {
           this.state = state;
           this.x = x;
           this.y = y;
           this.xVelocity = xVelocity;
           this.yVelocity = yVelocity;
+          this.duration = duration;
      }
      //Accessors
      public State getState () {
@@ -51,6 +54,12 @@ public abstract class Projectile {
      public HitBox getHitBox () {
           return hitBox;
      }
+     public double getDuration () {
+          return duration;
+     }
+     public double getKillTime () {
+       return killTime;
+     }
      
      //Mutators
      public void setState (State state) {
@@ -70,6 +79,13 @@ public abstract class Projectile {
      }
      public void setHitBox (HitBox hitBox) {
           this.hitBox = hitBox;
+     }
+     public void setDuration (double duration) {
+          this.duration = duration;
+     }
+     
+     public void setKillTime (double killTime) {
+       this.killTime = killTime;
      }
      
      public void move () {
