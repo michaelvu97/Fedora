@@ -19,14 +19,22 @@ public class FileStore {
     
                    
                             //Player assets
-                            PLAYER_RED     = assets + "PlayerShip" + "Red"  + ".png",
-                            PLAYER_BLUE    = assets + "PlayerShip" + "Blue" + ".png",
-                            SHOT_RED       = assets + "Shot"       + "Red"  + ".png",
-                            SHOT_BLUE      = assets + "Shot"       + "Blue" + ".png",
-                            FAST_SHOT_RED  = assets + "FastShot"   + "Red"  + ".png",
-                            FAST_SHOT_BLUE = assets + "FastShot"   + "Blue" + ".png",
-                            BOMB_IMG       = assets + "Bomb"                + ".png",
-                            BOMB_COUNTER   = assets + "BombCounter"         + ".png",
+                            PLAYER_RED        = assets + "PlayerShip"           + "Red"  + ".png",
+                            PLAYER_BLUE       = assets + "PlayerShip"           + "Blue" + ".png",
+                            SHOT_RED          = assets + "Shot"                 + "Red"  + ".png",
+                            SHOT_BLUE         = assets + "Shot"                 + "Blue" + ".png",
+                            FAST_SHOT_RED     = assets + "FastShot"             + "Red"  + ".png",
+                            FAST_SHOT_BLUE    = assets + "FastShot"             + "Blue" + ".png",
+                            BOMB_IMG          = assets + "Bomb"                          + ".png",
+                            BOMB_COUNTER      = assets + "BombCounter"                   + ".png",
+                            SHOT_INDI_BLUE    = assets + "BasicShotIndicator"   + "Blue" + ".png",
+                            SHOT_INDI_RED     = assets + "BasicShotIndicator"   + "Red"  + ".png",
+                            FSHOT_INDI_BLUE   = assets + "FShotIndicator"       + "Blue" + ".png",
+                            FSHOT_INDI_RED    = assets + "FShotIndicator"       + "Red"  + ".png",
+                            RFIRE_INDI_BLUE   = assets + "RapidFireIndicator"   + "Blue" + ".png",
+                            RFIRE_INDI_RED    = assets + "RapidFireIndicator"   + "Red"  + ".png",
+                            SCATTER_INDI_BLUE = assets + "ScatterShotIndicator" + "Blue" + ".png",
+                            SCATTER_INDI_RED  = assets + "ScatterShotIndicator" + "Red"  + ".png",
                             
                             //Powerup icons
                             POWERUP_FAST         = assets + "FastShot"    + "Icon" + ".png",

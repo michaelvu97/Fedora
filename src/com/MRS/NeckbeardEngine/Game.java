@@ -62,7 +62,11 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     img_shotBlue = null, img_shotRed = null, 
     img_spaceBG1 = null, img_vignette = null, 
     img_redShield = null, img_blueShield = null,
-    img_bombCounter = null;
+    img_bombCounter = null, img_ShotHUDBlue = null,
+    img_ShotHUDRed = null, img_FShotHUDBlue = null,
+    img_FShotHUDRed = null, img_RFireHUDBlue = null,
+    img_RFireHUDRed = null, img_ScatterHUDBlue = null,
+    img_ScatterHUDRed = null;
   
   private int currentGGFrame = 0;
   private int currentMenuFrame = 0;
@@ -768,25 +772,24 @@ public class Game extends JPanel implements KeyListener, MouseListener {
      */
     if (player.getLives() >= 0) {
       if (player.getState() == State.RED) 
-        g.setColor(new Color(220, 42, 42));
+        g.setColor(new Color(220, 42, 42, 170));
       else
-        g.setColor(new Color(56, 128, 207));
+        g.setColor(new Color(56, 128, 207, 170));
       g.setFont(hauser);
-      g.drawString("Bombs: " + player.getBombs(), 5, 890);
       g.drawString("Bombs: " + player.getBombs(), 5, 890);
       
       switch(player.getBombs()) {
         case 1:
-          g.drawImage(img_bombCounter, 0, 900, null);
+          g.drawImage(img_bombCounter, 0, 890, null);
           break;
         case 2:
-          g.drawImage(img_bombCounter, 0, 900, null);
-          g.drawImage(img_bombCounter, 64, 900, null);
+          g.drawImage(img_bombCounter, 0, 885, null);
+          g.drawImage(img_bombCounter, 64, 885, null);
           break;
         case 3:
-          g.drawImage(img_bombCounter, 0, 900, null);
-          g.drawImage(img_bombCounter, 64, 900, null);
-          g.drawImage(img_bombCounter, 128, 900, null);
+          g.drawImage(img_bombCounter, 0, 890, null);
+          g.drawImage(img_bombCounter, 64, 890, null);
+          g.drawImage(img_bombCounter, 128, 890, null);
           break;
         default:
       }
@@ -796,20 +799,36 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       g.drawString("Current", 575, 850);
       g.drawString("Weapon", 575, 880);
 
-      g.setColor(Color.WHITE);
+      g.setColor(new Color(255, 255, 255, 170));
       if (player.getOffensePowerUp() == PowerUp.FAST_SHOT) {
+        if (player.getState() == State.RED) 
+          g.drawImage(img_FShotHUDRed, 510, 880, null);
+        else
+          g.drawImage(img_FShotHUDBlue, 510, 880, null);
         g.drawString("Fast", 605, 910);
         g.drawString("Shot", 605, 940);
       }
       else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) {
+        if (player.getState() == State.RED) 
+          g.drawImage(img_RFireHUDRed, 510, 880, null);
+        else
+          g.drawImage(img_RFireHUDBlue, 510, 880, null);
         g.drawString("Rapid", 600, 910);
         g.drawString("Fire", 610, 940);
       }
       else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
+        if (player.getState() == State.RED) 
+          g.drawImage(img_ScatterHUDRed, 510, 880, null);
+        else
+          g.drawImage(img_ScatterHUDBlue, 510, 880, null);
         g.drawString("Scatter", 580, 910);
         g.drawString("Shot", 610, 940);
       }
       else {
+        if (player.getState() == State.RED) 
+          g.drawImage(img_ShotHUDRed, 510, 880, null);
+        else
+          g.drawImage(img_ShotHUDBlue, 510, 880, null);
         g.drawString("Basic", 600, 910);
         g.drawString("Shot", 605, 940);
       }
@@ -915,6 +934,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       img_blueShield = ImageIO.read(new File (workingDir + FileStore.BLUE_SHIELD));
       img_redShield = ImageIO.read(new File (workingDir + FileStore.RED_SHIELD));
       img_bombCounter = ImageIO.read(new File (workingDir + FileStore.BOMB_COUNTER));
+      img_ShotHUDBlue = ImageIO.read(new File (workingDir + FileStore.SHOT_INDI_BLUE));
+      img_ShotHUDRed = ImageIO.read(new File (workingDir + FileStore.SHOT_INDI_RED));
+      img_FShotHUDBlue = ImageIO.read(new File (workingDir + FileStore.FSHOT_INDI_BLUE));
+      img_FShotHUDRed = ImageIO.read(new File (workingDir + FileStore.FSHOT_INDI_RED));
+      img_RFireHUDBlue = ImageIO.read(new File (workingDir + FileStore.RFIRE_INDI_BLUE));
+      img_RFireHUDRed = ImageIO.read(new File (workingDir + FileStore.RFIRE_INDI_RED));
+      img_ScatterHUDBlue = ImageIO.read(new File (workingDir + FileStore.SCATTER_INDI_BLUE));
+      img_ScatterHUDRed = ImageIO.read(new File (workingDir + FileStore.SCATTER_INDI_RED));
     } catch (IOException e) {
       e.printStackTrace();
       noErrors = false;
