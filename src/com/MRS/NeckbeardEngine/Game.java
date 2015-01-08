@@ -86,7 +86,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   public void initialize () {
     
-    player = new Player(360, 800, 3, State.BLUE, this);
+    player = new Player(360, 800, 3, State.RED, this);
     level = new Level (this, player);
     
     //Variable setup
@@ -146,7 +146,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer.loop(currentBGMTag, -1);
     inMenu = false;
     paused = false;
-    audioPlayer.stop("MENU_FX");
+    audioPlayer.stopBackground("MENU_FX");
   }
   
   public void step () {
@@ -167,6 +167,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       start();
     }
     
+    //main game running
     if (!paused && player.getLives()>0) {
       
       //checks level and wave
@@ -205,29 +206,29 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           audioPlayer.play("LASER_SHOT_1");
           if (player.getState()==State.RED) {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.FastShotVelocity, 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.FastShotVelocity));
             else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, 2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity));
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity, 2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), -1*Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), -1*Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity));
             }
             else
-              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.RED, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity));
           } 
           else {
             if (player.getOffensePowerUp() == PowerUp.FAST_SHOT)
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.FastShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.FastShotVelocity));
             else if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE) 
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity));
             else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT) {
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), -1*Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), 0, -1 * Projectile.ShotVelocity));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 42, player.getY(), -1*Projectile.ScatterShotXVelocity, -1 * Projectile.ShotVelocity));
             }
             else
-              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 43, player.getY(), 0, -1 * Projectile.ShotVelocity,   2000));
+              playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 43, player.getY(), 0, -1 * Projectile.ShotVelocity));
           }
           if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE)
             player.setShotCoolDown(Player.MAXSHOTCOOLDOWN - 10);
@@ -245,22 +246,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           if(e.getProjectileType().equalsIgnoreCase("shot") || e.getProjectileType().equalsIgnoreCase("rapidFire")) {
             
             audioPlayer.play("LASER_SHOT_1");
-            
-            if(e.getState() == State.RED) 
-              enemyProjectiles.add((Projectile) new Shot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity, 2000));
-            
-            else if(e.getState() == State.BLUE)
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2),e.getY()+e.getHitBox().getHeight()-(Shot.DEFAULT_HITBOX_WIDTH/2),0,Projectile.ShotVelocity, 2000));
+            enemyProjectiles.add((Projectile) new Shot(e.getState(),e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,Projectile.ShotVelocity));
             
           }
           else if(e.getProjectileType().equalsIgnoreCase("starburtShot")) {
             audioPlayer.play("STARBURT_SHOT");
-            
-            if(e.getState() == State.RED) {
-              enemyProjectiles.add((Projectile) new StarburtShot(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,3, 20000, player));
-            } else if(e.getState() == State.BLUE) {
-              enemyProjectiles.add((Projectile) new StarburtShot(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,3, 20000, player));
-            }
+            enemyProjectiles.add((Projectile) new StarburtShot(e.getState(),e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,3, 20000, player));
           }
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
             if(e.getState() == State.RED) {
@@ -291,26 +282,16 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {
             
             audioPlayer.play("LASER_SHOT_1");
-            
-            if(e.getState() == State.RED) {
-              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.FastShotVelocity,   2000));
-            } else if(e.getState() == State.BLUE) {
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.FastShotVelocity,   2000));
-            }
+            enemyProjectiles.add((Projectile) new Shot(e.getState(), e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.FastShotVelocity));
           }
           else if (e.getProjectileType().equalsIgnoreCase("scatterShot")) {
             
             audioPlayer.play("LASER_SHOT_1");
             
-            if(e.getState() == State.RED) {
-              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.RED, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
-            } else if(e.getState() == State.BLUE) {
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
-              enemyProjectiles.add((Projectile) new Shot(State.BLUE, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity,   2000));
-            }
+            State s = e.getState();
+            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity));
+            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity));
+            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity));
           }
           
           e.resetShotCoolDown();
@@ -321,7 +302,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       
       //Bombs
       if (player.getBombs() > 0 && keyInputHandler.bomb && !bombAlreadyDeployed) {
-        playerProjectiles.add((Projectile) new Bomb(State.BOTH, player.getX() + player.getHitBox().getWidth()/2, player.getY() + player.getHitBox().getHeight()/2, 0, 0, Bomb.DEFAULT_DURATION));
+        playerProjectiles.add((Projectile) new Bomb(State.BOTH, player.getX() + player.getHitBox().getWidth()/2, player.getY() + player.getHitBox().getHeight()/2, 0, 0));
         player.setBombs(player.getBombs() - 1);
         audioPlayer.play("Bomb");
         bombAlreadyDeployed = true;
@@ -336,13 +317,14 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       for (int i = 0; i < playerProjectiles.size(); i++) {
         Projectile p = playerProjectiles.get(i);
         p.move();
-        if (p.getKillTime() < System.currentTimeMillis()) {
-          playerProjectiles.remove(p);
-        }
-        if (p.getY() < -100 && p.getClass().getSimpleName().equals("Shot")) {
+        if (p.getY() < 0 && p.getClass().getSimpleName().equals("Shot")) {
           playerProjectiles.remove(p);
         }
       }
+      
+      /*
+       * Potentially a lot of lag here
+       */
       //EnemyProjectiles Movement
       for(int i = 0; i < enemyProjectiles.size(); i++) {
         Projectile p = enemyProjectiles.get(i);
@@ -366,27 +348,37 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               j = enemies.size();
             }
           }
-          
           if (!found) {
             enemyProjectiles.remove(p);
           }
+          
           if(p.xVelocity < 0 && p.x <= Shade.DEFAULT_HITBOX_WIDTH/2-15){
             enemyProjectiles.remove(p);
-          }
-            else if (p.xVelocity > 0 && p.x >= Main.WIDTH - Shade.DEFAULT_HITBOX_WIDTH/2 -15) {
+          } else if (p.xVelocity > 0 && p.x >= Main.WIDTH - Shade.DEFAULT_HITBOX_WIDTH/2 -15) {
             enemyProjectiles.remove(p);
             }
         }
-        if (p.getY() > Main.HEIGHT + 100 && (p.getClass().getSimpleName().equals("Shot") || p.getClass().getSimpleName().equals("fastShot") || p.getClass().getSimpleName().equals("scatterShot") || p.getClass().getSimpleName().equals("rapidShot"))) {
+        
+        //Remove enemy projectiles when off screen
+        if (p.getY() > Main.HEIGHT && (p.getClass().getSimpleName().equals("Shot") || p.getClass().getSimpleName().equals("fastShot") || p.getClass().getSimpleName().equals("scatterShot") || p.getClass().getSimpleName().equals("rapidShot"))) {
           enemyProjectiles.remove(p);
         }
-        if (p.getKillTime() < System.currentTimeMillis()) {
-          if (p.getClass().getSimpleName().equals("StarburtShot")) {
+        
+        if (p.getClass().getSimpleName().equals("StarburtShot")) {
+          StarburtShot sbs = (StarburtShot) p;
+          if (sbs.getKillTime() < System.currentTimeMillis()) {
             explosions.add(new Explosion((int)p.getX(), (int)p.getY(), Explosion.EXPLOSIONTYPE_DEATHMEDIUM));
+            enemyProjectiles.remove(p);
             audioPlayer.play("Explosion1");
           }
-          enemyProjectiles.remove(p);
         }
+        if (p.getClass().getSimpleName().equals("Laser")) {
+          Laser l = (Laser) p;
+          if (l.getKillTime() < System.currentTimeMillis()) {
+            enemyProjectiles.remove(p);
+          }
+        }
+        
         if ((p.getClass().getSimpleName().equalsIgnoreCase("Shot")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
           HitBox he = p.getHitBox();
           HitBox hp = player.getHitBox();
@@ -497,10 +489,17 @@ public class Game extends JPanel implements KeyListener, MouseListener {
             audioPlayer.play("SHADE_SWITCH");
             shade.playSwitchSound = false;
           }
+          if (shade.playStateSound) {
+            shade.playStateSound = false;
+            audioPalyer.play("SWITCH_STATE");
+          }
           if (shade.getHealth() < 10 && shade.getHealth() > 0 && !shade.montagePlaying) {
             audioPlayer.loop("MONTAGE_BUILD", -1);
-            audioPlayer.stop(currentBGMTag);
+            audioPlayer.stopBackground(currentBGMTag);
             shade.montagePlaying = true;
+          }
+          if (shade.montagePlaying) {
+            audioPlayer.setBackgroundVolume("MONTAGE_BUILD", (float) (-1 * shade.getHealth()));
           }
         }
         //collision between Player and Enemy
@@ -556,8 +555,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               
               if (e.getHealth() <= 0) {
                 if (e.getClass().getSimpleName().equals("Shade")) {
-                  audioPlayer.stop("MONTAGE_BUILD");
-                  audioPlayer.play("MONTAGE_DROP");
+                  audioPlayer.stopBackground("MONTAGE_BUILD");
+                  audioPlayer.playBackground("MONTAGE_DROP");
                 }
                 String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
@@ -594,8 +593,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.remove(p1);
               if (e.getHealth() <= 0) {
                 if (e.getClass().getSimpleName().equals("Shade")) {
-                  audioPlayer.stop("MONTAGE_BUILD");
-                  audioPlayer.play("MONTAGE_DROP");
+                  audioPlayer.stopBackground("MONTAGE_BUILD");
+                  audioPlayer.playBackground("MONTAGE_DROP");
                 }
                 String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
@@ -928,8 +927,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     
     //TODO put in levels instead of here
     String[][] clips = {
-      {workingDir + FileStore.BG_MUSIC_1, "BGM1"},
-      {workingDir + FileStore.MONTAGE, "Montage"},
       {workingDir + FileStore.LASER_SHOT_1, "LASER_SHOT_1"},
       {workingDir + FileStore.LASERBEAM, "LASERBEAM"},
       {workingDir + FileStore.LASERSHADE, "LASERSHADE"},
@@ -942,13 +939,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
       {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"},
       {workingDir + FileStore.SHADE_SWITCH, "SHADE_SWITCH"},
-      {workingDir + FileStore.MENU_FX, "MENU_FX"},
-      {workingDir + FileStore.MONTAGE_BUILD, "MONTAGE_BUILD"},
-      {workingDir + FileStore.MONTAGE_DROP, "MONTAGE_DROP"},
       {workingDir + FileStore.POWERUP_GAINED, "POWERUP_GAINED"}
     };
     
     audioPlayer = new Sound(clips); 
+    audioPlayer.addSound(workingDir + FileStore.BG_MUSIC_1, "BGM1");
+    audioPlayer.addSound(workingDir + FileStore.MONTAGE, "Montage");
+    audioPlayer.addSound(workingDir + FileStore.MENU_FX, "MENU_FX");
+    audioPlayer.addSound(workingDir + FileStore.MONTAGE_BUILD, "MONTAGE_BUILD");
+    audioPlayer.addSound(workingDir + FileStore.MONTAGE_DROP, "MONTAGE_DROP");
     
     //setting volume
     
@@ -970,7 +969,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer.setVolume("SWITCH_STATE", 0F);
     audioPlayer.setVolume("POWERUP_GAINED", 0F);
    
-    audioPlayer.setVolume("BGM1", -5F);
+    audioPlayer.setBackgroundVolume("BGM1", -5F);
+    audioPlayer.setBackgroundVolume("MONTAGE_BUILD", -10F);
+    audioPlayer.setBackgroundVolume("MONTAGE_DROP", 6.0206F);
   }
   
   public void exitGame() {
