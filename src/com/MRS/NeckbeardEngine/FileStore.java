@@ -244,24 +244,18 @@ public class FileStore {
     "\\Assets\\GameOverExplosion\\GameOverExplosion (" + 31 + ").png"
   };
   
-  public static String[] GameOverSequence () {
+  public static String GameOverSequence (int frame) {
     /*
      * Because 121 is too many to do by hand
      */
-    int size = 121;
-    String[] export = new String[size];
     String base = "\\Assets\\GameOver\\GameOver_";
-    for (int i = 0; i < size; i++) {
-      if (i < 10) {
-        export[i] = base + "0000" + i + ".png";
-      } else if (i < 100) {
-        export[i] = base + "000" + i + ".png";
-      } else {
-        export[i] = base + "00" + i + ".png";
-      }
+    if (frame < 10) {
+      return base + "0000" + frame + ".png";
+    } else if (frame < 100) {
+      return base + "000" + frame + ".png";
+    } else {
+      return base + "00" + frame + ".png";
     }
-    
-    return export;
   }
  public static String MenuSequence (int frame) {
     String whiteSpace = "";

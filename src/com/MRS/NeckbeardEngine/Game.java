@@ -64,8 +64,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     img_redShield = null, img_blueShield = null,
     img_bombCounter = null;
   
-  
-  BufferedImage[] img_gg = new BufferedImage[233];
   private int currentGGFrame = 0;
   private int currentMenuFrame = 0;
   
@@ -822,11 +820,15 @@ public class Game extends JPanel implements KeyListener, MouseListener {
 //      g.setColor(Color.cyan);
 //      g.setFont(new Font("Impact", Font.BOLD, 72));
 //      g.drawString("GAME OVER",Main.WIDTH/2-150,Main.HEIGHT/2);
-      if (currentGGFrame < 121) {
-        g.drawImage(img_gg[currentGGFrame], 0, 0, null);
-        currentGGFrame++;
-      } else {
-        g.drawImage(img_gg[currentGGFrame - 1], 0, 0, null);
+      try {
+        String workingDir = System.getProperty("user.dir");
+        if (currentGGFrame < 120) {
+          g.drawImage(ImageIO.read(new File(workingDir + FileStore.GameOverSequence(currentGGFrame++))), 0, 0, null);
+        } else {
+          g.drawImage(ImageIO.read(new File(workingDir + FileStore.GameOverSequence(currentGGFrame))), 0, 0, null);
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     }
     //Vignette
@@ -914,10 +916,6 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       img_blueShield = ImageIO.read(new File (workingDir + FileStore.BLUE_SHIELD));
       img_redShield = ImageIO.read(new File (workingDir + FileStore.RED_SHIELD));
       img_bombCounter = ImageIO.read(new File (workingDir + FileStore.BOMB_COUNTER));
-      String[] ggList = FileStore.GameOverSequence();
-      for (int i = 0; i < ggList.length; i++) {
-        img_gg[i] = ImageIO.read(new File (workingDir + ggList[i]));
-      }
     } catch (IOException e) {
       e.printStackTrace();
       noErrors = false;
@@ -953,12 +951,25 @@ public class Game extends JPanel implements KeyListener, MouseListener {
     audioPlayer = new Sound(clips); 
     
     //setting volume
-    audioPlayer.setVolume("METAL_HIT_1",-13F);
-    audioPlayer.setVolume("METAL_HIT_2",-13F);
-    audioPlayer.setVolume("METAL_HIT_2",-13F);
-    audioPlayer.setVolume("LASER_SHOT_1", 2F);
-    audioPlayer.setVolume("LASERBEAM",  -8F);
-    audioPlayer.setVolume("LASERSHADE", -8F);
+    
+    /*
+     * Once all sounds are implemented, adjust these using the
+     * master settings
+     */
+    audioPlayer.setVolume("BOMB", -1F);
+    audioPlayer.setVolume("Explosion1", 0F);
+    audioPlayer.setVolume("Explosion2", 0F);
+    audioPlayer.setVolume("LASER_SHOT_1", 2.1F);
+    audioPlayer.setVolume("LASERBEAM",  -1.3F);
+    audioPlayer.setVolume("LASERSHADE", -1.3F);
+    audioPlayer.setVolume("METAL_HIT_1", -8.1F);
+    audioPlayer.setVolume("METAL_HIT_2", -8.1F);
+    audioPlayer.setVolume("METAL_HIT_2", -8.1F);
+    audioPlayer.setVolume("SHADE_SWITCH", 5.6F);
+    audioPlayer.setVolume("STARBURT_SHOT", 0F);
+    audioPlayer.setVolume("SWITCH_STATE", 0F);
+    audioPlayer.setVolume("POWERUP_GAINED", 0F);
+   
     audioPlayer.setVolume("BGM1", -5F);
   }
   
