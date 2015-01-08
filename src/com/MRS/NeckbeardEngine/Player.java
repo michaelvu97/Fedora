@@ -27,6 +27,7 @@ public class Player {
      private ArrayList<PowerUp> defensePowerUps = new ArrayList<PowerUp>();
      private HitBox hitBox;
      private int shotCoolDown = 0;
+     private Game context;
      
      //Constants
      public static int MAXSHOTCOOLDOWN = 20;
@@ -35,7 +36,8 @@ public class Player {
      public static int DEFAULT_HITBOX_HEIGHT = 96;
      
      //Constructor
-     public Player (int x, int y, int lives, State state) {
+     public Player (int x, int y, int lives, State state, Game g) {
+          this.context = g;
           this.x = x;
           this.y = y;
           this.bombs = 0;
@@ -144,12 +146,14 @@ public class Player {
      }
      public void setOffensePowerUp(PowerUp p) {
           this.offensePowerUp = p;
+          context.audioPlayer.play("POWERUP_GAINED");
      }
      public void removeOffensePowerUp() {
        this.offensePowerUp = null;
      }
      public void addDefensePowerUp(PowerUp p) {
        this.defensePowerUps.add(p);
+       context.audioPlayer.play("POWERUP_GAINED");
      }
      public void removeDefensePowerUp(PowerUp p) {
        this.defensePowerUps.remove(p);

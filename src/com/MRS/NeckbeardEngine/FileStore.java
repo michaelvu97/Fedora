@@ -114,6 +114,7 @@ public class FileStore {
                             METAL_HIT_3     = assets + sound + "MetalHit3.wav",
                             EXPLOSION_1     = assets + sound + "Explosion1.wav",
                             EXPLOSION_2     = assets + sound + "Explosion2.wav",
+                            POWERUP_GAINED  = assets + sound + "PowerUp.wav",
                             MONTAGE_BUILD   = assets + sound + "MontageBuild.wav",
                             MONTAGE_DROP    = assets + sound + "MontageDrop.wav";
   

@@ -49,7 +49,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   public Player player;
   public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
   
-  private Sound audioPlayer;
+  public Sound audioPlayer;
   
   private String currentBGMTag = ""; 
   
@@ -88,7 +88,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   public void initialize () {
     
-    player = new Player(360, 800, 3, State.RED);
+    player = new Player(360, 800, 3, State.RED, this);
     level = new Level (this, player);
     
     //Variable setup
@@ -946,7 +946,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
       {workingDir + FileStore.SHADE_SWITCH, "SHADE_SWITCH"},
       {workingDir + FileStore.MENU_FX, "MENU_FX"},
       {workingDir + FileStore.MONTAGE_BUILD, "MONTAGE_BUILD"},
-      {workingDir + FileStore.MONTAGE_DROP, "MONTAGE_DROP"}
+      {workingDir + FileStore.MONTAGE_DROP, "MONTAGE_DROP"},
+      {workingDir + FileStore.POWERUP_GAINED, "POWERUP_GAINED"}
     };
     
     audioPlayer = new Sound(clips); 
