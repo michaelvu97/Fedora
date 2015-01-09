@@ -32,14 +32,6 @@ public class Main extends JFrame {
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
         
-        //Get insets (thanks to stackoverflow user ring_bearer)
-//                    JFrame temp = new JFrame("");
-//                    temp.setSize(0,0);
-//                    temp.pack();
-//                    temp.setResizable(false);
-//                    Insets insets = temp.getInsets();
-//                    temp = null;
-        
         //user screen size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double screenWidth         = screenSize.getWidth();
@@ -62,10 +54,7 @@ public class Main extends JFrame {
         Main main = new Main();
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         main.setFocusable(false);
-        //main.setSize(new Dimension(insets.left + insets.right + WIDTH, insets.top + insets.bottom + HEIGHT));
-        //System.err.println(main.getSize());
         main.setSize(WIDTH,HEIGHT);
-        // main.setBounds(0, 0, insets.left + insets.right + WIDTH, insets.top + insets.bottom + HEIGHT);   
         main.setResizable(false);
         main.setUndecorated(true);
         

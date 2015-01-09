@@ -69,7 +69,9 @@ public class Shot extends Projectile {
                     else
                          path = workingDir + FileStore.ENEMY_SHOT_BLUE;
                }
-          }    
+          }
+          else
+            path = workingDir + FileStore.ENEMY_SHOT_PURPLE;
           
           try {
                img = ImageIO.read(new File (path));

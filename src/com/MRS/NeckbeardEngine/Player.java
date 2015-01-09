@@ -30,7 +30,7 @@ public class Player {
      private Game context;
      
      //Constants
-     public static int MAXSHOTCOOLDOWN = 20;
+     public static int MAXSHOTCOOLDOWN = 35;
      public static int MAX_VELOCITY = 5;
      public static int DEFAULT_HITBOX_WIDTH = 96;
      public static int DEFAULT_HITBOX_HEIGHT = 96;
