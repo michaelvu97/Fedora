@@ -223,6 +223,26 @@ public class Level {
         g.enemies.add(new Mook(State.BOTH, -70, 400, 4, 0, "Shot", "stay", 160));
         g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 500, 250, -4, 0, "Shot", "stay", 500));
         break;
+      case 4080:
+        g.enemies.add(new Iris(State.BLUE, 122, "Laser"));
+        g.enemies.add(new Iris(State.RED, 256, "Laser"));
+        g.enemies.add(new Iris(State.BLUE, 400, "Laser"));
+        g.enemies.add(new Iris(State.RED, 544, "Laser"));
+        break;
+      case 5520:
+        g.enemies.add(new Iris(State.RED, 8, "Laser"));
+        g.enemies.add(new Iris(State.RED, 72, "Laser"));
+        g.enemies.add(new Iris(State.RED, 136, "Laser"));
+        g.enemies.add(new Iris(State.RED, 200, "Laser"));
+        g.enemies.add(new Iris(State.RED, 264, "Laser"));
+        g.enemies.add(new Iris(State.RED, 328, "Laser"));
+        g.enemies.add(new Iris(State.RED, 392, "Laser"));
+        g.enemies.add(new Iris(State.RED, 456, "Laser"));
+        g.enemies.add(new Iris(State.RED, 520, "Laser"));
+        g.enemies.add(new Iris(State.RED, 584, "Laser"));
+        g.enemies.add(new Iris(State.RED, 648, "Laser"));
+        g.enemies.add(new Iris(State.RED, 712, "Laser"));
+        break;
       case 100000:
         g.enemies.add(new Shade(target.getState(), 330, -100, 0, 4, "Shot", g));
       default:

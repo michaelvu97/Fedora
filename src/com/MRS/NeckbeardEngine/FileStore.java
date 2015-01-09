@@ -68,6 +68,7 @@ public class FileStore {
                             //Enemy Assets    
                             MOOK_RED         = assets + MOOK       + "Red"             + ".png",
                             MOOK_BLUE        = assets + MOOK       + "Blue"            + ".png",
+                            MOOK_BOTH        = assets + MOOK       + "Both"            + ".png",
                             STARBURT_RED     = assets + "Starburt" + "Red"             + ".png",
                             STARBURT_BLUE    = assets + "Starburt" + "Blue"            + ".png",
                             IRIS_RED         = assets + IRIS       + "Red"             + ".png",
@@ -80,6 +81,7 @@ public class FileStore {
                             SHADE_BLUE       = assets + "Shade"    + "Blue"            + ".png",
                             ELITE_RED        = assets + ELITE      + "Red"             + ".png",
                             ELITE_BLUE       = assets + ELITE      + "Blue"            + ".png",
+                            ELITE_BOTH       = assets + ELITE      + "Both"            + ".png",
     
                             //Enemy shots
                             ENEMY_SHOT_RED                    = assets + "Enemy" + "Shot"     + "Red"    + ".png",

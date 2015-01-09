@@ -100,6 +100,8 @@ public class Elite extends Enemy {
       path = workingDir + FileStore.ELITE_RED;
     } else if (state == State.BLUE) {
       path = workingDir + FileStore.ELITE_BLUE;
+    } else if(state == State.BOTH){
+      path = workingDir + FileStore.ELITE_BOTH;
     }
     
     try {

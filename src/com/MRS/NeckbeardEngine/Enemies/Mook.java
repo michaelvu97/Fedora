@@ -112,6 +112,8 @@ public class Mook extends Enemy {
       path = workingDir + FileStore.MOOK_RED;
     } else if (state == State.BLUE) {
       path = workingDir + FileStore.MOOK_BLUE;
+    } else if (state == State.BOTH) {
+      path = workingDir + FileStore.MOOK_BOTH;      
     }
     
     try {
