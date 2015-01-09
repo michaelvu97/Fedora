@@ -15,7 +15,7 @@ public class Level {
   public Level(Game g, Player target) {
     spawnEvents = new ArrayList<SpawnEvent>();
     this.g = g;
-    frames = 0;
+    frames = 3500;
     this.target = target; 
     
     
@@ -25,7 +25,6 @@ public class Level {
     // IF YOU WANT SHADE SET FRAMES TO 100000
     switch(frames) {
       case 180:
-        target.setBombs(2);
         g.enemies.add(new Mook(State.RED, -70, 50, 4, 2.5, "Shot", "leave", Main.WIDTH/2));
         break;
       case 195:
@@ -43,7 +42,7 @@ public class Level {
       case 330:
         g.enemies.add(new Mook(State.RED, Main.WIDTH + 10, Main.HEIGHT/2, -4, -2.5, "Shot", "leave", Main.WIDTH/2-60));
         break;
-      case 420:
+      case 420://blaze
         g.enemies.add(new Mook(State.RED, Main.WIDTH + 10, 50, -3, -4, "Shot", "form", Main.WIDTH/2-60));
         g.enemies.add(new Mook(State.BLUE, -70, 50, 3, -4, "Shot", "form", Main.WIDTH/2));
         break;
@@ -180,6 +179,49 @@ public class Level {
       case 2040:
         g.enemies.add(new Elite(State.BLUE, 174, -50, -4, 4, "Shot", target));
         g.enemies.add(new Elite(State.RED, 546, -50, -4, 4, "Shot", target));
+        break;
+      case 2580:
+        g.enemies.add(new Elite(State.BLUE, 330, -50, -4, 4, "Shot", target));
+        g.enemies.add(new Mook(State.RED, -70, 350 - 30, 4, 0, "Shot", "patrol", 0));
+        g.enemies.add(new Mook(State.RED, Main.WIDTH + 10, Main.HEIGHT/2 - 30, -4, 0, "Shot", "patrol", 0));
+        break;        
+      case 3060:
+        g.enemies.add(new Elite(State.RED, 330, -50, -4, 4, "Shot", target));
+        g.enemies.add(new Mook(State.BLUE, -70, 50, 4, 4, "Shot", "leave", 210));
+        g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 50, -4, 4, "Shot", "leave", 450));
+        break;
+      case 3075:
+        g.enemies.add(new Mook(State.BLUE, -70, 50, 4, 4, "Shot", "leave", 210));
+        g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 50, -4, 4, "Shot", "leave", 450));
+        break;
+      case 3240:
+        g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 50, -3, -4, "Shot", "form", Main.WIDTH/2-60));
+        g.enemies.add(new Mook(State.RED, -70, 50, 3, -4, "Shot", "form", Main.WIDTH/2));
+        break;
+      case 3255:
+        g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 50, -3, -4, "Shot", "form", Main.WIDTH/2-60));
+        g.enemies.add(new Mook(State.RED, -70, 50, 3, -4, "Shot", "form", Main.WIDTH/2));
+        break;
+      case 3270:
+        g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 50, -3, -4, "Shot", "form", Main.WIDTH/2-60));
+        g.enemies.add(new Mook(State.RED, -70, 50, 3, -4, "Shot", "form", Main.WIDTH/2));
+        break;
+      case 3360:
+        g.enemies.add(new Mook(State.RED, -70, 510, 4, 0, "Shot", "patrol", 0));
+        g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 210, -4, 0, "Shot", "patrol", 0));
+        break;
+      case 3390:
+        g.enemies.add(new Mook(State.BLUE, -70, 610, 4, 0, "Shot", "patrol", 0));
+        g.enemies.add(new Mook(State.RED, Main.WIDTH + 10, 10, -4, 0, "Shot", "patrol", 0));
+        break;
+      case 3420://blaze
+        g.enemies.add(new Mook(State.RED, -70, 110, 4, 0, "Shot", "patrol", 0));
+        g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 310, -4, 0, "Shot", "patrol", 0));
+        break;
+      case 3600:
+        g.enemies.add(new Elite(State.BOTH, 330, -50, -4, 4, "Shot", target));
+        g.enemies.add(new Mook(State.BOTH, -70, 400, 4, 0, "Shot", "stay", 160));
+        g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 500, 250, -4, 0, "Shot", "stay", 500));
         break;
       case 100000:
         g.enemies.add(new Shade(target.getState(), 330, -100, 0, 4, "Shot", g));
