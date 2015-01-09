@@ -12,19 +12,21 @@ public class Bomb extends Projectile {
   private int radius;
   private int rate = 50;
   
+  private double killTime;
+  
   public static double DEFAULT_DURATION = 1000; 
   private BufferedImage baseImg = null;
   
-  public Bomb (State state, int x, int y, double xVelocity, double yVelocity, double duration) {
+  public Bomb (State state, int x, int y, double xVelocity, double yVelocity) {
     //Constructor
     
     //Projectile constructor
-    super (state, x, y, xVelocity, yVelocity, duration);
+    super (state, x, y, xVelocity, yVelocity);
     
     //Sets up the radial hitbox
     this.radius = 10;
     this.hitBox = new RadialHitBox(x - radius, y - radius, radius *2);
-    this.killTime = System.currentTimeMillis() + duration;
+    this.killTime = System.currentTimeMillis() + DEFAULT_DURATION;
     
     try {
       baseImg = ImageIO.read(new File (System.getProperty("user.dir") + FileStore.BOMB_IMG));
@@ -71,5 +73,13 @@ public class Bomb extends Projectile {
     
     g.drawImage(baseImg, x - (radius), y - (radius) , radius * 2, radius * 2, null);
 
+  }
+  
+  public void setKillTime(double d) {
+    killTime = d;
+  }
+  
+  public double getKillTime() {
+    return killTime;
   }
 }
