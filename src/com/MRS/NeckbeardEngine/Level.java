@@ -15,7 +15,7 @@ public class Level {
   public Level(Game g, Player target) {
     spawnEvents = new ArrayList<SpawnEvent>();
     this.g = g;
-    frames = 100000;
+    frames = 0;
     this.target = target; 
     
     
@@ -25,6 +25,7 @@ public class Level {
     // IF YOU WANT SHADE SET FRAMES TO 100000
     switch(frames) {
       case 180:
+        target.setBombs(2);
         g.enemies.add(new Mook(State.RED, -70, 50, 4, 2.5, "Shot", "leave", Main.WIDTH/2));
         break;
       case 195:
@@ -179,14 +180,12 @@ public class Level {
       case 2040:
         g.enemies.add(new Elite(State.BLUE, 174, -50, -4, 4, "Shot", target));
         g.enemies.add(new Elite(State.RED, 546, -50, -4, 4, "Shot", target));
+        break;
       case 100000:
         g.enemies.add(new Shade(target.getState(), 330, -100, 0, 4, "Shot", g));
       default:
-        
-        
-    frames++;
-        
     }
+    frames++;
     
     
     //Checking the spawnPackages
