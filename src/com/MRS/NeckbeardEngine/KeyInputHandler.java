@@ -26,17 +26,7 @@ public class KeyInputHandler {
      private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE, keyBomb = KeyEvent.VK_X, keyEscape = KeyEvent.VK_ESCAPE;; 
     
      public KeyInputHandler() {
-          String workingDir = System.getProperty("user.dir") + path;
-          File f = new File(workingDir);
-          ArrayList<KeyValuePair> pairs = DataHandler.parseFile(f);
-          
-          keyUp = Integer.parseInt(KeyValuePair.getByKey("keyUp", pairs).value);
-          keyDown = Integer.parseInt(KeyValuePair.getByKey("keyDown", pairs).value);
-          keyLeft = Integer.parseInt(KeyValuePair.getByKey("keyLeft", pairs).value);
-          keyRight = Integer.parseInt(KeyValuePair.getByKey("keyRight", pairs).value);
-          keyShoot = Integer.parseInt(KeyValuePair.getByKey("keyShoot", pairs).value);
-          keySwitchState = Integer.parseInt(KeyValuePair.getByKey("keySwitchState", pairs).value);
-          keyBomb = Integer.parseInt(KeyValuePair.getByKey("keyBomb", pairs).value);
+       
      }
      
      public void sendKeyPressed (int keyPressed) {

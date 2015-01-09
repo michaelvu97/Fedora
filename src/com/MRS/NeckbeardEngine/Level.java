@@ -2,7 +2,6 @@ package com.MRS.NeckbeardEngine;
 
 import com.MRS.NeckbeardEngine.Enemies.*;
 import com.MRS.NeckbeardEngine.Projectiles.*;
-import com.MRS.NeckbeardEngine.Waves.*;
 import java.util.ArrayList;
 
 public class Level {
@@ -248,33 +247,5 @@ public class Level {
       default:
     }
     frames++;
-    
-    
-    //Checking the spawnPackages
-    for (int i = 0; i < spawnEvents.size(); i++) {
-      SpawnEvent s = spawnEvents.get(i);
-      
-      if (frames >= s.getSpawnFrame()) {
-        g.enemies.add(s.getSpawnable());
-        spawnEvents.remove(s);
-        i--;
-      }
-    }
   }
-  
-  public void addPackage (ArrayList<SpawnEvent> events) {
-    for (int i = 0; i < events.size(); i++) {
-      this.spawnEvents.add(events.get(i));
-    }
-  } 
 }
-
-//          g.enemies.add(new Mook(State.BLUE, 600, 0, 1, 10, "Shot", "leave", Main.WIDTH/2));
-//          g.enemies.add(new Elite(State.BLUE, Main.WIDTH + 70, -50, -4, 4, "Shot", target));
-//          g.enemies.add(new Iris(State.BLUE, 200, "Laser"));
-//          g.enemies.add(new Shifter(State.BLUE, -70, 70, 4, 0, "Shot", "patrol", target, Main.WIDTH/2));
-//          g.enemies.add(new Starburt(State.BLUE, -70, 70, 4));
-
-//          case 180:
-
-//          break;
