@@ -1,3 +1,14 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ *
+ * Laser spawns from a given point: the
+ * centre of the laser will be at the given
+ * coordinates and will extend based on its
+ * orientation
+ */
 package com.MRS.NeckbeardEngine.Projectiles;
 
 import com.MRS.NeckbeardEngine.*;
@@ -7,13 +18,6 @@ import javax.imageio.*;
 import java.io.*;
 
 public class Laser extends Projectile {
-  
-  /*
-   * Laser spawns from a given point: the
-   * centre of the laser will be at the given
-   * coordinates and will extend based on its
-   * orientation
-   */
   private BufferedImage imgCharge, imgActive;
   
   private boolean charging = true;
@@ -22,8 +26,7 @@ public class Laser extends Projectile {
   
   private double killTime;
   
-  public static int CHARGING_TIME = 120; /*or something (tune this) once tuned, 
-                                           the sound clip can be created based on the time values */
+  public static int CHARGING_TIME = 120; 
   public static int ACTIVE_TIME = 180;
   
   public Laser (State state, int x, int y, double xVelocity, double yVelocity, Enemy parent) {
@@ -38,6 +41,7 @@ public class Laser extends Projectile {
    hitBox = new HitBox(x,y,0,0);
    //the parent object needs to be binded to the laser, in case the parent dies
    this.parent = parent;
+   
    //preloading images
    imgCharge = null;
    imgActive = null;
@@ -64,6 +68,7 @@ public class Laser extends Projectile {
     }
   }
   
+  //Instance Method
   @Override 
   public void move () {
     super.move();
@@ -75,7 +80,8 @@ public class Laser extends Projectile {
        hitBox = new HitBox (x, y, 30, 980);
     }
   }
-
+  
+  //Accessors
   public Enemy getParent() {
     return parent;
   }
@@ -88,6 +94,11 @@ public class Laser extends Projectile {
     return chargingClock; 
   }
   
+  public double getKillTime() {
+    return killTime;
+  }
+  
+  //Mutators
   public void setChargingClock(int time) {
     chargingClock = time;
   }
@@ -95,9 +106,4 @@ public class Laser extends Projectile {
   public void setKillTime(double d) {
     killTime = d;
   }
-  
-  public double getKillTime() {
-    return killTime;
-  }
-  
 }

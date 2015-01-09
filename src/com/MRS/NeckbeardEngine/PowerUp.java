@@ -1,3 +1,11 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ * 
+ * This class holds information on the different types of power ups
+ */
 package com.MRS.NeckbeardEngine;
 
 public enum PowerUp {
@@ -16,6 +24,7 @@ public enum PowerUp {
     this.offensive = offensive;
   }
   
+  //Constructor controls whether or not a power up is spawned when an enemy dies
   public static PowerUp getPowerUp(int dropChance, int fastShot, int rapidFire, 
                                    int scatterShot, int bomb, int extraShip, 
                                    int speedBoost, int shield) {
@@ -51,6 +60,7 @@ public enum PowerUp {
       return null;
   }
   
+  //Accessor
   public boolean getOffensive() {
     return offensive;
   }

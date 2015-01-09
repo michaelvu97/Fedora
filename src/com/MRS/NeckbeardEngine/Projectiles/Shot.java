@@ -1,3 +1,13 @@
+/*
+ * PROJECT: LodeStar
+ * Source code can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Michael Vu, Roy Liu
+ * Inception Date: 9/17/14
+ *
+ * Used for the basic pip style projectiles.
+ * Used in the basic, fast, rapid, and scatter shots.
+ */
+
 package com.MRS.NeckbeardEngine.Projectiles;
 
 import com.MRS.NeckbeardEngine.*;
@@ -14,7 +24,6 @@ public class Shot extends Projectile {
      
      //personal image
      private BufferedImage img;
-     private BufferedImage glow = null;
      
      public Shot (State state, int x, int y, double xVelocity, double yVelocity) {
           //Projectile class constructor
@@ -42,8 +51,6 @@ public class Shot extends Projectile {
           String pathGlow = "";
           
           if (state == State.RED) {
-               pathGlow = workingDir + FileStore.FX_RED_GLOW;
-            
                if (yVelocity < 0) {
                     if (yVelocity == -1*Projectile.FastShotVelocity)
                          path = workingDir + FileStore.FAST_SHOT_RED;
@@ -55,9 +62,8 @@ public class Shot extends Projectile {
                     else
                          path = workingDir + FileStore.ENEMY_SHOT_RED;
                }
+               
           } else if (state == State.BLUE) {
-               pathGlow = workingDir + FileStore.FX_BLUE_GLOW;
-            
                if (yVelocity < 0) {
                     if (yVelocity == -1*Projectile.FastShotVelocity)
                          path = workingDir + FileStore.FAST_SHOT_BLUE;
@@ -70,12 +76,12 @@ public class Shot extends Projectile {
                          path = workingDir + FileStore.ENEMY_SHOT_BLUE;
                }
           }
+          
           else
             path = workingDir + FileStore.ENEMY_SHOT_PURPLE;
           
           try {
                img = ImageIO.read(new File (path));
-               //glow = ImageIO.read(new File (pathGlow));
           } catch (IOException e) {
                e.printStackTrace();
           }

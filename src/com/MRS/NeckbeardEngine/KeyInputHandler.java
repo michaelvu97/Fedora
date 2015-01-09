@@ -17,7 +17,6 @@ import java.io.*;
 public class KeyInputHandler {
      
      public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false, bomb = false, escape = false;
-     
      public final String path = "\\Data\\KeyBindings.txt";
      
      /*

@@ -3,7 +3,6 @@
  * Authors: Safwan Qazi(Project Manager), Roy Liu, Michael Vu
  * Date:10/30/2014
  * 
- * Description:
  * This is the abstract which determines what fields and methods all enemies will have.
  */
 package com.MRS.NeckbeardEngine;
@@ -94,16 +93,4 @@ public abstract class Enemy {
   abstract public boolean canShoot();
   abstract public void resetShotCoolDown();
   public abstract void move();
-//  
-//  public static void switchDirections(Enemy e, Enemy f){
-//    
-//    double tempXVelocity = e.xVelocity;
-//    double tempYVelocity = e.yVelocity;
-//    
-//    e.xVelocity = f.xVelocity;
-//    e.yVelocity = f.yVelocity;
-//    f.xVelocity = tempXVelocity;
-//    f.yVelocity = tempYVelocity;    
-//  }
-  
 }

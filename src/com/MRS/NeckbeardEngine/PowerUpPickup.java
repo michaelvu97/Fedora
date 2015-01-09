@@ -1,3 +1,11 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ * 
+ * This class controls the instance of a power-up in the game and holds it's icon and it's movement
+ */
 package com.MRS.NeckbeardEngine;
 import java.awt.*;
 import java.awt.image.*;
@@ -37,7 +45,6 @@ public class PowerUpPickup {
           hitBox.setY(y + yVelocity);
      }
      
-     //Paints the power up
      public void paint(Graphics2D g) {
           BufferedImage img = null;
           

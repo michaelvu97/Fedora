@@ -1,5 +1,10 @@
-/*
- * This class is just for the static image paths, not for instantiation
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ *
+ *This class is just for the static image paths, not for instantiation
  * make sure to prefix any uses of this with System.getProperty("user.dir"); 
  */
 package com.MRS.NeckbeardEngine;

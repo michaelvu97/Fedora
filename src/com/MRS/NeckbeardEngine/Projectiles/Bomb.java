@@ -1,3 +1,13 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ *
+ * The bomb spawns from the player's location and expands 
+ * outward in a radial hitbox.
+ */
+
 package com.MRS.NeckbeardEngine.Projectiles;
 
 import com.MRS.NeckbeardEngine.*;
@@ -57,22 +67,7 @@ public class Bomb extends Projectile {
   @Override
   public void paint (Graphics2D g) {
     //transformations
-    
-    //DEPRECATED:
-//    double baseRadius = 960;
-//    
-//    BufferedImage after = new BufferedImage((int)radius, (int)radius, BufferedImage.TYPE_INT_ARGB);
-//    AffineTransform at = new AffineTransform();
-//    double scale = radius / baseRadius;
-//    at.scale(scale, scale);
-//    
-//    AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
-//    after = scaleOp.filter(baseImg, after);
-    //Draws the instance
-//    g.drawImage(after, (int) (x - (0.5*radius) + 20), (int) (y - (0.5*radius) + 20), null)
-    
     g.drawImage(baseImg, x - (radius), y - (radius) , radius * 2, radius * 2, null);
-
   }
   
   public void setKillTime(double d) {

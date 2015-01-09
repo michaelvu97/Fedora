@@ -1,3 +1,14 @@
+/*
+ * PROJECT: LodeStar
+ * Source code can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Michael Vu, Roy Liu
+ * Inception Date: 9/17/14
+ *
+ * The Projectile used by the Starburt enemy that
+ * fires a projectile that travels downward until it reaches the
+ * players y axis. It then creates a horizontal laser wall after 
+ * a short delay.
+ */
 package com.MRS.NeckbeardEngine.Projectiles;
 
 import com.MRS.NeckbeardEngine.*;
@@ -18,9 +29,10 @@ public class StarburtShot extends Projectile {
   //Player position
   private Player player;
   
-  //lazor firing countdown
+  //lazer firing countdown
   private int coolDown;
   
+  //When the projectile will be destroyed
   private double killTime;
   
   //boolean if firing
@@ -51,13 +63,18 @@ public class StarburtShot extends Projectile {
     
   }
   
+  //Instance methods
   public void animate() {
+    
+    //Becomes active when it reaches the correct position
     if(y > player.getY() + 20 && y < (player.getY() + Player.DEFAULT_HITBOX_HEIGHT - 20) && !active) {
       yVelocity = 0;
       coolDown = 120;
       active = true;
       playSound = true;
     }
+    
+    //Fires the laser when it is primed
     if(active && coolDown < 0)
     {
       hitBox.setX(0);
@@ -66,15 +83,18 @@ public class StarburtShot extends Projectile {
   }
   
   @Override
-  
     public void move() {
     animate();
+    
+    //Counts down until laser stops
     if(active){
       coolDown--;
     }
-    x += xVelocity;
+    
     y += yVelocity;
     hitBox.setY(y);
+    
+    //Laser stops 3 sec after firing
     if(coolDown == -180)
       killTime = System.currentTimeMillis()+1;
   }
@@ -98,6 +118,7 @@ public class StarburtShot extends Projectile {
     if(active){
       String file = "";
       
+      //Horizontal Laser
       if(state == State.RED){
         if(coolDown > 1)
           file = workingDir + FileStore.LASER_RED_HORIZONTAL_CHARGE;
@@ -119,7 +140,7 @@ public class StarburtShot extends Projectile {
       }
     }
       
-    
+    //Starburt Projectile
     if (state == State.RED) {
       if(active)
         path = workingDir + FileStore.ENEMY_STARBURT_SHOT_RED_ACTIVE;
@@ -140,21 +161,21 @@ public class StarburtShot extends Projectile {
     }
   }
   
+  //Accessors
   public boolean getActive() {
     return active;
   }
   public boolean getPlaySound() {
     return playSound;
   }
-  
-  public void setPlaySound(boolean b) {
-    playSound = b;
-  }
-  
   public double getKillTime() {
     return killTime;
   }
   
+  //Mutators
+  public void setPlaySound(boolean b) {
+    playSound = b;
+  }
   public void setKillTime(double d) {
     killTime = d;
   }

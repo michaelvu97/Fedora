@@ -15,8 +15,8 @@ public class GameTimer extends TimerTask {
      
      Game game;
      
+     //Constructor
      public GameTimer (Game g1) {
-          //Constructor
           game = g1;
      }
      
@@ -24,9 +24,5 @@ public class GameTimer extends TimerTask {
      public void run() {
           //Runs on Timer completion
           game.step();
-//          if (game.player.getLives() <= 0) {
-//            game.initialize();
-//          }
-     }
-     
+     } 
 }

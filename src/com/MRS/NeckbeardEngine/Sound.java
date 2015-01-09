@@ -1,4 +1,4 @@
-/*Description: To Use sounds, create new instance of Sound with a String array of the files to be opened in that level.
+/* To Use sounds, create new instance of Sound with a String array of the files to be opened in that level.
  * Then access those files by using the methods and remembering what order you put them in.
  * Note: If you remove a sound, all the sounds with a greater index will all be moved left(subtracted by one)
  * e.g. 

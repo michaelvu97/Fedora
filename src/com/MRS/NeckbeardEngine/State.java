@@ -21,19 +21,14 @@ public enum State {
     this.state = state;
   }
   
+  //Accessor
   public int getInt() {
     return this.state;
   }
   
+  //Instance Method
   public static boolean compare (State a, State b) {
     return (a == BOTH || b == BOTH || a == b);
   }
   
-  public static State getRandom() {
-    int i = (int)(Math.random() * 2);
-    if (i==0) 
-      return RED;
-    else
-      return BLUE;
-  }
 }

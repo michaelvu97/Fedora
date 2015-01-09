@@ -1,3 +1,11 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ *
+ * This creates a looping background image
+ */
 package com.MRS.NeckbeardEngine;
 
 import java.awt.*;
@@ -24,10 +32,13 @@ public class Background {
     }
     y2 = -1 * img.getHeight(); 
   }
+  
+  //Scrolls through the background
   public void move(){
     y1+=yVelocity;
     y2+=yVelocity;
     
+    //Resets the background when the picture reaches the end
     if(y1>=img.getHeight()){
       y1 = y2;
       y2 = -1 * img.getHeight();
