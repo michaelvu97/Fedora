@@ -51,7 +51,7 @@ public class Mook extends Enemy {
         }
       }
       else if (xVelocity < 0) {
-        if (x > (Main.WIDTH - Main.WIDTH/4)) {
+        if (x > (Main.WIDTH - Main.WIDTH/4 - 60)) {
           xVelocity = -1 * xSpeed;
           yVelocity = ySpeed;
         }
