@@ -28,7 +28,6 @@ public class Laser extends Projectile {
   
   public Laser (State state, int x, int y, double xVelocity, double yVelocity, Enemy parent) {
    super(state, x, y, xVelocity, yVelocity); 
-   this.direction = direction;
    
    /* frames are converted to a time value
     * if the frame rate is ever changed,
@@ -45,21 +44,11 @@ public class Laser extends Projectile {
    try {
      String workingDir = System.getProperty("user.dir");
      if (state == State.RED) {
-       if (direction == Direction.DOWN || direction == Direction.UP) {
-         imgCharge = ImageIO.read(new File (workingDir + FileStore.LASER_RED_VERTICAL_CHARGE));
-         imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_RED_VERTICAL_ACTIVE));
-       } else {
-         imgCharge = ImageIO.read(new File (workingDir + FileStore.LASER_RED_HORIZONTAL_CHARGE));
-         imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_RED_HORIZONTAL_ACTIVE));
-       }
+       imgCharge = ImageIO.read(new File (workingDir + FileStore.LASER_RED_VERTICAL_CHARGE));
+       imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_RED_VERTICAL_ACTIVE));
      } else {
-       if (direction == Direction.DOWN || direction == Direction.UP) {
-         imgCharge = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_VERTICAL_CHARGE));
-         imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_VERTICAL_ACTIVE));
-       } else {
-         imgCharge = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_HORIZONTAL_CHARGE));
-         imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_HORIZONTAL_ACTIVE)); 
-       }
+       imgCharge = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_VERTICAL_CHARGE));
+       imgActive = ImageIO.read(new File (workingDir + FileStore.LASER_BLUE_VERTICAL_ACTIVE));
      }
    } catch (IOException e) {
      e.printStackTrace();
@@ -83,22 +72,7 @@ public class Laser extends Projectile {
       charging = false;
     }
     if(!charging){
-       //orientation
-   switch (direction.getValue()) {
-     //The cases are the integer constants of the direction enum
-     case 2:
        hitBox = new HitBox (x, y, 30, 980);
-       break;
-     case 4:
-       hitBox = new HitBox (x, y, 980, 30);
-       break;
-     case 1:
-       hitBox = new HitBox (x, y, 30, 980);
-       break;
-     case 3:
-       hitBox = new HitBox (x, y, 980, 30);
-       break;
-   }
     }
   }
 

@@ -262,25 +262,25 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
             if(e.getState() == State.RED) {
               if(e.getClass().getSimpleName().equals("Shade")){
-                Laser l = new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e);
+                Laser l = new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(), e);
                 l.setChargingClock(Laser.CHARGING_TIME-1);
                 enemyProjectiles.add((Projectile) l );
                 audioPlayer.play("LASERSHADE");
               }
               else{
-                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
+                enemyProjectiles.add((Projectile) new Laser(State.RED,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0, e));
                 audioPlayer.play("LASERBEAM");
               }
             } 
             else if(e.getState() == State.BLUE) {
               if(e.getClass().getSimpleName().equals("Shade")){
-                Laser l = new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(),Direction.DOWN, e);
+                Laser l = new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-7,e.getXVelocity(),e.getYVelocity(), e);
                 l.setChargingClock(Laser.CHARGING_TIME-1);
                 enemyProjectiles.add((Projectile) l );
                 audioPlayer.play("LASERSHADE");
               }
               else{
-                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0,Direction.DOWN, e));
+                enemyProjectiles.add((Projectile) new Laser(State.BLUE,e.getX()+(e.getHitBox().getWidth()/2)-15,e.getY()+e.getHitBox().getHeight()-20,0,0, e));
                 audioPlayer.play("LASERBEAM");
               }
             }

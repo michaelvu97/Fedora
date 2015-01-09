@@ -1,3 +1,0 @@
-Elite
-Shifter formations (track vs group)
-variable size mook formations
