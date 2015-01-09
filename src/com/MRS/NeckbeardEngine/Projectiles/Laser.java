@@ -18,7 +18,6 @@ public class Laser extends Projectile {
   
   private boolean charging = true;
   private int chargingClock = 0;
-  private Direction direction;
   private Enemy parent;
   
   private double killTime;
@@ -27,7 +26,7 @@ public class Laser extends Projectile {
                                            the sound clip can be created based on the time values */
   public static int ACTIVE_TIME = 180;
   
-  public Laser (State state, int x, int y, double xVelocity, double yVelocity, Direction direction, Enemy parent) {
+  public Laser (State state, int x, int y, double xVelocity, double yVelocity, Enemy parent) {
    super(state, x, y, xVelocity, yVelocity); 
    this.direction = direction;
    
@@ -114,12 +113,9 @@ public class Laser extends Projectile {
   public int getChargingClock() {
     return chargingClock; 
   }
+  
   public void setChargingClock(int time) {
     chargingClock = time;
-  }
-  
-  public Direction getDirection() {
-    return direction;
   }
   
   public void setKillTime(double d) {

@@ -1,0 +1,8 @@
+Arrow keys to move
+Z to shoot
+X to use bombs
+Space to use S.H.I.F.T
+
+Objectives:
+- Penetrate the Gloomian defences
+- Kill the Gloomian commander
