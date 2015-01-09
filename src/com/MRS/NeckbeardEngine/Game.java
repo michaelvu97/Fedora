@@ -324,6 +324,12 @@ public class Game extends JPanel implements KeyListener, MouseListener {
         if (p.getY() < 0 && p.getClass().getSimpleName().equals("Shot")) {
           playerProjectiles.remove(p);
         }
+        if (p.getClass().getSimpleName().equals("Bomb")) {
+          Bomb b = (Bomb) p;
+          if (b.getKillTime() < System.currentTimeMillis()) {
+            playerProjectiles.remove(p);
+          }
+        }
       }
       
       /*
