@@ -19,7 +19,7 @@ public class Shade extends Enemy {
   private boolean laserWipe;
   private boolean laserRight;
   
-  public static int MAXSHOTCOOLDOWN = 20;
+  public static int MAXSHOTCOOLDOWN = 10;
   public static int SWITCH_DIRECTION = 90;
 
   public static int SWITCH_SHOT = 5*60;
@@ -38,7 +38,7 @@ public class Shade extends Enemy {
   
   public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, Game g) {
     super(state, x, y, xVelocity, yVelocity, projectileType);
-    health = 70;          
+    health = 40;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     pathTime = 0;
     shiftTime = SWITCH_STATE;
@@ -67,13 +67,13 @@ public class Shade extends Enemy {
       
       if (pathTime <= 0) {
         if (maxSpeedX)
-          xVelocity = (3 * randomizer());
+          xVelocity = (5 * randomizer());
         else
-          xVelocity = (Math.random() * 3 * randomizer());
+          xVelocity = (Math.random() * 5 * randomizer());
         if (!maxSpeedX)
-          yVelocity = (3 * randomizer());
+          yVelocity = (5 * randomizer());
         else
-          yVelocity = (Math.random() * 3 * randomizer());
+          yVelocity = (Math.random() * 5 * randomizer());
         pathTime = SWITCH_DIRECTION;
         maxSpeedX = !maxSpeedX;
       }
@@ -82,7 +82,7 @@ public class Shade extends Enemy {
       if(x > Main.WIDTH/2-DEFAULT_HITBOX_WIDTH/2){
         
         if(x < Main.WIDTH-DEFAULT_HITBOX_WIDTH) {
-          xVelocity = 4;
+          xVelocity = 5;
         }
         else {
           xVelocity = 0;
@@ -92,7 +92,7 @@ public class Shade extends Enemy {
       else {
         
         if(x > 0) {
-          xVelocity = -4;
+          xVelocity = -5;
         }
         else {
           xVelocity = 0;
@@ -101,7 +101,7 @@ public class Shade extends Enemy {
       }
       if(y>85){
         if(y > 90) {
-          yVelocity = -4;
+          yVelocity = -5;
         }
         else {
           yVelocity = 0;
@@ -109,7 +109,7 @@ public class Shade extends Enemy {
       }
       else if(y < 90) {
         if(y < 85) {
-          yVelocity = 4;
+          yVelocity = 5;
         }
         else {
           yVelocity = 0;
@@ -222,9 +222,9 @@ public class Shade extends Enemy {
   
   public void resetShotCoolDown() {
     if(projectileType.equalsIgnoreCase("rapidFire"))
-      shotCoolDown = MAXSHOTCOOLDOWN-10;
+      shotCoolDown = MAXSHOTCOOLDOWN - 5;
     else if( projectileType.equalsIgnoreCase("scatterShot")){
-      shotCoolDown = 50;
+      shotCoolDown = 20;
     }
     else
       shotCoolDown = MAXSHOTCOOLDOWN;
@@ -296,8 +296,8 @@ public class Shade extends Enemy {
     g.drawString("Shade",115,70);
     
     g.setColor(Color.RED);
-    
-    g.fillRect(115,80,7*health,5);
+
+    g.fillRect(115,80,12*health,5);
     
   }
   

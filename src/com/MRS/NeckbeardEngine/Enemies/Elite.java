@@ -31,6 +31,7 @@ public class Elite extends Enemy {
     maxSpeedX = true;
   }
   
+  //Elite Speed magnitude = 4
   public void animate() {
     if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
       active = true;
@@ -43,13 +44,13 @@ public class Elite extends Enemy {
       
       if (pathTime <= 0) {
         if (maxSpeedX)
-          xVelocity = (3 * randomizer());
+          xVelocity = (4 * randomizer());
         else
-          xVelocity = (Math.random() * 3 * randomizer());
+          xVelocity = (Math.random() * 4 * randomizer());
         if (!maxSpeedX)
-          yVelocity = (3 * randomizer());
+          yVelocity = (4 * randomizer());
         else
-          yVelocity = (Math.random() * 3 * randomizer());
+          yVelocity = (Math.random() * 4 * randomizer());
         pathTime = SWITCH_DIRECTION;
         maxSpeedX = !maxSpeedX;
       }

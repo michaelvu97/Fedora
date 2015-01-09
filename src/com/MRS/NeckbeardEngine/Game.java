@@ -235,7 +235,9 @@ public class Game extends JPanel implements KeyListener, MouseListener {
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 43, player.getY(), 0, -1 * Projectile.ShotVelocity));
           }
           if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE)
-            player.setShotCoolDown(Player.MAXSHOTCOOLDOWN - 10);
+            player.setShotCoolDown(Player.MAXSHOTCOOLDOWN - 15);
+          else if (player.getOffensePowerUp() == PowerUp.SCATTER_SHOT)
+            player .setShotCoolDown(Player.MAXSHOTCOOLDOWN + 35);
           else
             player.setShotCoolDown(Player.MAXSHOTCOOLDOWN);
           player.setCanShoot(false);
@@ -461,7 +463,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           player.removeDefensePowerUp(PowerUp.EXTRA_SHIP);
         }
         if(p == PowerUp.SPEED_BOOST && speedBoostClock<=0) {
-          player.MAX_VELOCITY=10;
+          player.MAX_VELOCITY=7;
           speedBoostClock = 1800;
           player.removeDefensePowerUp(PowerUp.SPEED_BOOST);
         }
