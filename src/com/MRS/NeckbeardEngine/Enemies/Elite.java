@@ -1,3 +1,13 @@
+/*
+ * PROJECT: LodeStar
+ * Source code can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Michael Vu, Roy Liu
+ * Inception Date: 9/17/14
+ *
+ * A tough, medium sized enemy that moves erratically, 
+ * takes 3 shots to kill, and fires when directly above the player
+ */
+
 package com.MRS.NeckbeardEngine.Enemies;
 
 import com.MRS.NeckbeardEngine.*;
@@ -10,9 +20,16 @@ import javax.imageio.ImageIO;
 
 public class Elite extends Enemy {
   
+  //Used to determine when the Elite can fire
   private Player target;
+  
+  //Checks to see when the Elite begins it's behaviour
   private boolean active;
+  
+  //Used to allow the Elite to have more erratic patterns
   private boolean maxSpeedX;
+  
+  //Time until the Elite's movement is switched
   private int pathTime;
   
   public static int DEFAULT_HITBOX_WIDTH = 96;
@@ -33,15 +50,19 @@ public class Elite extends Enemy {
   
   //Elite Speed magnitude = 4
   public void animate() {
+    
+    //Prevents the Elite's behaviour until on screen
     if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 0 && !active)
       active = true;
     
+    //Prevents the Elite from flying off screen
     if (active) {
       if (x < 0 || x > Main.WIDTH - DEFAULT_HITBOX_WIDTH)
         xVelocity *= -1;
       if (y < 0 || y > (Main.HEIGHT / 2) - DEFAULT_HITBOX_HEIGHT)
         yVelocity *= -1;
       
+      //Randomizes the Elite's movement patterns
       if (pathTime <= 0) {
         if (maxSpeedX)
           xVelocity = (4 * randomizer());
@@ -54,8 +75,7 @@ public class Elite extends Enemy {
         pathTime = SWITCH_DIRECTION;
         maxSpeedX = !maxSpeedX;
       }
-    }
-    
+    }    
     pathTime--;
   }
   
@@ -67,13 +87,14 @@ public class Elite extends Enemy {
     shotCoolDown = MAXSHOTCOOLDOWN;
   }
   
+  //Allows Elite to shoot when it is above the player
   public boolean canShoot() {
     if (shotCoolDown <= 0 && (x > target.getX() - 10 && x < target.getX() + 10))
       return true;
     else
       return false;
   }
-  
+ 
   public void move() {
     animate();
     x += xVelocity;
@@ -82,6 +103,7 @@ public class Elite extends Enemy {
     hitBox.setY(y);
   }
   
+  //Used in randomizing the Elite's movements
   public int randomizer() {
     int i = (int) (Math.random() * 10);
     if (i <= 4)

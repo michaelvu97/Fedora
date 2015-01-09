@@ -1,3 +1,14 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ * 
+ * The final boss of LodeStar. A challenging enemy that can take
+ * 40 shots to kill. It cycles its weapons frequently and flys 
+ * both quickly and erratically. It gains a shield that can absorb
+ * 5 hits when it kills the player. It shifts its state at random intervals.
+ */
 package com.MRS.NeckbeardEngine.Enemies;
 
 import com.MRS.NeckbeardEngine.*;
@@ -12,8 +23,13 @@ public class Shade extends Enemy {
   public static int DEFAULT_HITBOX_WIDTH = 96;
   public static int DEFAULT_HITBOX_HEIGHT = 96;
   
+  //Checks to see when the Shade begins it's behaviour
   private boolean active;
+  
+  //Used to allow the Shade to have more erratic patterns
   private boolean maxSpeedX;
+  
+  //Used in the Shade's sweeping laser attack
   private boolean laserMove;
   private boolean laserShoot;
   private boolean laserWipe;
@@ -21,13 +37,17 @@ public class Shade extends Enemy {
   
   public static int MAXSHOTCOOLDOWN = 10;
   public static int SWITCH_DIRECTION = 90;
-
+  
   public static int SWITCH_SHOT = 5*60;
   public static int SWITCH_STATE = 900;
   
+  //Time until the Shade's movement is switched
   private int pathTime;
+  
   private int shiftTime;
   private int randShiftTime;
+  
+  //Time until the Shade swaps weapons
   private int shotTime;
   
   public Game g;
@@ -53,18 +73,22 @@ public class Shade extends Enemy {
     this.g = g;
     shieldHealth = 0;
   }
+  
   public void animate() {
     if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 200 && !active){
       active = true;
       xVelocity = 5;
       yVelocity = 5;
     }    
+    
+    //Prevents the Shade from flying off screen
     else if (active && !laserMove && !laserShoot && !laserWipe) {
       if (x < 0 || x > Main.WIDTH - DEFAULT_HITBOX_WIDTH)
         xVelocity *= -1;
       if (y < 0 || y > (Main.HEIGHT / 2) - DEFAULT_HITBOX_HEIGHT)
         yVelocity *= -1;
       
+      //Randomizes the Shade's movement patterns
       if (pathTime <= 0) {
         if (maxSpeedX)
           xVelocity = (5 * randomizer());
@@ -78,6 +102,8 @@ public class Shade extends Enemy {
         maxSpeedX = !maxSpeedX;
       }
     }
+    
+    //How does this work?
     else if (laserMove){
       if(x > Main.WIDTH/2-DEFAULT_HITBOX_WIDTH/2){
         
@@ -121,6 +147,8 @@ public class Shade extends Enemy {
         laserRight = (x > Main.WIDTH/2);
       }        
     }
+    
+    //What is this for?
     else if(laserWipe) {
       
       if(laserRight) {
@@ -155,6 +183,7 @@ public class Shade extends Enemy {
       
     }
     
+    //Are we still using this?
     if(shiftTime <= 0 && g.playerProjectiles.size() > 0){
       playStateSound = true;
       Projectile p = g.playerProjectiles.get(0);
@@ -162,10 +191,10 @@ public class Shade extends Enemy {
         state = State.BLUE;      
       else
         state = State.RED;      
-      
       shiftTime = SWITCH_STATE;
     }
     
+    //Shifts states when randShiftTime hits 0 unless it is firing a laser
     if(randShiftTime <= 0) {
       playStateSound = true;
       if(state == State.RED && !projectileType.equals("laser"))
@@ -175,6 +204,7 @@ public class Shade extends Enemy {
       randShiftTime = (int)(180*Math.random()+120);
     }
     
+    //Swaps the weapon randomly when shotTime reaches 0
     if(shotTime <= 0) {
       int type = (int) (4*Math.random());
       shotTime = SWITCH_SHOT;
@@ -194,6 +224,7 @@ public class Shade extends Enemy {
         shotTime = 0;
     }
     
+    //What is this for?
     if(g.deathClock == 119)
       shieldHealth  += 5;
     
@@ -202,6 +233,7 @@ public class Shade extends Enemy {
     randShiftTime--;
     shotTime--;    
   }
+  
   public void move() {
     animate();
     x += xVelocity;
@@ -209,6 +241,8 @@ public class Shade extends Enemy {
     hitBox.setX(x);
     hitBox.setY(y);
   }
+  
+  //Used in randomizing the Shade's movements
   public int randomizer() {
     int i = (int) (Math.random() * 10);
     if (i <= 4)
@@ -216,10 +250,12 @@ public class Shade extends Enemy {
     else
       return 1;
   }
+  
   public boolean onScreen(){
     return (x > 0 - DEFAULT_HITBOX_WIDTH - 100 && x < Main.WIDTH + 100 && y > 0 - DEFAULT_HITBOX_HEIGHT - 100 && y < Main.HEIGHT + 100);
   }
   
+  //Resets shot cooldown differently based on weapon type
   public void resetShotCoolDown() {
     if(projectileType.equalsIgnoreCase("rapidFire"))
       shotCoolDown = MAXSHOTCOOLDOWN - 5;
@@ -230,6 +266,7 @@ public class Shade extends Enemy {
       shotCoolDown = MAXSHOTCOOLDOWN;
   }
   
+  //Comment on how laser checks if it can fire
   public boolean canShoot() {
     if (shotCoolDown <= 0 && active && !projectileType.equalsIgnoreCase("laser")){
       return true;
@@ -253,6 +290,7 @@ public class Shade extends Enemy {
     String iconPath = "";
     String shieldPath = "";
     
+    //Shade Model Images
     if (state == State.RED) {
       path = workingDir + FileStore.SHADE_RED;
       if(shieldHealth > 0)
@@ -262,6 +300,8 @@ public class Shade extends Enemy {
       if(shieldHealth > 0)
         shieldPath = workingDir + FileStore.BLUE_SHIELD;
     }
+    
+    //Shade HUD Images
     if(projectileType.equalsIgnoreCase("fastShot")) {
       iconPath = workingDir + FileStore.SHADE_FAST_SHOT;
     }
@@ -276,29 +316,33 @@ public class Shade extends Enemy {
     }
     
     try {
+      
+      //Determines what Shade weapon icon is painted
       if(!iconPath.equals(""))
         icon = ImageIO.read(new File(iconPath));
+      
+      //Will paint a shield if the Shade has one
       if(shieldHealth > 0)
         shield = ImageIO.read(new File(shieldPath));
+      
+      //Draws the Shade
       img = ImageIO.read(new File(path));
+      g.drawImage(img, x, y, null);
     } catch (IOException e) {
       e.printStackTrace();
     }
-    g.drawImage(img, x, y, null);
+    
+    //Draws the shield and icon
     if(icon != null)
       g.drawImage(icon,50,55,null);
     if(shieldHealth > 0)
       g.drawImage(shield,x - 11, y - 11, null);
     
-    
+    //Draws the Shade's health bar
     g.setColor(Color.WHITE);
     g.setFont(new Font("Consolas", Font.BOLD, 20));
     g.drawString("Shade",115,70);
-    
     g.setColor(Color.RED);
-
     g.fillRect(115,80,12*health,5);
-    
   }
-  
 }

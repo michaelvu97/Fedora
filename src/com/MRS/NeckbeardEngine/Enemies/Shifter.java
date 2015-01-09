@@ -1,3 +1,13 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ *
+ * A small enemy that takes on shot to kill. It shares behaviour patterns with mook and
+ * can shift it's state while it is active.
+ */
+
 package com.MRS.NeckbeardEngine.Enemies;
 
 import com.MRS.NeckbeardEngine.*;
@@ -12,9 +22,9 @@ public class Shifter extends Enemy {
   
   public static int DEFAULT_HITBOX_WIDTH = 60;
   public static int DEFAULT_HITBOX_HEIGHT = 60;
-  private String version;
   public static int MAXSHOTCOOLDOWN = 60;
   public static int SHIFT_COOLDOWN = 120;
+  private String version;
   private Player target;
   private int shootPos;
   private int shiftTimer;
@@ -31,9 +41,11 @@ public class Shifter extends Enemy {
     this.shootPos = shootPos;
     shiftTimer = SHIFT_COOLDOWN;
   }
-  
+
+//Used to alter Shifter behaviours outside of the basic linear movement
 public void animate () {
-    // 4
+  
+    // The Shifter stops in place after reaching its shooting position and stays until destroyed
     if(version.equalsIgnoreCase("stay")){
       if((xVelocity > 0 && x >= shootPos) || (xVelocity < 0 && x <= shootPos)){
         xVelocity = 0;
@@ -41,7 +53,6 @@ public void animate () {
       }
       
     }
-    //4 velocity for leave
     
     //V-shaped move formation, fires a bottom point of V. 3 xVelocity, 4 yVelocity
     if(version.equalsIgnoreCase("form")) {
@@ -66,6 +77,7 @@ public void animate () {
         }
       }
     }
+    
     //bounces around 4 velocity
     if(version.equalsIgnoreCase("patrol")){
       if(!active && ((yVelocity >= 0 && y > 0 && ((xVelocity >= 0 && x > 0) || (xVelocity < 0 && x < Main.WIDTH - DEFAULT_HITBOX_HEIGHT))) || (yVelocity < 0 && y < Main.HEIGHT-DEFAULT_HITBOX_HEIGHT && ((xVelocity >= 0 && x > 0) || (xVelocity < 0 && x < Main.WIDTH - DEFAULT_HITBOX_HEIGHT))))){

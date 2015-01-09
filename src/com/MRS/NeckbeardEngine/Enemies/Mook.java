@@ -1,3 +1,12 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ * 
+ * A basic small enemy. Takes one shot to kill
+ * has a variation of behaviours
+ */
 package com.MRS.NeckbeardEngine.Enemies;
 
 import com.MRS.NeckbeardEngine.*;
@@ -12,8 +21,12 @@ public class Mook extends Enemy {
   
   public static int DEFAULT_HITBOX_WIDTH = 60;
   public static int DEFAULT_HITBOX_HEIGHT = 60;
+  
+  //Indicates what kind of behaviour the mook will exhibit
   private String version;
+  
   public static int MAXSHOTCOOLDOWN = 120;
+  
   public int shootPos; // where you want it to shoot/stop
   
   private boolean active = false;
@@ -27,16 +40,16 @@ public class Mook extends Enemy {
     this.shootPos = shootPos;    
   }
   
+  //Used to alter mook behaviours outside of the basic linear movement
   public void animate () {
-    // 4
+    
+    // The mook stops in place after reaching its shooting position and stays until destroyed
     if(version.equalsIgnoreCase("stay")){
       if((xVelocity > 0 && x >= shootPos) || (xVelocity < 0 && x <= shootPos)){
         xVelocity = 0;
         yVelocity = 0;
-      }
-      
+      } 
     }
-    //4 velocity for leave
     
     //V-shaped move formation, fires a bottom point of V. 3 xVelocity, 4 yVelocity
     if(version.equalsIgnoreCase("form")) {
@@ -61,6 +74,7 @@ public class Mook extends Enemy {
         }
       }
     }
+    
     //bounces around 4 velocity
     if(version.equalsIgnoreCase("patrol")){
       if(!active && ((yVelocity >= 0 && y > 0 && ((xVelocity >= 0 && x > 0) || (xVelocity < 0 && x < Main.WIDTH - DEFAULT_HITBOX_HEIGHT))) || (yVelocity < 0 && y < Main.HEIGHT-DEFAULT_HITBOX_HEIGHT && ((xVelocity >= 0 && x > 0) || (xVelocity < 0 && x < Main.WIDTH - DEFAULT_HITBOX_HEIGHT))))){
@@ -86,6 +100,8 @@ public class Mook extends Enemy {
   public boolean onScreen(){
     return (x > 0-DEFAULT_HITBOX_WIDTH-100 && x < Main.WIDTH+100 && y > 0-DEFAULT_HITBOX_HEIGHT-100 && y < Main.HEIGHT+100);
   }
+  
+  //Controls if the mook can shoot. Different types have different parameters
   public boolean canShoot() {
     if( version.equalsIgnoreCase("stay") && shotCoolDown <= 0 && xVelocity == 0)
       return true;
@@ -93,10 +109,10 @@ public class Mook extends Enemy {
       return true;
     else if(version.equalsIgnoreCase("patrol") && shotCoolDown <= 0)
       return true;
-    
     else
       return false;
   }
+  
   public void resetShotCoolDown() {
     shotCoolDown = MAXSHOTCOOLDOWN;
   }
@@ -125,6 +141,7 @@ public class Mook extends Enemy {
     g.drawImage(img, x, y, null);
   }
   
+  //Accessor
   public int getShootPos() {
     return shootPos; 
   }

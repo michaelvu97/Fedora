@@ -1,3 +1,13 @@
+/*
+ * PROJECT: LodeStar
+ * Source code can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Michael Vu, Roy Liu
+ * Inception Date: 9/17/14
+ *
+ * A large ship that takes 2 shots to kill.
+ * After appearing on screen, it stays in place and fires 
+ * a vertical laser periodically. After 3 times, it leaves.
+ */
 package com.MRS.NeckbeardEngine.Enemies;
 
 import com.MRS.NeckbeardEngine.*;
@@ -12,11 +22,18 @@ public class Iris extends Enemy {
      
      public static int DEFAULT_HITBOX_WIDTH = 64;
      public static int DEFAULT_HITBOX_HEIGHT = 128;
-     //The idea is that the Iris has a cycle of 3 sec doing nothing, 2 sec of charge, and 3 sec where the laser is active
-     //Initial cooldown represents the 3 sec of nothing and the 2 sec of charge
+     
+     /* The idea is that the Iris has a cycle of 3 sec doing nothing, 2 sec of charge, and 3 sec where the laser is active
+      * Initial cooldown represents the 3 sec of nothing and the 2 sec of charge
+      */
      public static int INITIAL_COOLDOWN = 300;
+     
+     //Controls when the Iris switches between an active and inactive model
      private int eyeClock;
+     
+     //Counts how many times the Iris has fired
      private int timesFired;
+     
      public Iris (State state, int x, String projectileType) {
           super(state, x, -130, 0, 2, projectileType);
           health = 2;
@@ -27,12 +44,17 @@ public class Iris extends Enemy {
      }
      
      public void animate () {
+          //Freezes the Iris in place while it is on screen
           if (y > 0 && timesFired != 3)
                yVelocity = 0;
+          
+          //Iris retreats after it fire 3 times
           else if (eyeClock <= 0 && timesFired >= 3){
             yVelocity = -2;
             eyeClock = 121;
           }
+          
+          //Controls when the Iris switches between an active and inactive model
           if(eyeClock > 0) {
                resetShotCoolDown();
                eyeClock--;

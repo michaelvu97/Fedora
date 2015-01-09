@@ -1,3 +1,14 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ *
+ * A large enemy that takes 2 shots to kill. Moves side to side
+ * and fires projectiles that travel downward until the reach the player's 
+ * y-axis. The projectile then stops and fires a horizontal laser 
+ * after a short delay. Starburt leaves after firing 5 times.
+ */
 package com.MRS.NeckbeardEngine.Enemies;
 
 import com.MRS.NeckbeardEngine.*;
@@ -14,6 +25,8 @@ public class Starburt extends Enemy {
   public static int DEFAULT_HITBOX_HEIGHT = 128;
   public static int MAXSHOTCOOLDOWN = 300;
   private boolean offScreen;
+  
+  //Counts how many times the Starburt has fired
   private int timesFired;
   
   public Starburt (State state, int x, int y, double xVelocity) {
@@ -25,13 +38,14 @@ public class Starburt extends Enemy {
     timesFired = 0;
   }
   
-  //@Override
   public void animate () {
     
     if(offScreen){
     }
     else if (timesFired >= 5) {
     }
+    
+    //Stops the Starburt from moving offscreen
     else{
       if(x < 0)
         xVelocity = xSpeed;
@@ -54,9 +68,11 @@ public class Starburt extends Enemy {
   public void resetShotCoolDown(){
     shotCoolDown = MAXSHOTCOOLDOWN;
   }
+  
   public boolean onScreen(){
     return (x > 0-DEFAULT_HITBOX_WIDTH-100 && x < Main.WIDTH+100 && y > 0-DEFAULT_HITBOX_HEIGHT-100 && y < Main.HEIGHT+100);
   }
+  
   public boolean canShoot() {
     if(shotCoolDown <= 0 && timesFired != 5) {
       timesFired++;
@@ -64,6 +80,7 @@ public class Starburt extends Enemy {
     }
       return false;
   }
+  
   @Override
   public void paint (Graphics2D g) {
     BufferedImage img = null;
