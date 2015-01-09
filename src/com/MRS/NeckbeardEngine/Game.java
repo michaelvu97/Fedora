@@ -90,8 +90,8 @@ public class Game extends JPanel implements KeyListener, MouseListener {
   
   public void initialize () {
     
-    player = new Player(360, 800, 3, State.RED, this);
-    level = new Level (this, player);
+    player = new Player(360, 800, 3, State.BLUE, this); //has to be blue because it switches before the game starts and becomes red
+    level = new Level (this, player);                   //(caused by the menu space to start)
     
     //Variable setup
     started = false;
