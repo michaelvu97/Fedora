@@ -34,7 +34,7 @@ public class Shot extends Projectile {
            * by Game
            */
           this.loadImage();
-          g.drawImage(glow, x - 128, y - 128, null);
+          //g.drawImage(glow, x - 128, y - 128, null);
           g.drawImage(img,x,y,null);
      }
      
@@ -76,7 +76,7 @@ public class Shot extends Projectile {
           
           try {
                img = ImageIO.read(new File (path));
-               glow = ImageIO.read(new File (pathGlow));
+               //glow = ImageIO.read(new File (pathGlow));
           } catch (IOException e) {
                e.printStackTrace();
           }
