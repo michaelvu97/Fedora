@@ -33,6 +33,7 @@ public class Shade extends Enemy {
   public Game g;
   public int shieldHealth;
   public boolean playSwitchSound = false;
+  public boolean playStateSound = false;
   public boolean montagePlaying = false;
   
   public Shade (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, Game g) {
@@ -155,6 +156,7 @@ public class Shade extends Enemy {
     }
     
     if(shiftTime <= 0 && g.playerProjectiles.size() > 0){
+      playStateSound = true;
       Projectile p = g.playerProjectiles.get(0);
       if(p.getState() == State.RED)
         state = State.BLUE;      
@@ -165,6 +167,7 @@ public class Shade extends Enemy {
     }
     
     if(randShiftTime <= 0) {
+      playStateSound = true;
       if(state == State.RED && !projectileType.equals("laser"))
         state = State.BLUE;      
       else if(!projectileType.equals("laser"))

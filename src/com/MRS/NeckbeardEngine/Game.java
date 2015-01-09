@@ -495,7 +495,7 @@ public class Game extends JPanel implements KeyListener, MouseListener {
           }
           if (shade.playStateSound) {
             shade.playStateSound = false;
-            audioPalyer.play("SWITCH_STATE");
+            audioPlayer.play("SWITCH_STATE");
           }
           if (shade.getHealth() < 10 && shade.getHealth() > 0 && !shade.montagePlaying) {
             audioPlayer.loop("MONTAGE_BUILD", -1);

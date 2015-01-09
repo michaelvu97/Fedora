@@ -149,6 +149,14 @@ public class  Sound{
       }
     }
   }
+  public void playBackground(String id){
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(id)) {
+        Clip c = sounds.get(i).c;
+        c.start();
+      }
+    }
+  }
   
   public void stop(String id) {
     //Pauses the selected clip
@@ -160,10 +168,17 @@ public class  Sound{
       }
     }
   }
+  public void stopBackground(String id){
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(id)) {
+        Clip c = sounds.get(i).c;
+        c.stop();
+      }
+    }
+  }
   
   public void loop(String id, int loops) {
     //Loops the selected clip (use LOOP_CONTINUOUSLY for forever)
-    //DEPRECATED
     for(int i = 0; i<sounds.size();i++) {
       if(sounds.get(i).id.equals(id)) {
         Clip c = sounds.get(i).c; 
@@ -211,8 +226,17 @@ public class  Sound{
     }
     
   }
+  public void setBackgroundVolume(String id, float vol){
+    for(int i = 0; i<sounds.size();i++) {
+      if(sounds.get(i).id.equals(id)) {
+        Clip c = sounds.get(i).c;
+        FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(vol);
+      }
+    }
+  }
   
-  public void addSound(String id) {                                            
+  public void addSound(String file, String id) {                                            
     //Add new sound, will be added to the end of list
     Mixer.Info[] mixInfos = AudioSystem.getMixerInfo();
     mixer = AudioSystem.getMixer(mixInfos[0]);
@@ -220,7 +244,7 @@ public class  Sound{
     CustomClip clip = new CustomClip();
     try{
       clip.c = (Clip)mixer.getLine(dataInfo);    
-      URL filePath = Sound.class.getResource(id);
+      URL filePath = new File(file).toURI().toURL();
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(filePath);
       clip.c.open(audioStream);
       clip.id = id;
@@ -256,7 +280,11 @@ public class  Sound{
     //Stops all clips
     for (int i = 0; i < sounds.size(); i++) {
       sounds.get(i).c.stop();
+    }
+    for (int i = 0; i < soundsBufferOne.size(); i++) {
       soundsBufferOne.get(i).c.stop();
+    }
+    for (int i = 0; i < soundsBufferTwo.size(); i++) {
       soundsBufferTwo.get(i).c.stop();
     }
   }
@@ -265,7 +293,15 @@ public class  Sound{
     for (int i = 0; i < sounds.size(); i++) {
       if (!sounds.get(i).id.equals(tag)) {
         sounds.get(i).c.stop();
+      }
+    }
+    for (int i = 0; i < soundsBufferOne.size(); i++) {
+      if (!soundsBufferOne.get(i).id.equals(tag)) {
         soundsBufferOne.get(i).c.stop();
+      }
+    }
+    for (int i = 0; i < soundsBufferTwo.size(); i++) {
+      if (!soundsBufferTwo.get(i).id.equals(tag)) {
         soundsBufferTwo.get(i).c.stop();
       }
     }
