@@ -1,7 +1,7 @@
 /* 
  * PROJECT:LodeStar
  * Source can be found at www.github.com/michaelvu97/LodeStar
- * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
  * Date: 9/17/14
  *
  * This is the panel where all calculations and input/output is performed
@@ -574,6 +574,7 @@ public class Game extends JPanel implements KeyListener {
               //Bombs do not immediately destroy Shade
               if(e.getClass().getSimpleName().equals("Shade")){
                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
+               // If the health passes a power up drop threshold it drops here instead
                if(s.shieldHealth <= 10) {
                  int tempHealth = e.getHealth();
                  e.setHealth(e.getHealth()-(9-s.shieldHealth));

@@ -1,7 +1,7 @@
 /* 
  * PROJECT:LodeStar
  * Source can be found at www.github.com/michaelvu97/LodeStar
- * Authors: Qazi Qazi (Project Manager), Roy Liu, Michael Vu
+ * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
  * Inception Date: 9/17/14
  * 
  * This project will eventually be a shoot 'em up game with the ability to switch states to gain advantages and avoid

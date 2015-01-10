@@ -1,3 +1,11 @@
+/* 
+ * PROJECT:LodeStar
+ * Source can be found at www.github.com/michaelvu97/LodeStar
+ * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
+ * Date: 9/17/14
+ *
+ * This is the panel where all calculations and input/output is performed
+ */
 package com.MRS.NeckbeardEngine;
 
 import com.MRS.NeckbeardEngine.Enemies.*;
