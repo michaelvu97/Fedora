@@ -3,8 +3,8 @@ Z to shoot
 X to use bombs
 Space to use S.H.I.F.T
 esc to quit
-P to Pause
+Enter to Pause
 
 Objectives:
-- Penetrate the Gloomian defences
+- Use S.H.I.F.T. Penetrate the Gloomian defences
 - Kill the Gloomian commander

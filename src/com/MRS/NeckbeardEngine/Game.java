@@ -163,7 +163,7 @@ public class Game extends JPanel implements KeyListener {
     if (keyInputHandler.escape) {
       exitGame();
     }
-    if(keyInputHandler.p){
+    if(keyInputHandler.enter){
       if(!gameAlreadyPaused){
         if(!paused){
           paused = true;
@@ -175,7 +175,7 @@ public class Game extends JPanel implements KeyListener {
         }        
       }
     }
-    else if(!keyInputHandler.p){
+    else if(!keyInputHandler.enter){
       gameAlreadyPaused = false;
     }
     
@@ -901,7 +901,16 @@ public class Game extends JPanel implements KeyListener {
         BufferedImage menuFrame = ImageIO.read(new File (System.getProperty("user.dir") + FileStore.MenuSequence(currentMenuFrame++)));
         g.drawImage(menuFrame, 0, 0, null);
         g.setColor(Color.DARK_GRAY);
-        g.drawString("Press Space", 250, 800);
+        g.drawString("Arrow Keys to Move", 160, 700);        
+        g.drawString("Space to use S.H.I.F.T.",160,750);
+        g.drawString("Z to Shoot", 50, 800);        
+        g.drawString("X to use Bomb", 400, 800);
+        g.drawString("Esc to Quit", 50, 850);
+        g.drawString("Enter to Pause",395,850);
+        
+        
+        g.setColor(Color.GRAY);
+        g.drawString("Press Space to Start", 150, 920);
       } catch (IOException e) {
         e.printStackTrace();
       }

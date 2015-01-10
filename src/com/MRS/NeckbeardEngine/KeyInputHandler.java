@@ -16,13 +16,13 @@ import java.io.*;
 
 public class KeyInputHandler {
      
-     public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false, bomb = false, escape = false, p = false;
+     public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false, bomb = false, escape = false, enter = false;
      public final String path = "\\Data\\KeyBindings.txt";
      
      /*
       * Default Keybindings
       */
-     private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE, keyBomb = KeyEvent.VK_X, keyEscape = KeyEvent.VK_ESCAPE, keyP = KeyEvent.VK_P; 
+     private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE, keyBomb = KeyEvent.VK_X, keyEscape = KeyEvent.VK_ESCAPE, keyEnter = KeyEvent.VK_ENTER; 
     
      public KeyInputHandler() {
        
@@ -54,8 +54,8 @@ public class KeyInputHandler {
           if (keyPressed == keyEscape) {
                escape = true;
           }
-          if (keyPressed == keyP) {
-            p = true;
+          if (keyPressed == keyEnter) {
+            enter = true;
           }
      }
      
@@ -85,8 +85,8 @@ public class KeyInputHandler {
           if (keyReleased == keyEscape) {
                escape = false;
           }
-          if (keyReleased == keyP) {
-               p = false;
+          if (keyReleased == keyEnter) {
+               enter = false;
           }
      }
 }

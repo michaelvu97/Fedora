@@ -4,7 +4,8 @@
  * Authors: Safwan Qazi (Project Manager), Roy Liu, Michael Vu
  * Date: 9/17/14
  *
- * This is the panel where all calculations and input/output is performed
+ * This is the place where all the encounters and movements of enemies is stored. At the correct positions new enememies
+ * are spawned with the correct parameters
  */
 package com.MRS.NeckbeardEngine;
 
@@ -14,23 +15,35 @@ import java.util.ArrayList;
 
 public class Level {
   
+  //needs game so that it can interact with it
   Game g;
+  
+  //keeps track of time through frames(essentially every frame it calls the check() method which increases frames by one
   private int frames;
+  
+  //some enemies need a target so player is offered to them
   private Player target;
+  
+  // the game is completely different when the player reaches boss so there is a boolean
   private boolean boss = false;
+  
+  //during the boss fight power ups are dropped at certain healths, to prevent constant dropping while it is at that health
+  //there is an array of booleans that represnts if the powerup is dropped or not
   private boolean dropped[] = new boolean[3];
   
   public Level(Game g, Player target) {
     this.g = g;
     frames = 0;
     this.target = target; 
+    
+    // nor powerUps are dropped yet
     for (int i = 0; i < dropped.length; i++){
       dropped[i] = false;
     }    
   }
   public void check() {    
-    //wave loading
-    // IF YOU WANT SHADE SET FRAMES TO 100000
+    //All enemy spawning(except the boss) is choreographed here. Using a switch statement we compare the frames passed
+    //and add enemies according to our level design.
     if(!boss) {
       switch(frames) {
         case 180:
@@ -497,18 +510,26 @@ public class Level {
         default:
       }
     }
+    // once it reaches the end and all enemies die
     if(frames > 10080 && g.enemies.size() == 0 && !boss)
     {
+      // it now boss time
       boss = true;
+      
+      // and it resets the frames so that they can work for boss
       frames = 0;
     }
+    // if it is boss
     if(boss) {
+      //while it is less than about 5 secs it fades out the current boss music
       if(frames <= 320){
         g.audioPlayer.setBackgroundVolume("BGM1", -1*(frames/4));
       }
-      if(frames > 320 && frames < 640) {
+      // then deletes it(to preserve memory
+      if(frames > 320) {
         g.audioPlayer.delSound("BGM1");
       }
+      // at about 10 secs it adds the boss and plays the boss fight music
       if(frames == 640){
         g.enemies.add(new Shade(target.getState(), 330, -100, 0, 1, "Shot", g));
         String workingDir = System.getProperty("user.dir");
@@ -517,18 +538,25 @@ public class Level {
         g.audioPlayer.loop("BGMS", -1);
       }
       if(frames > 640){
+        // if the boss is on screen(to prevent game freezing right at the end
         if(g.enemies.size() > 0){
+          // and it is at 30 health
           if(g.enemies.get(0).getHealth() == 30 && !dropped[0]){
+            // it drops a weapon powerUp determined using the random power up generator in PowerUp
             PowerUp p = PowerUp.getPowerUp(100,25,25,25,25,0,0,0);
             g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
+            // sets its boolean so that it only drops one
             dropped[0] = true;
           }
+          // same for the rest
           if(g.enemies.get(0).getHealth() == 20 && !dropped[1]){
+            // only drops life powerUp
             PowerUp p = PowerUp.getPowerUp(100,0,0,0,0,100,0,0);
             g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
             dropped[1] = true;
           }
           if(g.enemies.get(0).getHealth() == 10 && !dropped[2]){
+            // drops anything except bomb so that the player cant just bomb the rest of the encounter
             PowerUp p = PowerUp.getPowerUp(100,15,15,15,0,15,15,20);
             g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
             dropped[2] = true;

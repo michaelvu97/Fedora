@@ -35,23 +35,31 @@ public class Shade extends Enemy {
   private boolean laserWipe;
   private boolean laserRight;
   
+  //Constants for various clocks
   public static int MAXSHOTCOOLDOWN = 10;
-  public static int SWITCH_DIRECTION = 90;
-  
+  public static int SWITCH_DIRECTION = 90;  
   public static int SWITCH_SHOT = 5*60;
   public static int SWITCH_STATE = 900;
   
   //Time until the Shade's movement is switched
   private int pathTime;
   
+  //Time until Shade checks projectiles and switches state accordingly
   private int shiftTime;
-  private int randShiftTime;
   
+  //Random time until shade switches to opposite state
+  private int randShiftTime;
+    
   //Time until the Shade swaps weapons
   private int shotTime;
   
+  //Uses variables from game so it must be inherited
   public Game g;
+  
+  //Shield can take up to 5 shots, and stacks, so the health of shield is this
   public int shieldHealth;
+  
+  //booleans for playing the proper sound
   public boolean playSwitchSound = false;
   public boolean playStateSound = false;
   public boolean montagePlaying = false;
@@ -60,32 +68,56 @@ public class Shade extends Enemy {
     super(state, x, y, xVelocity, yVelocity, projectileType);
     health = 40;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
+    //not erratic yet
     pathTime = 0;
+    
+    //before it is active, the shade shows it basic abilities by switching projectiles and state a few times
     shiftTime = 60;
-    shotCoolDown = 60;
-    shotTime = SWITCH_SHOT;
+    shotTime = 60;
+    randShiftTime = 85;
+    
+    //time until it switches    
+    shotCoolDown = MAXSHOTCOOLDOWN;
+    
+    //not active yet
     active = false;
+    
+    //X has max speed
     maxSpeedX = true;
+    
+    // not doing lasers yet
     laserMove = false;
     laserShoot = false;
     laserWipe = false;
     laserRight = false;
+    
+    //game is game
     this.g = g;
+    
+    //shield is 0
     shieldHealth = 0;
   }
   
   public void animate() {
-    
+    //until it is active and not in the middle of the screen it just moves normally
     if (!active){
+      //if it passes middle of screen
       if(y > 400){
+        
+        //velocities are max 5
       xVelocity = 5;
       yVelocity = -5;
+      
+      //hitBox goes back to representing boss
       hitBox.setX(x);
       hitBox.setY(y);
       hitBox.setWidth(DEFAULT_HITBOX_WIDTH);
       hitBox.setHeight(DEFAULT_HITBOX_HEIGHT);
+      
+      //it is now active
       active = true;
       }
+      //the hitbox is off screen and small so that player cannot damage shade while it is entering
       else{
         hitBox.setX(-1000);
         hitBox.setY(-1000);
@@ -96,6 +128,7 @@ public class Shade extends Enemy {
     
     //Prevents the Shade from flying off screen
     else if (active && !laserMove && !laserShoot && !laserWipe) {
+      //if it goes off screen it bounces
       if (x < 0 || x > Main.WIDTH - DEFAULT_HITBOX_WIDTH)
         xVelocity *= -1;
       if (y < 0 || y > (Main.HEIGHT / 2) - DEFAULT_HITBOX_HEIGHT)
@@ -116,7 +149,7 @@ public class Shade extends Enemy {
       }
     }
     
-    //How does this work?
+    // if it is active and it has to move towards a corner of the screen to start sweeping
     else if (active && laserMove){
       if(x > Main.WIDTH/2-DEFAULT_HITBOX_WIDTH/2){
         
@@ -138,6 +171,7 @@ public class Shade extends Enemy {
         }
         
       }
+      //has to be a range because shade MIGHT be above the health bar
       if(y>85){
         if(y > 90) {
           yVelocity = -5;
@@ -154,20 +188,28 @@ public class Shade extends Enemy {
           yVelocity = 0;
         }
       }
+      // once it reaches the corner
       if(xVelocity == 0 && yVelocity == 0) {
+        //no longer moving to corner
         laserMove = false;
+        
+        // now moving to other side
         laserWipe = true;
+        
+        //see if it is on the left or right side of screen
         laserRight = (x > Main.WIDTH/2);
       }        
     }
     
-    //What is this for?
+    //if it is active and is wiping across screen for laser
     else if(active && laserWipe) {
-      
+      //if it is on the right it moves left
       if(laserRight) {
         xVelocity  = -3.46667;
         if(x > Main.WIDTH-DEFAULT_HITBOX_WIDTH - 4)
+          //it is shooting a laser
           laserShoot = true;
+        //if it reaches edge it stops, and resets everything to normal to continue game
         if(x < 0) {
           xVelocity = 0;
           laserWipe = false;
@@ -179,6 +221,7 @@ public class Shade extends Enemy {
           randShiftTime = 0;
         }
       }
+      // same stuff just from left to right
       else {
         xVelocity  = 3.46667;
         if(x < 4)
@@ -196,75 +239,94 @@ public class Shade extends Enemy {
       
     }
     
-    //Are we still using this?
+    //every interval of time it checks the players projectile that is furthest up the screen and switches to the opposite state
     if(shiftTime <= 0 && g.playerProjectiles.size() > 0){
+      //plays
       playStateSound = true;
       Projectile p = g.playerProjectiles.get(0);
       if(p.getState() == State.RED)
         state = State.BLUE;      
       else
         state = State.RED;
+      //if it active it has the normal wait time
       if(active)
         shiftTime = SWITCH_STATE;
+      // if it is entering it has a shorter wait time to show off its abilities
       else
         shiftTime = 60;
     }
     
     //Shifts states when randShiftTime hits 0 unless it is firing a laser
     if(randShiftTime <= 0) {
+      // plays sound
       playStateSound = true;
       if(state == State.RED && !projectileType.equals("laser"))
         state = State.BLUE;      
       else if(!projectileType.equals("laser"))
         state = State.RED;
-      randShiftTime = (int)(180*Math.random()+120);
+      // random if active
+      if(active)
+        randShiftTime = (int)(180*Math.random()+120); 
+      //shorter if not
+      else
+        randShiftTime = 85;
     }
     
     //Swaps the weapon randomly when shotTime reaches 0
     if(shotTime <= 0) {
+      // generates a random number out of 4
       int type = (int) (4*Math.random());
+      // is it's active it waits longer before switching
       if(active)
         shotTime = SWITCH_SHOT;
+      // if not it switches fast to show off
       else
         shotTime = 60;
+      // plays sound to switch
       playSwitchSound = true;
+      
+      // if the number is right AND it is not already in that mode it switches
       if (type == 0 && !projectileType.equals("fastShot"))
         projectileType = "fastShot";
       else if (type == 1 && !projectileType.equals("rapidFire"))
         projectileType = "rapidFire";
       else if (type == 2 && !projectileType.equals("scatterShot"))
         projectileType = "scatterShot";
-      else if (type == 3){
+      // it has to be active to use laser, to prevent it from stopping switching while showing off
+      else if (type == 3 && active){
         projectileType = "laser";
+        // has to move to a corner of the screen
         laserMove = true;
+        // shoot and shift times are elongated so it doesnt shoot or switch state while it is lasering
         shiftTime = randShiftTime = shotTime = 1000;
       }
+      // if the number generated is already in use it sets time to 0 so it cand generate again
       else
         shotTime = 0;
     }
     
-    //What is this for?
+    // if the player's deathClock is at 119 the shield is activate
+    // it has to be 119 because in game it subtracts it before it calls for enemy logic, and this way it won't continue
+    // adding more than five after player gets hit
     if(g.deathClock == 119)
       shieldHealth  += 5;
     
+    // all times go down
     pathTime--;
     shiftTime--;
     randShiftTime--;
     shotTime--;    
   }
-  
+  // basic call to animate and then movement
   public void move() {
     animate();
     x += xVelocity;
     y += yVelocity;
+    // is it is active the hitBox moves with the enemy, or else it is far away so it cannot be shot at while entering
     if(active){
       hitBox.setX(x);
       hitBox.setY(y);
     }
-    else {
-      hitBox.setX((int)(hitBox.getX() + xVelocity));
-      hitBox.setY((int)(hitBox.getY() + yVelocity));
-    }    
   }
   
   //Used in randomizing the Shade's movements
@@ -275,7 +337,7 @@ public class Shade extends Enemy {
     else
       return 1;
   }
-  
+  // abstract on screen method
   public boolean onScreen(){
     return (x > 0 - DEFAULT_HITBOX_WIDTH - 100 && x < Main.WIDTH + 100 && y > 0 - DEFAULT_HITBOX_HEIGHT - 100 && y < Main.HEIGHT + 100);
   }
@@ -291,11 +353,14 @@ public class Shade extends Enemy {
       shotCoolDown = MAXSHOTCOOLDOWN;
   }
   
-  //Comment on how laser checks if it can fire
+  //checks if it is allowed to shoot
   public boolean canShoot() {
+    // when the cooldown is 0 and it is active and it is not shooting a laser it can shoot
     if (shotCoolDown <= 0 && active && !projectileType.equalsIgnoreCase("laser")){
       return true;
     }
+    // if it shooting a laser it sets laser shoot to false and return true so that it only shoots one laser and not 
+    // millions of them across the screen
     else if (projectileType.equalsIgnoreCase("laser") && laserShoot) {
       laserShoot = false;
       return true;
