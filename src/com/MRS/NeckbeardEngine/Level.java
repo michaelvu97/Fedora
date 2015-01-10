@@ -280,13 +280,13 @@ public class Level {
         case 5655:
           g.enemies.add(new Mook(State.BLUE, -70, 350 - 30, 4, 0, "Shot", "leave", 420));
           break;
-        case 5760:
-          g.enemies.add(new Mook(State.BLUE, -70, 50, 4, 0, "Shot", "patrol", 0));
-          g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 150, -4, 0, "Shot", "patrol", 0));        
-        case 5775:
-          g.enemies.add(new Mook(State.BLUE, -70, 50, 4, 0, "Shot", "patrol", 0));
-          g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 150, -4, 0, "Shot", "patrol", 0));
-          break;
+//        case 5760:
+//          g.enemies.add(new Mook(State.BLUE, -70, 50, 4, 0, "Shot", "patrol", 0));
+//          g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 150, -4, 0, "Shot", "patrol", 0));        
+//        case 5775:
+//          g.enemies.add(new Mook(State.BLUE, -70, 50, 4, 0, "Shot", "patrol", 0));
+//          g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 150, -4, 0, "Shot", "patrol", 0));
+//          break;
         case 5940:
           g.enemies.add(new Mook(State.BLUE, -70, 100, 4, 4, "Shot", "leave", 420));
           g.enemies.add(new Mook(State.BLUE, Main.WIDTH + 10, 100, -4, 4, "Shot", "leave", 240));
@@ -325,11 +325,11 @@ public class Level {
 //          g.enemies.add(new Mook(State.BOTH, -70, 500, 4, -4, "Shot", "leave",84));
 //          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 500, -4, -4, "Shot", "leave",576));
 //          break;
-        case 6840:
-          g.enemies.add(new Elite(State.BOTH, 560, -50, -4, 4, "Shot", target));
-          g.enemies.add(new Starburt(State.RED, -138, 190, 4));
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 400, -4, 0, "Shot", "leave",270));
-          break;
+//        case 6840:
+//          g.enemies.add(new Elite(State.BOTH, 560, -50, -4, 4, "Shot", target));
+//          g.enemies.add(new Starburt(State.RED, -138, 190, 4));
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 400, -4, 0, "Shot", "leave",270));
+//          break;
         case 6855:
           g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 400, -4, 0, "Shot", "leave",330));
           break;
@@ -341,16 +341,16 @@ public class Level {
           g.enemies.add(new Shifter(State.RED, -70, 270, 4, 0, "Shot", "stay", 330));
           g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 420, -4, 0, "Shot", "stay", 510));
           break;
-        case 7500:
-          g.enemies.add(new Shifter(State.RED, -70, 500, 4, -4, "Shot", "leave",248));
-          g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
-          break;
+//        case 7500:
+//          g.enemies.add(new Shifter(State.RED, -70, 500, 4, -4, "Shot", "leave",248));
+//          g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
+//          break;
         case 7515:
           g.enemies.add(new Shifter(State.BLUE, -70, 500, 4, -4, "Shot", "leave",248));
           g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
           break;
         case 7530:
-          g.enemies.add(new Shifter(State.RED, -70, 500, 4, -4, "Shot", "leave",248));
+//          g.enemies.add(new Shifter(State.RED, -70, 500, 4, -4, "Shot", "leave",248));
           g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
           break;
         case 7545:
@@ -364,16 +364,16 @@ public class Level {
         case 7695:
           g.enemies.add(new Shifter(State.BLUE, -70, 500, 4, 0, "Shot", "leave",540));
           break;
-        case 7800:
-          g.enemies.add(new Elite(State.BOTH, 330, -50, -4, 4, "Shot", target));
-          break;
+//        case 7800:
+//          g.enemies.add(new Elite(State.BOTH, 330, -50, -4, 4, "Shot", target));
+//          break;
         case 8100:
           g.enemies.add(new Mook(State.BOTH, -70, 500, 4, -4, "Shot", "leave",180));
           g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 50, -4, 0, "Shot", "patrol",180));
           g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 230, -4, 0, "Shot", "patrol",180));
           break;
         case 8115:
-          g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 140, -4, 0, "Shot", "patrol",180));
+//          g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 140, -4, 0, "Shot", "patrol",180));
           g.enemies.add(new Mook(State.BOTH, -70, 500, 4, -4, "Shot", "leave",120));
           break;
         case 8130:
@@ -393,25 +393,25 @@ public class Level {
           break;
         case 8520:
           g.enemies.add(new Starburt(State.RED, -138, 10, 4));
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
           break;
-        case 8535:        
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
-          break;
-        case 8550:        
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
-          break;
+//        case 8535:        
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
+//          break;
+//        case 8550:        
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH + 10, 250, -3, -4, "Shot", "form", Main.WIDTH/2-60));
+//          break;
         case 8820:
           g.enemies.add(new Elite(State.BOTH, 100, -50, 4, 4, "Shot", target));        
           g.enemies.add(new Elite(State.BOTH, 540, -50, -4, 4, "Shot", target));
           g.enemies.add(new Shifter(State.RED, -70, 200, 4, 0, "Shot", "leave",410));
           break;
-        case 8840:
-          g.enemies.add(new Shifter(State.BLUE, -70, 300, 4, 0, "Shot", "leave",330));
-          break;        
-        case 8860:
-          g.enemies.add(new Shifter(State.RED, -70, 200, 4, 0, "Shot", "leave",250));
-          break;
+//        case 8840:
+//          g.enemies.add(new Shifter(State.BLUE, -70, 300, 4, 0, "Shot", "leave",330));
+//          break;        
+//        case 8860:
+//          g.enemies.add(new Shifter(State.RED, -70, 200, 4, 0, "Shot", "leave",250));
+//          break;
         case 9180:
           g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 200, -4, 0, "Shot", "patrol",410));
           break;
@@ -429,29 +429,29 @@ public class Level {
           g.enemies.add(new Starburt(State.RED, Main.WIDTH + 10, 300, -4));
           g.enemies.add(new Starburt(State.BLUE, -138, 450, 4));
           break;
-        case 9600:
-          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 600));
-          break;
-        case 9615:
-          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 540));
-          break;
-        case 9630:
-          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 480));
-          break;
-        case 9645:
-          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 420));
-          break;
-        case 9660:
-          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 360));
-          break;
-        case 9780:
-          g.enemies.add(new Shifter(State.BLUE, -70, 1, 4, 0, "Shot", "patrol", 360));
-          g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 420, -4, 0, "Shot", "patrol", 360));        
-          break;
-        case 9862:
-          g.enemies.add(new Shifter(State.RED, -70, 140, 4, 0, "Shot", "patrol", 360));
-          g.enemies.add(new Shifter(State.RED, Main.WIDTH + 10, 280, -4, 0, "Shot", "patrol", 360));        
-          break;
+//        case 9600:
+//          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 600));
+//          break;
+//        case 9615:
+//          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 540));
+//          break;
+//        case 9630:
+//          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 480));
+//          break;
+//        case 9645:
+//          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 420));
+//          break;
+//        case 9660:
+//          g.enemies.add(new Mook(State.BOTH, -70, 350 - 30, 4, 0, "Shot", "leave", 360));
+//          break;
+//        case 9780:
+//          g.enemies.add(new Shifter(State.BLUE, -70, 1, 4, 0, "Shot", "patrol", 360));
+//          g.enemies.add(new Shifter(State.BLUE, Main.WIDTH + 10, 420, -4, 0, "Shot", "patrol", 360));        
+//          break;
+//        case 9862:
+//          g.enemies.add(new Shifter(State.RED, -70, 140, 4, 0, "Shot", "patrol", 360));
+//          g.enemies.add(new Shifter(State.RED, Main.WIDTH + 10, 280, -4, 0, "Shot", "patrol", 360));        
+//          break;
         case 9900:
           g.enemies.add(new Mook(State.BOTH, -70, 50, 3, -4, "Shot", "form", Main.WIDTH/2));
           break;
@@ -467,18 +467,18 @@ public class Level {
         case 9960:
           g.enemies.add(new Mook(State.BOTH, -70, 50, 3, -4, "Shot", "form", Main.WIDTH/2));
           break;
-        case 10020:
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",240));
-          break;
-        case 10035:
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",300));
-          break;
-        case 10050:
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",360));
-          break;
-        case 10065:
-          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",420));
-          break;
+//        case 10020:
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",240));
+//          break;
+//        case 10035:
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",300));
+//          break;
+//        case 10050:
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",360));
+//          break;
+//        case 10065:
+//          g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",420));
+//          break;
         case 10080:
           g.enemies.add(new Elite(State.RED, 30, -50, 4, 4, "Shot", target));
           g.enemies.add(new Elite(State.BOTH, 312, -50, 0, 4, "Shot", target));
