@@ -23,11 +23,11 @@ public class Player {
   private int xVelocity, yVelocity;
   private State state;
   private boolean canShoot;
-  private PowerUp offensePowerUp;
-  private ArrayList<PowerUp> defensePowerUps = new ArrayList<PowerUp>();
+  private PowerUp offensePowerUp; //Represents the current player weapon power up
+  private ArrayList<PowerUp> defensePowerUps = new ArrayList<PowerUp>(); //Represents the multiple defensive power ups the player can have
   private HitBox hitBox;
-  private int shotCoolDown = 0;
-  private Game context;
+  private int shotCoolDown; //Represents the time between when the player can shoot
+  private Game context; //Used in playing sounds when picking up power ups
   
   //Constants
   public static int MAXSHOTCOOLDOWN = 35;

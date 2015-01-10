@@ -127,6 +127,7 @@ public class Explosion {
     return animationCompleted;
   }
   
+  //Chooses which type of explosion is played depending on subject size
   public static String getExplosionTypeByClass (String className) {
     if (className.equals(FileStore.ELITE) || className.equals(FileStore.SHADE) || className.equals(FileStore.IRIS) || className.equals(FileStore.STARBURT)) {
       return EXPLOSIONTYPE_DEATHLARGE;

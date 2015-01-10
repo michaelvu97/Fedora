@@ -29,9 +29,11 @@ public class Game extends JPanel implements KeyListener {
   //If the game has begun, this may become deprecated depending on how levels are handled
   public boolean paused;
   public boolean inMenu;
+  
   // for when player loses life
-  public int deathClock;
+  public int deathClock; //Represents how long before the player can be hit again after getting hit
   public int speedBoostClock;
+  
   //Makes sure that changes are only made once per key press
   private boolean stateAlreadySwitched;
   private boolean bombAlreadyDeployed;
@@ -72,7 +74,10 @@ public class Game extends JPanel implements KeyListener {
     img_RFireHUDRed = null, img_ScatterHUDBlue = null,
     img_ScatterHUDRed = null;
   
+  //Represents the current frame in the Game Over Screen
   private int currentGGFrame = 0;
+  
+  //Represents the current frame in the Start Menu Screen
   private int currentMenuFrame = 0;
   
   public Level level;
@@ -197,6 +202,7 @@ public class Game extends JPanel implements KeyListener {
           player.setCanShoot(true);
         }
       }
+      
       //Creates projectiles and a sound when the player shoots. Projectiles differ based on the current Power-up and state
       if (player.canShoot()) {
         if (keyInputHandler.shoot && player.getShotCoolDown() <= 0) {
@@ -227,6 +233,7 @@ public class Game extends JPanel implements KeyListener {
             else
               playerProjectiles.add((Projectile) new Shot(State.BLUE, player.getX() + 43, player.getY(), 0, -1 * Projectile.ShotVelocity));
           }
+          
           //Resets the Player's shot cooldown timer
           if (player.getOffensePowerUp() == PowerUp.RAPID_FIRE)
             player.setShotCoolDown(Player.MAXSHOTCOOLDOWN - 15);
@@ -241,6 +248,7 @@ public class Game extends JPanel implements KeyListener {
       //Enemy Shooting
       for(int i = 0; i < enemies.size(); i++) {
         Enemy e = enemies.get(i);
+        
         //Creates projectiles and a sound when the enemy shoots. Projectiles differ based on the type of enemy and state
         if(e.canShoot()) {
           if(e.getProjectileType().equalsIgnoreCase("shot") || e.getProjectileType().equalsIgnoreCase("rapidFire")) {
@@ -251,6 +259,18 @@ public class Game extends JPanel implements KeyListener {
             audioPlayer.play("STARBURT_SHOT");
             enemyProjectiles.add((Projectile) new StarburtShot(e.getState(),e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(),0,3, 20000, player));
           }
+          else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {
+            audioPlayer.play("LASER_SHOT_1");
+            enemyProjectiles.add((Projectile) new Shot(e.getState(), e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.FastShotVelocity));
+          }
+          else if (e.getProjectileType().equalsIgnoreCase("scatterShot")) {
+            audioPlayer.play("LASER_SHOT_1");
+            State s = e.getState();
+            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity));
+            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity));
+            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity));
+          }
+          
           //Lasers act differently based on which enemy is firing
           else if(e.getProjectileType().equalsIgnoreCase("laser")) {
             if(e.getState() == State.RED) {
@@ -277,17 +297,6 @@ public class Game extends JPanel implements KeyListener {
                 audioPlayer.play("LASERBEAM");
               }
             }
-          }
-          else if(e.getProjectileType().equalsIgnoreCase("fastShot")) {
-            audioPlayer.play("LASER_SHOT_1");
-            enemyProjectiles.add((Projectile) new Shot(e.getState(), e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.FastShotVelocity));
-          }
-          else if (e.getProjectileType().equalsIgnoreCase("scatterShot")) {
-            audioPlayer.play("LASER_SHOT_1");
-            State s = e.getState();
-            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), 0, Projectile.ShotVelocity));
-            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), Projectile.ScatterShotXVelocity, Projectile.ShotVelocity));
-            enemyProjectiles.add((Projectile) new Shot(s, e.getX()+(e.getHitBox().getWidth()/2)-(Shot.DEFAULT_HITBOX_WIDTH/2),e.getY()+e.getHitBox().getHeight(), -1*Projectile.ScatterShotXVelocity, Projectile.ShotVelocity));
           }
          
           e.resetShotCoolDown();
@@ -362,7 +371,6 @@ public class Game extends JPanel implements KeyListener {
         if (p.getY() > Main.HEIGHT && (p.getClass().getSimpleName().equals("Shot") || p.getClass().getSimpleName().equals("fastShot") || p.getClass().getSimpleName().equals("scatterShot") || p.getClass().getSimpleName().equals("rapidShot"))) {
           enemyProjectiles.remove(p);
         }
-        
         if (p.getClass().getSimpleName().equals("StarburtShot")) {
           StarburtShot sbs = (StarburtShot) p;
           if (sbs.getKillTime() < System.currentTimeMillis()) {
@@ -443,6 +451,7 @@ public class Game extends JPanel implements KeyListener {
           }
         }
       }
+      
       //Controls the picking up of the Speed Boost and Extra Ship defensive power-ups
       for(int i = 0; i<player.getDefensePowerUps().size();i++) {
         PowerUp p = player.getDefensePowerUps().get(i);
@@ -497,7 +506,7 @@ public class Game extends JPanel implements KeyListener {
           }
         }
         
-        //collision between Player and Enemy
+        //collision between Player and Enemy (Plays an explosion and removes both characters unless the enemy is Shade)
         if(HitBox.checkCollisionRectRect(e.hitBox,player.getHitBox())&& State.compare(e.state, player.getState()) && deathClock <= 0) {
           if(!e.getClass().getSimpleName().equals("Shade")) {
             enemies.remove(e);
@@ -653,7 +662,6 @@ public class Game extends JPanel implements KeyListener {
           }
           powerUpPickups.remove(i);
         }
-        
         p.move();
       }        
       
@@ -764,11 +772,15 @@ public class Game extends JPanel implements KeyListener {
      * HUD Overlay
      */
     if (player.getLives() >= 0) {
+      
+      //Sets color based on current player state
       if (player.getState() == State.RED) 
         g.setColor(new Color(220, 42, 42, 170));
       else
         g.setColor(new Color(56, 128, 207, 170));
       g.setFont(hauser);
+      
+      //Shows remaining bombs with corresponding icons
       g.drawString("Bombs: " + player.getBombs(), 5, 890);
       
       switch(player.getBombs()) {
@@ -786,12 +798,15 @@ public class Game extends JPanel implements KeyListener {
           break;
         default:
       }
-
+      
+      //Displays how many lives the player has remaining
       g.drawString("Lives: " + player.getLives(), 5, 850);
       
+      //Displays the player's current weapon
       g.drawString("Current", 575, 850);
       g.drawString("Weapon", 575, 880);
-
+      
+      //Displays the icon and name for the player's current weapon
       g.setColor(new Color(255, 255, 255, 170));
       if (player.getOffensePowerUp() == PowerUp.FAST_SHOT) {
         if (player.getState() == State.RED) 
