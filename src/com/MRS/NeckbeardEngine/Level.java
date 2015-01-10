@@ -13,7 +13,7 @@ public class Level {
   
   public Level(Game g, Player target) {
     this.g = g;
-    frames = 10080;
+    frames = 0;
     this.target = target; 
     
     
