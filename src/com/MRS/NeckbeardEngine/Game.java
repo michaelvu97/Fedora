@@ -390,6 +390,7 @@ public class Game extends JPanel implements KeyListener {
         if ((p.getClass().getSimpleName().equalsIgnoreCase("Shot")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
           HitBox he = p.getHitBox();
           HitBox hp = player.getHitBox();
+          PowerUp a = player.getOffensePowerUp();
           if (HitBox.checkCollisionRectRect(he, hp)) {
             explosions.add(new Explosion ((int)player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
             playRandomHit();
@@ -401,6 +402,7 @@ public class Game extends JPanel implements KeyListener {
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
               PowerUp d = player.getDefensePowerUps().get(j);
               if(d == PowerUp.SHIELD){
+                player.setOffensePowerUp(a);
                 player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
                 player.setLives(player.getLives() + 1); 
                 deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
@@ -411,6 +413,7 @@ public class Game extends JPanel implements KeyListener {
         if ((p.getClass().getSimpleName().equalsIgnoreCase("StarburtShot")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
           HitBox he = p.getHitBox();
           HitBox hp = player.getHitBox();
+          PowerUp a = player.getOffensePowerUp();
           if (HitBox.checkCollisionRectRect(he, hp)) {
             explosions.add(new Explosion ((int)player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
             playRandomHit();
@@ -422,6 +425,7 @@ public class Game extends JPanel implements KeyListener {
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
               PowerUp d = player.getDefensePowerUps().get(j);
               if(d == PowerUp.SHIELD){
+                player.setOffensePowerUp(a);
                 player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
                 player.setLives(player.getLives() + 1); 
                 deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
@@ -432,6 +436,7 @@ public class Game extends JPanel implements KeyListener {
         if ((p.getClass().getSimpleName().equalsIgnoreCase("Laser")&& State.compare(player.getState(), p.getState())&&deathClock<=0)) { //added deathClock for time on invincibility
           HitBox he = p.getHitBox();
           HitBox hp = player.getHitBox();
+          PowerUp a = player.getOffensePowerUp();
           if (HitBox.checkCollisionRectRect(he, hp)) {
             explosions.add(new Explosion ((int)player.getX()+Player.DEFAULT_HITBOX_WIDTH/2, (int) player.getY(), Explosion.EXPLOSIONTYPE_HITFLIPPED));
             playRandomHit();
@@ -443,6 +448,7 @@ public class Game extends JPanel implements KeyListener {
             for(int j = 0; j<player.getDefensePowerUps().size();j++) {
               PowerUp d = player.getDefensePowerUps().get(j);
               if(d == PowerUp.SHIELD){
+                player.setOffensePowerUp(a);
                 player.removeDefensePowerUp(PowerUp.SHIELD);                    // if player has a shield it removes that shield and adds one life
                 player.setLives(player.getLives() + 1); 
                 deathClock = 0;                                                 // so when it takes away life it return to normal, as if it didn't get hit
