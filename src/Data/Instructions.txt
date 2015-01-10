@@ -2,6 +2,8 @@ Arrow keys to move
 Z to shoot
 X to use bombs
 Space to use S.H.I.F.T
+esc to quit
+P to Pause
 
 Objectives:
 - Penetrate the Gloomian defences
