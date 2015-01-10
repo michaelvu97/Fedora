@@ -25,19 +25,17 @@ public class Shifter extends Enemy {
   public static int MAXSHOTCOOLDOWN = 60;
   public static int SHIFT_COOLDOWN = 120;
   private String version;
-  private Player target;
   private int shootPos;
   private int shiftTimer;
   public boolean playSound = false;
   private boolean active = false;
   
-  public Shifter (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, String version, Player target, int shootPos) {
+  public Shifter (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, String version,  int shootPos) {
     super(state, x, y, xVelocity, yVelocity, projectileType);
     health = 1;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     this.version = version;
     shotCoolDown = MAXSHOTCOOLDOWN;
-    this.target = target;
     this.shootPos = shootPos;
     shiftTimer = SHIFT_COOLDOWN;
   }

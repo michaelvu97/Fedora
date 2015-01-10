@@ -482,7 +482,7 @@ public class Game extends JPanel implements KeyListener {
         if (e.getClass().getSimpleName().equals("Shifter")) {
           com.MRS.NeckbeardEngine.Enemies.Shifter s = (com.MRS.NeckbeardEngine.Enemies.Shifter) e;
           if (s.playSound) {
-            audioPlayer.play("SWITCH_STATE");
+            audioPlayer.play("ENEMY_SWITCH_STATE");
             s.playSound = false;
           }
         }
@@ -494,7 +494,7 @@ public class Game extends JPanel implements KeyListener {
           }
           if (shade.playStateSound) {
             shade.playStateSound = false;
-            audioPlayer.play("SWITCH_STATE");
+            audioPlayer.play("ENEMY_SWITCH_STATE");
           }
           if (shade.getHealth() < 10 && shade.getHealth() > 0 && !shade.montagePlaying) {
             audioPlayer.loop("MONTAGE_BUILD", -1);
@@ -949,6 +949,7 @@ public class Game extends JPanel implements KeyListener {
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
       {workingDir + FileStore.METAL_HIT_2, "METAL_HIT_2"},
       {workingDir + FileStore.SWITCH_STATE, "SWITCH_STATE"},
+      {workingDir + FileStore.ENEMY_SWITCH_STATE, "ENEMY_SWITCH_STATE"},
       {workingDir + FileStore.SHADE_SWITCH, "SHADE_SWITCH"},
       {workingDir + FileStore.POWERUP_GAINED, "POWERUP_GAINED"}
     };
@@ -978,6 +979,7 @@ public class Game extends JPanel implements KeyListener {
     audioPlayer.setVolume("SHADE_SWITCH", 5.6F);
     audioPlayer.setVolume("STARBURT_SHOT", 0F);
     audioPlayer.setVolume("SWITCH_STATE", 0F);
+    audioPlayer.setVolume("ENEMY_SWITCH_STATE", 6F);
     audioPlayer.setVolume("POWERUP_GAINED", 0F);
    
     audioPlayer.setBackgroundVolume("BGM1", -5F);
