@@ -37,6 +37,7 @@ public class Game extends JPanel implements KeyListener {
   //Makes sure that changes are only made once per key press
   private boolean stateAlreadySwitched;
   private boolean bombAlreadyDeployed;
+  private boolean gameAlreadyPaused;
   
   //Powerup Drop Chances
   int dropChance,scatterShot,fastShot,rapidShot,bomb,extraShip,speedBoost,shield;
@@ -61,6 +62,7 @@ public class Game extends JPanel implements KeyListener {
   private String currentBGMTag = ""; 
   
   private Font hauser;
+  private Font pauseFont;
   
   private JFrame context;
   
@@ -112,6 +114,7 @@ public class Game extends JPanel implements KeyListener {
     
     stateAlreadySwitched = false;
     bombAlreadyDeployed = false;
+    gameAlreadyPaused = false;
     
     addKeyListener(this);
 
@@ -125,6 +128,7 @@ public class Game extends JPanel implements KeyListener {
     }
     
     hauser = new Font("Hauser", Font.PLAIN, 36);
+    pauseFont = new Font("Hauser", Font.PLAIN, 72);
     
     //base image, order from back to front
     backgrounds.add(new Background(FileStore.BASE_BG,0));
@@ -156,12 +160,25 @@ public class Game extends JPanel implements KeyListener {
      */
     
     //Escape break
-    if (keyInputHandler.escape && !paused && !inMenu) {
-      paused = true;
+    if (keyInputHandler.escape) {
       exitGame();
-    } else if (paused && keyInputHandler.escape && !inMenu) {
-      paused = false;
     }
+    if(keyInputHandler.p){
+      if(!gameAlreadyPaused){
+        if(!paused){
+          paused = true;
+          gameAlreadyPaused = true;
+        }
+        else{
+          paused = false;
+          gameAlreadyPaused = true;
+        }        
+      }
+    }
+    else if(!keyInputHandler.p){
+      gameAlreadyPaused = false;
+    }
+    
     
     //start game from menu
     if (inMenu && keyInputHandler.switchState) {
@@ -691,9 +708,8 @@ public class Game extends JPanel implements KeyListener {
       for(int i = 0; i<backgrounds.size();i++)
         backgrounds.get(i).move();
     }
-    
     //Behaviour when player lives are 0
-    else if(player.getLives()==0){
+    else if(!paused && player.getLives()==0){
       audioPlayer.stopAllExcept("Explosion1");
       explosions.add(new Explosion (0,0, Explosion.EXPLOSIONTYPE_GAMEOVER));
       explosions.add(new Explosion (player.getX(), player.getY(), Explosion.EXPLOSIONTYPE_DEATHLARGE));
@@ -878,6 +894,17 @@ public class Game extends JPanel implements KeyListener {
       if (currentMenuFrame >= 604) {
         currentMenuFrame = 0;
       }
+    }
+    if(paused && !inMenu){
+      g.setFont(pauseFont);
+      g.drawImage(img_vignette, 0, 0, null);
+      g.drawImage(img_vignette, 0, 0, null);
+      g.drawImage(img_vignette, 0, 0, null);
+      if(player.getState() == State.RED)
+        g.setColor(new Color(220, 42, 42, 170));
+      else
+        g.setColor(new Color(56, 128, 207, 170));
+      g.drawString("PAUSED", 250, 460);
     }
   } 
   

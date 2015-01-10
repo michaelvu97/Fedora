@@ -16,13 +16,13 @@ import java.io.*;
 
 public class KeyInputHandler {
      
-     public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false, bomb = false, escape = false;
+     public boolean up = false, down = false, left = false, right = false, shoot = false, switchState = false, bomb = false, escape = false, p = false;
      public final String path = "\\Data\\KeyBindings.txt";
      
      /*
       * Default Keybindings
       */
-     private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE, keyBomb = KeyEvent.VK_X, keyEscape = KeyEvent.VK_ESCAPE;; 
+     private int keyUp = KeyEvent.VK_UP, keyDown = KeyEvent.VK_DOWN, keyLeft = KeyEvent.VK_LEFT, keyRight = KeyEvent.VK_RIGHT, keyShoot = KeyEvent.VK_Z, keySwitchState = KeyEvent.VK_SPACE, keyBomb = KeyEvent.VK_X, keyEscape = KeyEvent.VK_ESCAPE, keyP = KeyEvent.VK_P; 
     
      public KeyInputHandler() {
        
@@ -54,6 +54,9 @@ public class KeyInputHandler {
           if (keyPressed == keyEscape) {
                escape = true;
           }
+          if (keyPressed == keyP) {
+            p = true;
+          }
      }
      
      public void sendKeyReleased (int keyReleased) {
@@ -81,6 +84,9 @@ public class KeyInputHandler {
           }
           if (keyReleased == keyEscape) {
                escape = false;
+          }
+          if (keyReleased == keyP) {
+               p = false;
           }
      }
 }
