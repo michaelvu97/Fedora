@@ -61,8 +61,8 @@ public class Shade extends Enemy {
     health = 40;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     pathTime = 0;
-    shiftTime = SWITCH_STATE;
-    shotCoolDown = MAXSHOTCOOLDOWN;
+    shiftTime = 60;
+    shotCoolDown = 60;
     shotTime = SWITCH_SHOT;
     active = false;
     maxSpeedX = true;
@@ -75,11 +75,24 @@ public class Shade extends Enemy {
   }
   
   public void animate() {
-    if ((x >= 0 && x <= Main.WIDTH - DEFAULT_HITBOX_WIDTH) && y >= 200 && !active){
-      active = true;
+    
+    if (!active){
+      if(y > 400){
       xVelocity = 5;
-      yVelocity = 5;
-    }    
+      yVelocity = -5;
+      hitBox.setX(x);
+      hitBox.setY(y);
+      hitBox.setWidth(DEFAULT_HITBOX_WIDTH);
+      hitBox.setHeight(DEFAULT_HITBOX_HEIGHT);
+      active = true;
+      }
+      else{
+        hitBox.setX(-1000);
+        hitBox.setY(-1000);
+        hitBox.setWidth(0);
+        hitBox.setHeight(0);
+      }
+    }
     
     //Prevents the Shade from flying off screen
     else if (active && !laserMove && !laserShoot && !laserWipe) {
@@ -104,7 +117,7 @@ public class Shade extends Enemy {
     }
     
     //How does this work?
-    else if (laserMove){
+    else if (active && laserMove){
       if(x > Main.WIDTH/2-DEFAULT_HITBOX_WIDTH/2){
         
         if(x < Main.WIDTH-DEFAULT_HITBOX_WIDTH) {
@@ -149,7 +162,7 @@ public class Shade extends Enemy {
     }
     
     //What is this for?
-    else if(laserWipe) {
+    else if(active && laserWipe) {
       
       if(laserRight) {
         xVelocity  = -3.46667;
@@ -190,8 +203,11 @@ public class Shade extends Enemy {
       if(p.getState() == State.RED)
         state = State.BLUE;      
       else
-        state = State.RED;      
-      shiftTime = SWITCH_STATE;
+        state = State.RED;
+      if(active)
+        shiftTime = SWITCH_STATE;
+      else
+        shiftTime = 60;
     }
     
     //Shifts states when randShiftTime hits 0 unless it is firing a laser
@@ -207,7 +223,10 @@ public class Shade extends Enemy {
     //Swaps the weapon randomly when shotTime reaches 0
     if(shotTime <= 0) {
       int type = (int) (4*Math.random());
-      shotTime = SWITCH_SHOT;
+      if(active)
+        shotTime = SWITCH_SHOT;
+      else
+        shotTime = 60;
       playSwitchSound = true;
       if (type == 0 && !projectileType.equals("fastShot"))
         projectileType = "fastShot";
@@ -238,8 +257,14 @@ public class Shade extends Enemy {
     animate();
     x += xVelocity;
     y += yVelocity;
-    hitBox.setX(x);
-    hitBox.setY(y);
+    if(active){
+      hitBox.setX(x);
+      hitBox.setY(y);
+    }
+    else {
+      hitBox.setX((int)(hitBox.getX() + xVelocity));
+      hitBox.setY((int)(hitBox.getY() + yVelocity));
+    }    
   }
   
   //Used in randomizing the Shade's movements

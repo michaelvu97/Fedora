@@ -13,7 +13,7 @@ public class Level {
   
   public Level(Game g, Player target) {
     this.g = g;
-    frames = 0;
+    frames = 10080;
     this.target = target; 
     
     
@@ -480,9 +480,9 @@ public class Level {
           g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",420));
           break;
         case 10080:
-          g.enemies.add(new Elite(State.RED, 30, -50, 4, 4, "Shot", target));
-          g.enemies.add(new Elite(State.BOTH, 312, -50, 0, 4, "Shot", target));
-          g.enemies.add(new Elite(State.BLUE, 594, -50, -4, 4, "Shot", target));
+          //g.enemies.add(new Elite(State.RED, 30, -50, 4, 4, "Shot", target));
+          //g.enemies.add(new Elite(State.BOTH, 312, -50, 0, 4, "Shot", target));
+          //g.enemies.add(new Elite(State.BLUE, 594, -50, -4, 4, "Shot", target));
           break;
         default:
       }
@@ -491,22 +491,20 @@ public class Level {
     {
       boss = true;
       frames = 0;
-      String workingDir = System.getProperty("user.dir");
-      g.audioPlayer.addSound(workingDir + FileStore.BG_MUSIC_SHADE, "BGMS");
-      g.audioPlayer.loop("BGMS", -1);
     }
     if(boss) {
       if(frames <= 320){
-        g.audioPlayer.setBackgroundVolume("BGMS", -80f);
         g.audioPlayer.setBackgroundVolume("BGM1", -1*(frames/4));
       }
       if(frames > 320 && frames < 640) {
         g.audioPlayer.delSound("BGM1");
-        g.audioPlayer.setBackgroundVolume("BGMS", -1*(80 - ((frames-320)/4)));
       }
       switch(frames) {
         case 640:
-          g.enemies.add(new Shade(target.getState(), 330, -100, 0, 3, "Shot", g));
+          g.enemies.add(new Shade(target.getState(), 330, -100, 0, 1, "Shot", g));
+          String workingDir = System.getProperty("user.dir");
+          g.audioPlayer.addSound(workingDir + FileStore.BG_MUSIC_SHADE, "BGMS");
+          g.audioPlayer.loop("BGMS", -1);
           break;
         default:
       }
