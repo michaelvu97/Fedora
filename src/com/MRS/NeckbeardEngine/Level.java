@@ -480,9 +480,9 @@ public class Level {
           g.enemies.add(new Mook(State.BOTH, Main.WIDTH+10, 250, -4, 0, "Shot", "leave",420));
           break;
         case 10080:
-          //g.enemies.add(new Elite(State.RED, 30, -50, 4, 4, "Shot", target));
+          g.enemies.add(new Elite(State.RED, 30, -50, 4, 4, "Shot", target));
           g.enemies.add(new Elite(State.BOTH, 312, -50, 0, 4, "Shot", target));
-          //g.enemies.add(new Elite(State.BLUE, 594, -50, -4, 4, "Shot", target));
+          g.enemies.add(new Elite(State.BLUE, 594, -50, -4, 4, "Shot", target));
           break;
         default:
       }
