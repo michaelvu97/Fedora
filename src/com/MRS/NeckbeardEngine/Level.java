@@ -502,26 +502,29 @@ public class Level {
         g.audioPlayer.delSound("BGM1");
       }
       if(frames == 640){
-          g.enemies.add(new Shade(target.getState(), 330, -100, 0, 1, "Shot", g));
-          String workingDir = System.getProperty("user.dir");
-          g.audioPlayer.addSound(workingDir + FileStore.BG_MUSIC_SHADE, "BGMS");
-          g.audioPlayer.loop("BGMS", -1);
+        g.enemies.add(new Shade(target.getState(), 330, -100, 0, 1, "Shot", g));
+        String workingDir = System.getProperty("user.dir");
+        g.audioPlayer.addSound(workingDir + FileStore.BG_MUSIC_SHADE, "BGMS");
+        g.audioPlayer.setBackgroundVolume("BGMS", -5F);
+        g.audioPlayer.loop("BGMS", -1);
       }
       if(frames > 640){
-        if(g.enemies.get(0).getHealth() == 30 && !dropped[0]){
-          PowerUp p = PowerUp.getPowerUp(100,25,25,25,25,0,0,0);
-          g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
-          dropped[0] = true;
-        }
-        if(g.enemies.get(0).getHealth() == 20 && !dropped[1]){
-          PowerUp p = PowerUp.getPowerUp(100,0,0,0,0,100,0,0);
-          g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
-          dropped[1] = true;
-        }
-        if(g.enemies.get(0).getHealth() == 10 && !dropped[2]){
-          PowerUp p = PowerUp.getPowerUp(100,15,15,15,0,15,15,20);
-          g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
-          dropped[2] = true;
+        if(g.enemies.size() > 0){
+          if(g.enemies.get(0).getHealth() == 30 && !dropped[0]){
+            PowerUp p = PowerUp.getPowerUp(100,25,25,25,25,0,0,0);
+            g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
+            dropped[0] = true;
+          }
+          if(g.enemies.get(0).getHealth() == 20 && !dropped[1]){
+            PowerUp p = PowerUp.getPowerUp(100,0,0,0,0,100,0,0);
+            g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
+            dropped[1] = true;
+          }
+          if(g.enemies.get(0).getHealth() == 10 && !dropped[2]){
+            PowerUp p = PowerUp.getPowerUp(100,15,15,15,0,15,15,20);
+            g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
+            dropped[2] = true;
+          }
         }
       }
     }
