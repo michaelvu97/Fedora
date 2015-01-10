@@ -612,16 +612,6 @@ public class Game extends JPanel implements KeyListener {
                 if(p!=null)
                   powerUpPickups.add(new PowerUpPickup(e.getX(),e.getY(),p));
                 
-                //Stops Iris lasers for continuing to fire if they are destroyed
-                if(e.getProjectileType().equalsIgnoreCase("laser")){
-                  for(int k = 0; k < enemyProjectiles.size(); k++) {
-                    Projectile r = enemyProjectiles.get(k);
-                    
-                    if(State.compare(r.getState(),e.getState()) && (e.getX() == (r.getX() + 15 - (e.getHitBox().getWidth()/2))) && (e.getY() == (r.getY() + 20 - e.getHitBox().getHeight())))
-                      enemyProjectiles.remove(k);
-                  }
-                }
-                
                 //Plays an explosion at where the enemy was destroyed
                 String explosionType = Explosion.getExplosionTypeByClass(e.getClass().getSimpleName());
                 explosions.add(new Explosion((int)e.getX(), (int)e.getY(), explosionType));
