@@ -60,7 +60,6 @@ public class Starburt extends Enemy {
   public void move () {
     animate();
     x += xVelocity;
-    y += yVelocity;
     hitBox.setX(x);
     hitBox.setY(y);
   }

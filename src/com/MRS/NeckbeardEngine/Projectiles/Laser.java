@@ -20,10 +20,14 @@ import java.io.*;
 public class Laser extends Projectile {
   private BufferedImage imgCharge, imgActive;
   
+  //Used in representing the laser's charging phase
   private boolean charging = true;
   private int chargingClock = 0;
+  
+  //Source of the Laser
   private Enemy parent;
   
+  //When the laser dissapates
   private double killTime;
   
   public static int CHARGING_TIME = 120; 

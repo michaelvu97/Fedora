@@ -24,11 +24,20 @@ public class Shifter extends Enemy {
   public static int DEFAULT_HITBOX_HEIGHT = 60;
   public static int MAXSHOTCOOLDOWN = 60;
   public static int SHIFT_COOLDOWN = 120;
+  
+  //Indicates what kind of behaviour the Shifter will exhibit
   private String version;
-  private Player target;
+  
+  //where you want it to shoot/stop
   private int shootPos;
+  
+  //How long until Shifter switches states
   private int shiftTimer;
+  
+  //Sound for when it shifts
   public boolean playSound = false;
+  
+  //Used to check if Shifter is in the game space
   private boolean active = false;
   
   public Shifter (State state, int x, int y, double xVelocity, double yVelocity, String projectileType, String version, Player target, int shootPos) {
@@ -36,10 +45,9 @@ public class Shifter extends Enemy {
     health = 1;          
     hitBox = new HitBox (x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT);
     this.version = version;
-    shotCoolDown = MAXSHOTCOOLDOWN;
-    this.target = target;
     this.shootPos = shootPos;
     shiftTimer = SHIFT_COOLDOWN;
+    shotCoolDown = MAXSHOTCOOLDOWN;
   }
 
 //Used to alter Shifter behaviours outside of the basic linear movement
