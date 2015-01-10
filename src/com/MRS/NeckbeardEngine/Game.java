@@ -575,8 +575,21 @@ public class Game extends JPanel implements KeyListener {
               if(e.getClass().getSimpleName().equals("Shade")){
                com.MRS.NeckbeardEngine.Enemies.Shade s = (com.MRS.NeckbeardEngine.Enemies.Shade) e;
                if(s.shieldHealth <= 10) {
-                 e.setHealth(e.getHealth()-(10-s.shieldHealth));
+                 int tempHealth = e.getHealth();
+                 e.setHealth(e.getHealth()-(9-s.shieldHealth));
                  s.shieldHealth = 0;
+                 if(tempHealth > 30 && e.getHealth() < 30){
+                   PowerUp p = PowerUp.getPowerUp(100,25,25,25,25,0,0,0);
+                   powerUpPickups.add(new PowerUpPickup(e.getX(), e.getY(), p));
+                 }
+                 if(tempHealth > 20 && e.getHealth() < 20){
+                   PowerUp p = PowerUp.getPowerUp(100,0,0,0,0,100,0,0);
+                   powerUpPickups.add(new PowerUpPickup(e.getX(), e.getY(), p));
+                 }
+                 if(tempHealth > 10 && e.getHealth() < 10){
+                   PowerUp p = PowerUp.getPowerUp(100,15,15,15,0,15,15,20);
+                   powerUpPickups.add(new PowerUpPickup(e.getX(), e.getY(), p));
+                 }
                }
                else
                  s.shieldHealth -=10;

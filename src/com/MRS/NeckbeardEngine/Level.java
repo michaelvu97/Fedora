@@ -10,13 +10,15 @@ public class Level {
   private int frames;
   private Player target;
   private boolean boss = false;
+  private boolean dropped[] = new boolean[3];
   
   public Level(Game g, Player target) {
     this.g = g;
-    frames = 0;
+    frames = 10090;
     this.target = target; 
-    
-    
+    for (int i = 0; i < dropped.length; i++){
+      dropped[i] = false;
+    }    
   }
   public void check() {    
     //wave loading
@@ -499,14 +501,29 @@ public class Level {
       if(frames > 320 && frames < 640) {
         g.audioPlayer.delSound("BGM1");
       }
-      switch(frames) {
-        case 640:
+      if(frames == 640){
           g.enemies.add(new Shade(target.getState(), 330, -100, 0, 1, "Shot", g));
           String workingDir = System.getProperty("user.dir");
           g.audioPlayer.addSound(workingDir + FileStore.BG_MUSIC_SHADE, "BGMS");
           g.audioPlayer.loop("BGMS", -1);
-          break;
-        default:
+      }
+      if(frames > 640){
+        System.out.println(g.enemies.get(0).getHealth());
+        if(g.enemies.get(0).getHealth() == 30 && !dropped[0]){
+          PowerUp p = PowerUp.getPowerUp(100,25,25,25,25,0,0,0);
+          g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
+          dropped[0] = true;
+        }
+        if(g.enemies.get(0).getHealth() == 20 && !dropped[1]){
+          PowerUp p = PowerUp.getPowerUp(100,0,0,0,0,100,0,0);
+          g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
+          dropped[1] = true;
+        }
+        if(g.enemies.get(0).getHealth() == 10 && !dropped[2]){
+          PowerUp p = PowerUp.getPowerUp(100,15,15,15,0,15,15,20);
+          g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
+          dropped[2] = true;
+        }
       }
     }
     frames++;
