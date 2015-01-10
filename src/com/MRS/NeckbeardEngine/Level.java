@@ -14,7 +14,7 @@ public class Level {
   
   public Level(Game g, Player target) {
     this.g = g;
-    frames = 10090;
+    frames = 0;
     this.target = target; 
     for (int i = 0; i < dropped.length; i++){
       dropped[i] = false;
@@ -508,7 +508,6 @@ public class Level {
           g.audioPlayer.loop("BGMS", -1);
       }
       if(frames > 640){
-        System.out.println(g.enemies.get(0).getHealth());
         if(g.enemies.get(0).getHealth() == 30 && !dropped[0]){
           PowerUp p = PowerUp.getPowerUp(100,25,25,25,25,0,0,0);
           g.powerUpPickups.add(new PowerUpPickup(g.enemies.get(0).getX(), g.enemies.get(0).getY(), p));
