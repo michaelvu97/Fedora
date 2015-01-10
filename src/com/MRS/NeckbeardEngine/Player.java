@@ -40,7 +40,7 @@ public class Player {
     this.context = g;
     this.x = x;
     this.y = y;
-    this.bombs = 1;
+    this.bombs = 0;
     this.xVelocity = 0;
     this.yVelocity = 0;
     this.lives = lives;

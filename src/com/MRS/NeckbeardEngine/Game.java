@@ -498,7 +498,7 @@ public class Game extends JPanel implements KeyListener {
           }
           if (shade.getHealth() < 10 && shade.getHealth() > 0 && !shade.montagePlaying) {
             audioPlayer.loop("MONTAGE_BUILD", -1);
-            audioPlayer.stopBackground(currentBGMTag);
+            audioPlayer.stopBackground("BGMS");
             shade.montagePlaying = true;
           }
           if (shade.montagePlaying) {
