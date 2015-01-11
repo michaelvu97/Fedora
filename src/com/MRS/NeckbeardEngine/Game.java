@@ -123,7 +123,9 @@ public class Game extends JPanel implements KeyListener {
       GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
       String workingDir = System.getProperty("user.dir");
       ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(workingDir + "\\com\\MRS\\NeckbeardEngine\\Hauser.ttf")));
-    } catch (IOException|FontFormatException e) {
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (FontFormatException e) {
       e.printStackTrace();
     }
     
