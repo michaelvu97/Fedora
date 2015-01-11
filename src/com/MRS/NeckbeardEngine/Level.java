@@ -29,7 +29,7 @@ public class Level {
   
   //during the boss fight power ups are dropped at certain healths, to prevent constant dropping while it is at that health
   //there is an array of booleans that represnts if the powerup is dropped or not
-  private boolean dropped[] = new boolean[3];
+  private boolean[] dropped = new boolean[3];
   
   public Level(Game g, Player target) {
     this.g = g;
