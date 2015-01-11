@@ -102,7 +102,7 @@ public class Game extends JPanel implements KeyListener {
     explosions.clear();
     backgrounds.clear();
     
-    player = new Player(360, 800, 1, State.BLUE, this); //has to be blue because it switches before the game starts and becomes red
+    player = new Player(360, 800, 3, State.BLUE, this); //has to be blue because it switches before the game starts and becomes red
     level = new Level (this, player);                   //(caused by the menu space to start)
     
     //Variable setup    
