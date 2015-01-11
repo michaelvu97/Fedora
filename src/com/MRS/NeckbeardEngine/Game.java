@@ -88,17 +88,24 @@ public class Game extends JPanel implements KeyListener {
   public Game (JFrame context) {
     this.context = context;
     keyInputHandler = new KeyInputHandler ();
-    initialize();   
+    initialize();
   }
   
   public void initialize () {
+    // for reset
+    player = null;
+    level = null;
+    enemies.clear();
+    enemyProjectiles.clear();
+    playerProjectiles.clear();
+    powerUpPickups.clear();
+    explosions.clear();
+    backgrounds.clear();
     
-    player = new Player(360, 800, 3, State.BLUE, this); //has to be blue because it switches before the game starts and becomes red
+    player = new Player(360, 800, 1, State.BLUE, this); //has to be blue because it switches before the game starts and becomes red
     level = new Level (this, player);                   //(caused by the menu space to start)
     
-    //Variable setup
-    paused = false;
-    
+    //Variable setup    
     deathClock = 0;
     speedBoostClock = 0;
     
@@ -741,6 +748,12 @@ public class Game extends JPanel implements KeyListener {
       audioPlayer.play("Explosion2");
       player.setLives(player.getLives()-1);
     }
+    //press space in game over screen to restart
+    if(player.getLives() < 0){
+      if(keyInputHandler.switchState){
+        initialize();
+      }
+    }
     repaint();
   }
   
@@ -885,9 +898,15 @@ public class Game extends JPanel implements KeyListener {
       try {
         String workingDir = System.getProperty("user.dir");
         if (currentGGFrame < 120) {
-          g.drawImage(ImageIO.read(new File(workingDir + FileStore.GameOverSequence(currentGGFrame++))), 0, 0, null);
+          g.drawImage(ImageIO.read(new File(workingDir + FileStore.GameOverSequence(currentGGFrame++))), 0, 0, null);         
+          g.setFont(hauser);
+          g.setColor(Color.WHITE);
+          g.drawString("Press Space to Restart", 140, 900);
         } else {
-          g.drawImage(ImageIO.read(new File(workingDir + FileStore.GameOverSequence(currentGGFrame))), 0, 0, null);
+          g.drawImage(ImageIO.read(new File(workingDir + FileStore.GameOverSequence(currentGGFrame))), 0, 0, null);          
+          g.setFont(hauser);
+          g.setColor(Color.WHITE);
+          g.drawString("Press Space to Restart", 140, 900);
         }
       } catch (IOException e) {
         e.printStackTrace();
