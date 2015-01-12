@@ -743,7 +743,6 @@ public class Game extends JPanel implements KeyListener {
     //Behaviour when player lives are 0
     else if(!paused && player.getLives()==0){
       audioPlayer.stopAllExcept("Explosion1");
-      explosions.add(new Explosion (0,0, Explosion.EXPLOSIONTYPE_GAMEOVER));
       explosions.add(new Explosion (player.getX(), player.getY(), Explosion.EXPLOSIONTYPE_DEATHLARGE));
       player.setY(-5000);
       for (int i = 0; i < enemies.size(); i++) {
@@ -753,6 +752,7 @@ public class Game extends JPanel implements KeyListener {
         enemies.remove(e);
         i--;
       }
+      explosions.add(new Explosion (0,0, Explosion.EXPLOSIONTYPE_GAMEOVER));
       audioPlayer.play("Explosion1");
       audioPlayer.play("Explosion2");
       player.setLives(player.getLives()-1);
