@@ -30,6 +30,8 @@ public class Game extends JPanel implements KeyListener {
   public boolean paused;
   public boolean inMenu;
   
+  private boolean alreadyLoaded = false;
+  
   // for when player loses life
   public int deathClock; //Represents how long before the player can be hit again after getting hit
   public int speedBoostClock;
@@ -89,18 +91,20 @@ public class Game extends JPanel implements KeyListener {
     this.context = context;
     keyInputHandler = new KeyInputHandler ();
     initialize();
+    
+    audioPlayer.loop("MENU_FX", -1);
   }
   
   public void initialize () {
-    // for reset
-    player = null;
-    level = null;
+    
+    currentGGFrame = 0;
+    currentMenuFrame = 0;
+    
     enemies.clear();
     enemyProjectiles.clear();
     playerProjectiles.clear();
     powerUpPickups.clear();
     explosions.clear();
-    backgrounds.clear();
     
     player = new Player(360, 800, 3, State.BLUE, this); //has to be blue because it switches before the game starts and becomes red
     level = new Level (this, player);                   //(caused by the menu space to start)
@@ -109,51 +113,56 @@ public class Game extends JPanel implements KeyListener {
     deathClock = 0;
     speedBoostClock = 0;
     
-    //Power-up drop chance setup
-    dropChance = 5;
-    fastShot = 15;
-    rapidShot = 15;
-    scatterShot = 15;
-    bomb = 15;
-    extraShip = 15;
-    speedBoost = 15;
-    shield = 15;
-    
     stateAlreadySwitched = false;
     bombAlreadyDeployed = false;
     gameAlreadyPaused = false;
     
-    addKeyListener(this);
-
-    //loading fonts
-    try {
-      GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-      String workingDir = System.getProperty("user.dir");
-      ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(workingDir + "\\com\\MRS\\NeckbeardEngine\\Hauser.ttf")));
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (FontFormatException e) {
-      e.printStackTrace();
+    if (!alreadyLoaded) {
+      System.out.println("load");
+      
+      //base image, order from back to front
+      backgrounds.add(new Background(FileStore.BASE_BG,0));
+      backgrounds.add(new Background(FileStore.PARTICLE_LAYER_1, 0.03));
+      backgrounds.add(new Background(FileStore.PARTICLE_LAYER_2, 0.07));
+      backgrounds.add(new Background(FileStore.TEST_MIDGROUND,0.2));
+      backgrounds.add(new Background(FileStore.TEST_FOREGROUND,0.4));
+       
+      //init fonts
+      try {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String workingDir = System.getProperty("user.dir");
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(workingDir + "\\com\\MRS\\NeckbeardEngine\\Hauser.ttf")));
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (FontFormatException e) {
+        e.printStackTrace();
+      }
+      
+      //Power-up drop chance setup
+      dropChance = 5;
+      fastShot = 15;
+      rapidShot = 15;
+      scatterShot = 15;
+      bomb = 15;
+      extraShip = 15;
+      speedBoost = 15;
+      shield = 15;
+      
+      //Load fonts
+      hauser = new Font("Hauser", Font.PLAIN, 36);
+      pauseFont = new Font("Hauser", Font.PLAIN, 72);
+      
+      loadImages();
+      loadSound();
+      
+      addKeyListener(this);
+      alreadyLoaded = true;
     }
-    
-    hauser = new Font("Hauser", Font.PLAIN, 36);
-    pauseFont = new Font("Hauser", Font.PLAIN, 72);
-    
-    //base image, order from back to front
-    backgrounds.add(new Background(FileStore.BASE_BG,0));
-    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_1, 0.03));
-    backgrounds.add(new Background(FileStore.PARTICLE_LAYER_2, 0.07));
-    backgrounds.add(new Background(FileStore.TEST_MIDGROUND,0.2));
-    backgrounds.add(new Background(FileStore.TEST_FOREGROUND,0.4));
-    
-    //audioPlayer.testSound
-    loadImages();
-    loadSound();
     
     inMenu = true;
     paused = true;
-    audioPlayer.loop("MENU_FX", -1);
     currentBGMTag = "BGM1";
+    audioPlayer.loop("MENU_FX", -1);
   }
   
   public void start () {
@@ -751,6 +760,7 @@ public class Game extends JPanel implements KeyListener {
     //press space in game over screen to restart
     if(player.getLives() < 0){
       if(keyInputHandler.switchState){
+        audioPlayer.resetAll();
         initialize();
       }
     }
@@ -815,7 +825,7 @@ public class Game extends JPanel implements KeyListener {
     for (int i = 0; i < explosions.size(); i++) {
       explosions.get(i).paint(g);
       if (explosions.get(i).getCompleted()) {
-        explosions.remove(i--);
+        explosions.remove(i);
       }
     }
     
@@ -1032,7 +1042,7 @@ public class Game extends JPanel implements KeyListener {
     };
     
     //Background music
-    audioPlayer = new Sound(clips); 
+    audioPlayer = new Sound(clips);
     audioPlayer.addSound(workingDir + FileStore.BG_MUSIC_1, "BGM1");
     audioPlayer.addSound(workingDir + FileStore.MONTAGE, "Montage");
     audioPlayer.addSound(workingDir + FileStore.MENU_FX, "MENU_FX");

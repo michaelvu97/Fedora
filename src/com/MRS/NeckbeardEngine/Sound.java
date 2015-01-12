@@ -70,6 +70,7 @@ public class  Sound{
           
           //Assigning clip id
           clip.id = file[i][1];
+          clip.stream = audioStream;
           
           //Adding the clip to the arraylist
           switch (bufferLevel) {
@@ -86,8 +87,11 @@ public class  Sound{
               System.out.println("You shouldn't see this");
               break;
           }
+          
+          audioStream.close();
         }
       }
+      System.gc();
     }
     
     //Exception Catches
@@ -248,6 +252,7 @@ public class  Sound{
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(filePath);
       clip.c.open(audioStream);
       clip.id = id;
+      clip.stream = audioStream;
       sounds.add(clip);
     }
     catch(LineUnavailableException lue){lue.printStackTrace();}
@@ -297,13 +302,25 @@ public class  Sound{
     }
     for (int i = 0; i < soundsBufferOne.size(); i++) {
       if (!soundsBufferOne.get(i).id.equals(tag)) {
-        soundsBufferOne.get(i).c.stop();
+        soundsBufferOne.get(i).c.stop();       
       }
     }
     for (int i = 0; i < soundsBufferTwo.size(); i++) {
       if (!soundsBufferTwo.get(i).id.equals(tag)) {
         soundsBufferTwo.get(i).c.stop();
       }
+    }
+  }
+  
+  public void resetAll () {
+    for (int i = 0; i < sounds.size(); i++) {
+      sounds.get(i).c.setMicrosecondPosition(0);
+    }
+    for (int i = 0; i < soundsBufferOne.size(); i++) {
+      soundsBufferOne.get(i).c.setMicrosecondPosition(0);   
+    }
+    for (int i = 0; i < soundsBufferTwo.size(); i++) {
+      soundsBufferTwo.get(i).c.setMicrosecondPosition(0);
     }
   }
 }

@@ -9,10 +9,12 @@
 package com.MRS.NeckbeardEngine;
 
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioInputStream;
 
 public class CustomClip {
   String id;
   Clip c;
+  AudioInputStream stream;
   
   public CustomClip() {}
 }
