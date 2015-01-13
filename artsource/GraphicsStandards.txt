@@ -1,7 +1,0 @@
-Width 980
-Height 720
-Medium(96x96)
-Small(60x60)
-Lasers(30x30)
-Large(128x128)
-Projectiles(13x13)

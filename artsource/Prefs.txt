@@ -1,5 +1,0 @@
-red: hue 0degrees, saturation 77, brightness 82
-blu: hue 212degrees, saturation 78, brightness 83
-purple: hue 265, saturation 97, brightness 83
-red projectiles hue 0 degrees, 100 saturation, brightness 100
-blue projectiles hue 212 degrees, 100 saturation, brightness 100

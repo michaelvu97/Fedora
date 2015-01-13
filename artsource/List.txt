@@ -1,5 +1,0 @@
-Player Sprite
-Basic Background
-An enemy(mook)
-Simple shot/projectile
-Basic PowerUp Icon(Fast Shot)
